@@ -30,6 +30,7 @@ export default class LoginForm extends Component{
                 <TouchableOpacity style={ styles.buttonContainer2}>
                     <Text style={styles.buttonText}>No Registrado</Text>
                 </TouchableOpacity>
+
             </KeyboardAvoidingView>
 
 
