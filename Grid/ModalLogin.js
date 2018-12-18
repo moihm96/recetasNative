@@ -9,7 +9,7 @@ import {
     TouchableWithoutFeedback
 } from 'react-native';
 
-import LoginView from '../components/Start'
+import LoginView from '../components/LoginForm'
 class ModalLogin extends Component{
     constructor(props){
         super(props);

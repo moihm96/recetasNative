@@ -15,12 +15,12 @@ export default class Launch extends Component {
     componentDidMount(){
         setTimeout(() => {
             startApp();
-        }, 5000)
+        }, 2000)
     }
 }
 
 function startApp() {
-    Actions.reset('StartView')
+    Actions.startView()
 }
 
 const styles = StyleSheet.create({
@@ -33,39 +33,5 @@ const styles = StyleSheet.create({
         width: null,
         height: null,
         resizeMode: 'cover'
-    },
-    titleReceipt:{
-        textAlign:'center',
-        color: 'black',
-        fontWeight: 'bold',
-        fontSize: 30,
-
-    },
-    imageLogo: {
-        height: heightPercentageToDP('40%'),
-        width: widthPercentageToDP('70%')
-    },
-    imageFinal: {
-        height: heightPercentageToDP('30%'),
-        width: widthPercentageToDP('100%'),
-        flex: 1,
-        resizeMode: 'contain',
-        marginTop: heightPercentageToDP('10%')
-    },
-    textVersion: {
-        flex:1,
-        justifyContent:"flex-end"
-    },
-    vistaEstilo:{
-        backgroundColor: 'white',
-        flex: 1,
-    },
-    centerElement: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-    },
-    vistaCabecera:{
-        backgroundColor: 'yellow',
-        flex: 0.7,
     }
 });

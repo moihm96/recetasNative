@@ -9,7 +9,8 @@ import {
 import LoginForm from './LoginForm'
 import { widthPercentageToDP, heightPercentageToDP } from '../auxiliar/ScreenDimension'
 import sopa from '../img/sopera.jpg'
-
+import comida from '../img/comida.jpg'
+import Header from './Header'
 export default class Start extends Component{
 
     render(){
@@ -19,7 +20,7 @@ export default class Start extends Component{
                     <Text style={styles.title}>Inicia Sesión</Text>
                     <Image
                          style = {styles.logo}
-                        source={ sopa }/>
+                        source={ comida }/>
                 </View>
                 <View style = {styles.formContainer}>
                     <LoginForm/>
@@ -35,19 +36,19 @@ const styles = StyleSheet.create({
         backgroundColor:'white'
     },
     logo:{
-        width: 200,
+        width: 350,
         height: 200,
-        marginTop: 30
+        marginTop: 10
     },
     logoContainer:{
-        flex:0.3,
+        flex:1.4,
         alignItems: 'center',
         flexGrow:1,
         justifyContent: 'center',
-        marginTop: heightPercentageToDP('5%')
+        marginTop: heightPercentageToDP('15%'),
     },
     formContainer:{
-        flex:0.7
+        flex:2
     },
     title:{
         color:'black',
