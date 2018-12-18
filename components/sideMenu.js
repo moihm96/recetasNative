@@ -95,8 +95,6 @@ export default class sideMenu extends Component{
 
     }
 }
-
-
 styles= StyleSheet.create({
     container:{
         flex:1,
