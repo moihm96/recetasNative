@@ -21,6 +21,7 @@ import imgOur from '../img/imgOur.png'
 import imgUser from '../img/imgUser.png'
 import abuelita from '../img/coco.jpg'
 import Earth from '../img/Earth.png'
+import {Actions} from 'react-native-router-flux'
 export default class sideMenu extends Component{
     constructor(props){
         super(props)
@@ -43,8 +44,8 @@ export default class sideMenu extends Component{
                              style={styles.container}>
                 <View style={styles.avatarStyle}>
                     <Avatar
+                        medium
                         source={abuelita}
-                        size={"medium"}
                     />
                     <Text>Registrate o inicia sesion</Text>
                     <TouchableWithoutFeedback>
@@ -67,25 +68,25 @@ export default class sideMenu extends Component{
                 </View>
                 <View style={styles.opcionStyle}>
                     <Image source={favIcon} style={styles.imageStyle}/>
-                    <TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback onPress={() => Actions.favoritos()}>
                         <Text style={styles.textMenu}>Favoritos</Text>
                     </TouchableWithoutFeedback>
                 </View>
                 <View style={styles.opcionStyle}>
                     <Image source={add} style={styles.imageStyle}/>
-                    <TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback  onPress={() => Actions.addRecetas()}>
                         <Text style={styles.textMenu}>Añadir Receta</Text>
                     </TouchableWithoutFeedback>
                 </View>
                 <View style={styles.opcionStyle}>
                     <Image source={imgUser} style={styles.imageStyle}/>
-                    <TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback  onPress={() => Actions.usersRecetas()}>
                         <Text style={styles.textMenu}>Recetas de usuario</Text>
                     </TouchableWithoutFeedback>
                 </View>
                 <View style={styles.opcionStyle}>
                     <Image source={imgOur} style={styles.imageStyle}/>
-                    <TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback  onPress={() => Actions.ownRecetas()}>
                         <Text style={styles.textMenu}>Nuestras Recetas</Text>
                     </TouchableWithoutFeedback>
                 </View>
