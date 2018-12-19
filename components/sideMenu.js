@@ -15,7 +15,7 @@ import {Avatar} from 'react-native-elements'
 import SelectInput from 'react-native-select-input-ios'
 import {heightPercentageToDP,widthPercentageToDP} from "../auxiliar/ScreenDimension";
 import fondo from '../img/fondo.png'
-import favIcon from '../img/favIcon2.png'
+import favIcon from '../img/favOff.png'
 import add from '../img/Add.png'
 import imgOur from '../img/imgOur.png'
 import imgUser from '../img/imgUser.png'
