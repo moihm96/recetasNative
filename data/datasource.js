@@ -40,7 +40,3 @@ export const recetas =[
         users:"Antonio Alonso"
     }
 ]
-
-export default {
-    recetas,
-}

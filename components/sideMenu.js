@@ -106,7 +106,7 @@ styles= StyleSheet.create({
     },
     paisStyle:{
         flexDirection: 'row',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     opcionStyle:{
         flexDirection:'row',

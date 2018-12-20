@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import {
-    Image,
     View,
-    Text,
     FlatList,
-    ImageBackground,
     StyleSheet
 } from 'react-native';
 import {recetas} from '../../data/datasource'
@@ -18,7 +15,7 @@ export default class Favoritos extends Component {
     }
     render() {
         return (
-            <View style={styles.container} >
+            <View>
                 <FlatList
                     data={this.state.data}
                     renderItem={({item}) =>
@@ -34,10 +31,4 @@ export default class Favoritos extends Component {
 }
 
 const styles = StyleSheet.create({
-    container:{
-
-    },
-    imagen:{
-        resizeMode: 'contain',
-    }
 });

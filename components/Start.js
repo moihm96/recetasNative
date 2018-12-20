@@ -33,13 +33,15 @@ export default class Start extends Component{
 const styles = StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor:'white'
+        backgroundColor:'white',
+
     },
     logo:{
-        width: 350,
-        height: 200,
+        width: widthPercentageToDP("85"),
+        height: heightPercentageToDP("25"),
         marginTop: 10
     },
+
     logoContainer:{
         flex:1.4,
         alignItems: 'center',

@@ -9,6 +9,8 @@ import Favoritos from '../container/ui/Favoritos'
 import ownRecetas from '../container/ui/ownRecetas'
 import userRecetas from '../container/ui/userRecetas'
 import addReceta from '../components/addRecetas'
+import {StyleSheet} from 'react-native'
+import {heightPercentageToDP} from "../auxiliar/ScreenDimension";
 const Routes = () => (
     <Router navBar={Header}>
         <Scene key = "root"

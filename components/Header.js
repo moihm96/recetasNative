@@ -4,6 +4,7 @@ import {
     View,
     TextInput,
     ImageBackground,
+    Image,
     TouchableWithoutFeedback,
     TouchableOpacity,
     StyleSheet,
@@ -76,6 +77,7 @@ class Header extends Component{
                 </View>
 
             </ImageBackground>
+
         )
     }
 }
@@ -84,10 +86,15 @@ export default Header
 
 const styles = StyleSheet.create({
     container:{
-        //flexDirection:'row',
-        height:heightPercentageToDP("13"),
-        //alignItems: 'center',
+        height:heightPercentageToDP("15"),
+        alignSelf:"stretch",
+        backgroundColor:'transparent',
+        position: "absolute",
+        marginBottom: heightPercentageToDP("82"),
+        width:widthPercentageToDP("100")
     },
+
+
     firstStyle:{
         height: heightPercentageToDP("9"),
         flexDirection:'row',
