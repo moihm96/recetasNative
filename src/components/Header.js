@@ -30,7 +30,7 @@ class Header extends Component{
         return(
 
             <ImageBackground    source = {cabecera}
-                                style={styles.container}>
+                                style={styles.container} imageStyle={styles.imageStyle}>
                 <View style={styles.firstStyle}>
                     <TouchableOpacity
                         onPress={()=>this.openDrawer()}
@@ -87,14 +87,11 @@ export default Header
 const styles = StyleSheet.create({
     container:{
         height:heightPercentageToDP("15"),
-        alignSelf:"stretch",
-        backgroundColor:'transparent',
-        position: "absolute",
-        marginBottom: heightPercentageToDP("82"),
-        width:widthPercentageToDP("100")
     },
-
-
+    imageStyle:{
+        position: "absolute",
+        backgroundColor:"white"
+    },
     firstStyle:{
         height: heightPercentageToDP("9"),
         flexDirection:'row',

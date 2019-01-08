@@ -34,20 +34,18 @@ const styles = StyleSheet.create({
     container:{
         flex:1,
         backgroundColor:'white',
-
     },
     logo:{
         width: widthPercentageToDP("85"),
         height: heightPercentageToDP("25"),
         marginTop: 10
     },
-
     logoContainer:{
         flex:1.4,
         alignItems: 'center',
         flexGrow:1,
         justifyContent: 'center',
-        marginTop: heightPercentageToDP('15%'),
+        marginTop: heightPercentageToDP('10%'),
     },
     formContainer:{
         flex:2
