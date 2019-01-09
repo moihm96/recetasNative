@@ -13,24 +13,31 @@ import {
  import cabecera from '../img/cabecera.png'
 import {heightPercentageToDP,widthPercentageToDP} from "../auxiliar/ScreenDimension";
 import IonIcon from 'react-native-vector-icons/Ionicons'
-import { SearchBar } from 'react-native-elements'
 import { Actions } from 'react-native-router-flux'
+import ModalSearch from "../Grid/ModalSearch";
 class Header extends Component{
     constructor(props){
         super(props)
 
         this.state ={
-            term:''
+            term:'',
+            modalVisible:false
         };
     }
     openDrawer(){
         Actions.drawerOpen();
     }
+    onClickSearch(isOpen){
+        this.setState({modalVisible:isOpen})
+    }
     render(){
         return(
-
             <ImageBackground    source = {cabecera}
                                 style={styles.container} imageStyle={styles.imageStyle}>
+                <ModalSearch
+                    modalVisible={this.state.modalVisible}
+                    callback={this}
+                />
                 <View style={styles.firstStyle}>
                     <TouchableOpacity
                         onPress={()=>this.openDrawer()}
@@ -63,11 +70,12 @@ class Header extends Component{
 
 
                 <View style={styles.secondStyle}>
+
                     <IonIcon
                         name="ios-arrow-dropdown"
                         color="black"
                     />
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.onClickSearch(true)}>
                         <Text>Busqueda avanzada</Text>
                     </TouchableOpacity>
                     <IonIcon
@@ -77,9 +85,9 @@ class Header extends Component{
                 </View>
 
             </ImageBackground>
-
         )
     }
+
 }
 
 export default Header

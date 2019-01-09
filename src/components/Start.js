@@ -8,9 +8,7 @@ import {
 } from 'react-native';
 import LoginForm from './LoginForm'
 import { widthPercentageToDP, heightPercentageToDP } from '../auxiliar/ScreenDimension'
-import sopa from '../img/sopera.jpg'
 import comida from '../img/comida.jpg'
-import Header from './Header'
 export default class Start extends Component{
 
     render(){

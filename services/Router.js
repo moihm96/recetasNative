@@ -1,19 +1,22 @@
-import Launch from '../components/Launch'
-import StartView from '../components/Start'
-import Register from '../components/RegForm'
+import Launch from '../src/components/Launch'
+import StartView from '../src/components/Start'
+import Register from '../src/components/RegForm'
 import React from 'react'
-import { Router, Scene, Actions} from 'react-native-router-flux'
-import Header from '../components/Header'
-import Menu from '../components/sideMenu'
-import Favoritos from '../container/ui/Favoritos'
-import ownRecetas from '../container/ui/ownRecetas'
-import userRecetas from '../container/ui/userRecetas'
-import addReceta from '../components/addRecetas'
+import { Router, Scene, Actions, Stack} from 'react-native-router-flux'
+import Header from '../src/components/Header'
+import Menu from '../src/components/sideMenu'
+import Favoritos from '../src/container/ui/Favoritos'
+import ownRecetas from '../src/container/ui/ownRecetas'
+import userRecetas from '../src/container/ui/userRecetas'
+import addReceta from '../src/components/addRecetas'
 import {StyleSheet} from 'react-native'
-import {heightPercentageToDP} from "../auxiliar/ScreenDimension";
+import {heightPercentageToDP, widthPercentageToDP} from "../src/auxiliar/ScreenDimension";
 const Routes = () => (
-    <Router navBar={Header}>
+    <Router backAndroidHandler={onBackAndroid}>
+
         <Scene key = "root"
+               navBar={Header}
+               navigationBarStyle={styles.navBarStyle}
                drawer
                drawerWidth={300}
                contentComponent={Menu}>
@@ -21,6 +24,7 @@ const Routes = () => (
                     key = "launch"
                     component = {Launch}
                     initial = {true}
+                    panHandlers={null}
                     hideNavBar={true}
                     onEnter={Actions.currentScene} />
                 <Scene  key="startView"
@@ -50,4 +54,10 @@ const Routes = () => (
 
     </Router>
 )
+const onBackAndroid = () => {
+    return Actions.pop();
+};
+const styles=StyleSheet.create({
+
+})
 export default Routes
