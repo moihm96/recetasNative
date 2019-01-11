@@ -119,7 +119,8 @@ const styles = StyleSheet.create({
     buttonContainer2:{
         backgroundColor: 'rgb(255,216,0)',
         paddingVertical: 10,
-        marginTop: heightPercentageToDP('5%')
+        marginTop: heightPercentageToDP('5%'),
+        borderRadius:10
     },
     pickerSexo:{
         color:'rgba(44, 62, 80,1.0)',

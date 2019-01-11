@@ -62,12 +62,14 @@ const styles = StyleSheet.create({
     buttonContainer1:{
        marginTop: heightPercentageToDP('5%'),
        backgroundColor: 'rgb(255,216,0)',
-        paddingVertical: 10
+        paddingVertical: 10,
+        borderRadius:7
     },
     buttonContainer2:{
         marginTop: heightPercentageToDP('1%'),
         backgroundColor: 'rgb(251,237,157)',
-        paddingVertical: 10
+        paddingVertical: 10,
+        borderRadius:7
     },
     buttonText: {
        textAlign: 'center',

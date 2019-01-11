@@ -6,6 +6,7 @@ import {
     StyleSheet,
     Text,
     TouchableWithoutFeedback,
+    TouchableOpacity,
     Image
 } from 'react-native'
 let arrayEmpty=["Cualquiera"]
@@ -46,11 +47,13 @@ export default class sideMenu extends Component{
                     <Avatar
                         medium
                         source={abuelita}
+                        size={80}
+                        rounded
                     />
-                    <Text>Registrate o inicia sesion</Text>
-                    <TouchableWithoutFeedback>
-                        <Text>Iniciar Sesion</Text>
-                    </TouchableWithoutFeedback>
+                    <Text style={styles.textRegistrate}>Registrate o inicia sesion</Text>
+                    <TouchableOpacity style={styles.buttonContainer}>
+                        <Text style={styles.textIniciar}>Inicia Sesion</Text>
+                    </TouchableOpacity>
                 </View>
 
                 <View style={styles.opcionStyle}>
@@ -134,5 +137,18 @@ const styles= StyleSheet.create({
     },
     textPais:{
         fontSize: 25
+    },
+    buttonContainer:{
+        backgroundColor: 'rgb(255,216,0)',
+        paddingHorizontal: 50,
+        marginTop: 5,
+        borderRadius:10
+    },
+    textIniciar:{
+        fontFamily:'Allura-Regular',
+        fontSize:26
+    },
+    textRegistrate:{
+        fontSize:16
     }
 });
