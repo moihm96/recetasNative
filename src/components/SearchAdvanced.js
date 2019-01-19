@@ -24,6 +24,8 @@ const tipoRecetas=[
         value:1
     }
 ];
+
+
 const dificultad=[
     {
         label:"Dificil",
