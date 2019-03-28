@@ -9,6 +9,7 @@ import {
     Modal
 } from 'react-native';
 import SearchAdvanced from "../components/SearchAdvanced";
+import SearchAdv from "../components/SearchAdv";
 
 import {AnimatedModal} from "react-native-modal-animated";
 class ModalSearch extends Component{
@@ -30,7 +31,7 @@ class ModalSearch extends Component{
                     onRequestClose={() => this.onClickCancel()}
                 >
                     <View style={{ flex: 1}}>
-                        <SearchAdvanced/>
+                        <SearchAdv/>
                     </View>
                 </Modal>
             </View>

@@ -9,25 +9,24 @@ import {
     TouchableWithoutFeedback
 } from 'react-native';
 
-import LoginView from '../components/LoginForm'
+import Login from "../components/LoginPopUp"
 class ModalLogin extends Component{
     constructor(props){
         super(props);
-
-        this.state = {
-            modalVisible:false,
-        }
+    }
+    onClickCancel(){
+        this.props.callback.onClickSearch(false)
     }
 
     render() {
         return (
             <View>
                 <Modal
-                    animationType={"fade"}
+                    animationType={"slide"}
                     transparent={true}
-                    modalvisible={this.state.modalVisible}
+                    visible={this.props.modalVisible}
                     onRequestClose={() => this.onClickCancel()}>
-                    <LoginView/>
+                    <Login/>
                 </Modal>
             </View>
 

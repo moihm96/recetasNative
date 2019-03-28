@@ -114,32 +114,35 @@ class SearchAdvanced extends Component{
                         onSubmitEditing = {(value) => this.setState({pais: value})}
                     />
                 </View>
-                <View style={{justifyContent:"space-between"}}>
-                        <Text>Tipo de recetas</Text>
-                        <CheckboxGroup
-                            callback={(selected) => { console.log(selected) }}
-                            iconColor={"black"}
-                            iconSize={22}
-                            checkedIcon="ios-checkmark-circle"
-                            uncheckedIcon="ios-checkmark-circle-outline"
-                            checkboxes={tipoRecetas}
-                            labelStyle={{
-                                color: '#333',
-                                fontSize:15,
-                                marginLeft: 2
+                <View style={{flex:1}}>
+                    <Text>Tipo de recetas</Text>
+                    <CheckboxGroup
+                        callback={(selected) => { console.log(selected) }}
+                        iconColor={"black"}
+                        iconSize={22}
+                        checkedIcon="ios-checkmark-circle"
+                        uncheckedIcon="ios-checkmark-circle-outline"
+                        checkboxes={tipoRecetas}
+                        labelStyle={{
+                            color: '#333',
+                            fontSize:15,
+                            marginLeft: 2
 
-                            }}
-                            rowStyle={{
-                                flexDirection: 'row',
-                                justifyContent: "center"
-                            }}
-                            rowDirection={"row"}
-                        />
+                        }}
+                        rowStyle={{
+                            flexDirection: 'row',
+                            justifyContent: "space-between",
+                            padding:3
+                        }}
+                        rowDirection={"row"}
+                    />
+                </View>
 
-                    </View>
-                <View style={{justifyContent:"space-between"}}>
+
+                <View style={{flex:1}}>
                     <Text>Dificultad</Text>
                     <CheckboxGroup
+
                         callback={(selected) => { console.log(selected) }}
                         iconColor={"black"}
                         iconSize={22}
@@ -154,13 +157,14 @@ class SearchAdvanced extends Component{
                         }}
                         rowStyle={{
                             flexDirection: 'row',
-                            justifyContent: "center"
+                            justifyContent: "space-between",
+                            padding:3
                         }}
                         rowDirection={"row"}
                     />
 
                 </View>
-                <View style={{justifyContent:"space-between"}}>
+                <View style={{flex:1}}>
                     <Text>Categoria</Text>
                     <CheckboxGroup
                         callback={(selected) => { console.log(selected) }}
@@ -177,7 +181,8 @@ class SearchAdvanced extends Component{
                         }}
                         rowStyle={{
                             flexDirection: 'row',
-                            justifyContent: "center",
+                            justifyContent: "space-between",
+                            padding:3
                         }}
                         rowDirection={"row"}
                     />
@@ -196,7 +201,8 @@ class SearchAdvanced extends Component{
                         }}
                         rowStyle={{
                             flexDirection: 'row',
-                            justifyContent: "center",
+                            justifyContent: "space-between",
+                            padding:3
                         }}
                         rowDirection={"row"}
                     />
@@ -215,7 +221,8 @@ class SearchAdvanced extends Component{
                         }}
                         rowStyle={{
                             flexDirection: 'row',
-                            justifyContent: "center",
+                            justifyContent: "space-between",
+                            padding:3
                         }}
                         rowDirection={"row"}
                     />

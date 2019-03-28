@@ -8,9 +8,10 @@ import Menu from '../src/components/sideMenu'
 import Favoritos from '../src/container/ui/Favoritos'
 import ownRecetas from '../src/container/ui/ownRecetas'
 import userRecetas from '../src/container/ui/userRecetas'
-import addReceta from '../src/components/addRecetas'
+import addRecetas from '../src/components/addRecetas'
+import addIngr from '../src/components/AddIngredientes'
+import loginPopUp from "../src/components/LoginPopUp"
 import {StyleSheet} from 'react-native'
-import {heightPercentageToDP, widthPercentageToDP} from "../src/auxiliar/ScreenDimension";
 const Routes = () => (
     <Router backAndroidHandler={onBackAndroid}>
 
@@ -26,36 +27,45 @@ const Routes = () => (
                     initial = {true}
                     panHandlers={null}
                     hideNavBar={true}
-                    onEnter={Actions.currentScene} />
+                     />
                 <Scene  key="startView"
                         component={StartView}
-                        onEnter={Actions.currentScene}/>
+                        />
                 <Scene  key="register"
                         component={Register}
                         hideNavBar={true}
-                        onEnter={Actions.currentScene}/>
+                        />
                 <Scene
                     key="favoritos"
                     component={Favoritos}
-                    onEnter={Actions.currentScene}/>
-                <Scene
-                    key="addRecetas"
-                    component={addReceta}
-                    onEnter={Actions.currentScene}/>
+                    />
+
                 <Scene
                     key="usersRecetas"
                     component={userRecetas}
-                    onEnter={Actions.currentScene}/>
+                    />
                 <Scene
                     key="ownRecetas"
                     component={ownRecetas}
-                    onEnter={Actions.currentScene}/>
+                    />
+            <Stack key="nuevaReceta">
+                <Scene
+                    key="addRecetas"
+                    component={addRecetas}
+                />
+                <Scene
+                    key="addIngr"
+                    component={addIngr}
+                />
+            </Stack>
+
         </Scene>
 
     </Router>
 )
 const onBackAndroid = () => {
-    return Actions.pop();
+     Actions.pop();
+     return true;
 };
 const styles=StyleSheet.create({
 

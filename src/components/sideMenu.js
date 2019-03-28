@@ -23,13 +23,14 @@ import imgUser from '../img/imgUser.png'
 import abuelita from '../img/coco.jpg'
 import Earth from '../img/Earth.png'
 import {Actions} from 'react-native-router-flux'
+
 export default class sideMenu extends Component{
     constructor(props){
         super(props)
 
         this.state = {
             arrayPais:paises,
-            pais:pais
+            pais:pais,
         };
     }
     pickerPais(){
@@ -38,6 +39,9 @@ export default class sideMenu extends Component{
             array.push({value:data, label: data})
         });
         return(array)
+    }
+    openLoggin(){
+        Actions.startView();
     }
     render(){
         return(
@@ -51,7 +55,9 @@ export default class sideMenu extends Component{
                         rounded
                     />
                     <Text style={styles.textRegistrate}>Registrate o inicia sesion</Text>
-                    <TouchableOpacity style={styles.buttonContainer}>
+                    <TouchableOpacity style={styles.buttonContainer}
+                                      onPress={() => this.openLoggin()}
+                    >
                         <Text style={styles.textIniciar}>Inicia Sesion</Text>
                     </TouchableOpacity>
                 </View>

@@ -20,7 +20,7 @@ export default class Launch extends Component {
 }
 
 function startApp() {
-    Actions.startView()
+    Actions.usersRecetas()
 }
 
 const styles = StyleSheet.create({
