@@ -13,6 +13,7 @@ export default class Favoritos extends Component {
             data:recetas
         }
     }
+
     render() {
         return (
             <View>

@@ -19,6 +19,7 @@ let arrayEmpty=["0"]
 let personas=["0","2","4","6","8"]
 let person=arrayEmpty[0]
 const ingredientes=[]
+var ingredients=[""]
 export default class AddIngredientes extends Component{
     constructor(props){
         super(props)
@@ -27,6 +28,7 @@ export default class AddIngredientes extends Component{
             arrayPersonas:personas,
             person:person,
             ingrediente:"",
+            ingredients:ingredients,
         }
     }
     pickerIngredientes(){
@@ -37,7 +39,23 @@ export default class AddIngredientes extends Component{
         return(array)
     }
     onAdd(){
+        //Adding Items To Array.
+        ingredients.push( this.state.ingrediente.toString() );
 
+        this.setState({ingrediente:""})
+
+    }
+
+    parseData(){
+        if(this.state.ingredients){
+            return this.state.ingredients.map((data,i)=>{
+                return(
+                    <View key={i}>
+                        <Text>{data}</Text>
+                    </View>
+                )
+            })
+        }
     }
 
     render(){
@@ -53,12 +71,14 @@ export default class AddIngredientes extends Component{
                             value = {this.state.person}
                             onSubmitEditing = {(value) => this.setState({person: value})}
                         />
+                        {this.parseData()}
                         <View style={styles.listStyle}>
                             <TextInput
-                                placeholder="Añadir Ingrediente"
+                                placeholder="Añadir ingrediente"
                                 placeholderTextColor={'black'}
-                                onChangeText={(ingrediente) => this.setState({ingrediente})}
+                                onChangeText={TextInputValue => this.setState({ingrediente : TextInputValue }) }
                                 value={this.state.ingrediente}
+                                clearButtonMode={"always"}
                             />
                             <TouchableOpacity onPress={() => this.onAdd()}>
                                 <Image

@@ -10,7 +10,7 @@ import ownRecetas from '../src/container/ui/ownRecetas'
 import userRecetas from '../src/container/ui/userRecetas'
 import addRecetas from '../src/components/addRecetas'
 import addIngr from '../src/components/AddIngredientes'
-import loginPopUp from "../src/components/LoginPopUp"
+import showReceta from "../src/components/showReceta"
 import {StyleSheet} from 'react-native'
 const Routes = () => (
     <Router backAndroidHandler={onBackAndroid}>
@@ -56,6 +56,10 @@ const Routes = () => (
                 <Scene
                     key="addIngr"
                     component={addIngr}
+                />
+                <Scene
+                    key="showReceta"
+                    component={showReceta}
                 />
             </Stack>
 
