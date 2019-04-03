@@ -11,9 +11,11 @@ import {
 } from 'react-native'
 import fondo from "../img/fondo.png"
 import {heightPercentageToDP, widthPercentageToDP} from "../auxiliar/ScreenDimension";
-import {Avatar, Icon} from "react-native-elements";
-import {AirbnbRating} from "react-native-ratings";
-
+import {Avatar,Icon} from "react-native-elements";
+import FontIcon from "react-native-vector-icons/FontAwesome"
+import {Rating} from "react-native-ratings";
+import Option from "./optionView"
+import {Actions} from "react-native-router-flux";
 export default class showReceta extends Component{
     constructor(props){
         super(props)
@@ -21,12 +23,34 @@ export default class showReceta extends Component{
             comentarios:""
         };
     }
-    parseData(){
+    parseIngredientes(){
         if(this.props.receta.ingredientes){
             return this.props.receta.ingredientes.map((data,i)=>{
                 return(
-                    <View key={i}>
-                        <Text>{data}</Text>
+                    <View key={i} style={{flexDirection:"row",alignItems:'center'}}>
+                        <FontIcon name={"circle"} color={'rgb(255,216,0)'}/>
+                        <Text style={{fontSize:17, marginLeft: 10}}>{data}</Text>
+                    </View>
+                )
+            })
+        }
+    }
+    parsePreparacion(){
+        if(this.props.receta.preparacion){
+            return this.props.receta.preparacion.map((data,i)=>{
+                return(
+                    <View key={i} style={{padding: 10}}>
+                        <Image  style={styles.imagenStyle}
+                                resizeMode={"cover"}
+                                source={data.imagen}/>
+                        <View style={{flexDirection: "row", marginTop: 5}}>
+                            <Text style={styles.pasoStyle}>{data.paso}</Text>
+                            <View style={{borderLeftWidth:5,
+                                borderColor:'rgb(255,216,0)', paddingLeft: 10}}>
+                                <Text style={{fontWeight:"bold", fontSize:15}}>{data.titulo}</Text>
+                                <Text style={{ fontSize:15}}>{data.descripcion}</Text>
+                            </View>
+                        </View>
                     </View>
                 )
             })
@@ -39,44 +63,60 @@ export default class showReceta extends Component{
                 style={styles.container}
             >
                 <ScrollView>
-                    <Text>{this.props.receta.titulo}</Text>
+                    <Text style={styles.textSections}>{this.props.receta.titulo}</Text>
                     <View style={styles.vistaEntrada}>
-                        <Image source={this.props.receta.imagen}/>
-                        <Avatar rounded={true} source={this.props.receta.avatar}/>
-                        <Text>{this.props.receta.entradilla}</Text>
-                        <Text>Autor: {this.props.receta.users}</Text>
+                        <Image  source={this.props.receta.imagen}
+                                style={styles.imagenStyle}
+                                resizeMode={"cover"}/>
+                        <View style={{justifyContent: "flex-end"}}>
+                            <Avatar rounded source={this.props.receta.avatar} size={"medium"} containerStyle={styles.avStyle}/>
+                        </View>
+                        <Option
+                            recetas={this.props.receta}
+                        />
+                        <Text style={{fontWeight:"bold" }}>{this.props.receta.entradilla}</Text>
+                        <Text>
+                            Autor:
+                            <Text style={{fontWeight: 'bold'}}>
+                                {this.props.receta.users}
+                            </Text>
+                        </Text>
                     </View>
-                    <Text>Ingredientes</Text>
+                    <Text style={styles.textSections}>Ingredientes</Text>
                     <View style={styles.vistaEntrada}>
-                        <Text>Para {this.props.receta.personas} personas</Text>
-                        {this.parseData()}
+                        <Text style={{color:'rgb(255,216,0)' }}>Para {this.props.receta.personas} personas</Text>
+                        {this.parseIngredientes()}
                     </View>
-                    <Text>Preparacion</Text>
-                    <View>
-
-                    </View>
-                    <Text>Comparte y opina</Text>
+                    <Text style={styles.textSections}>Preparacion</Text>
                     <View style={styles.vistaEntrada}>
-                        <View>
-                            <Text>Puntua nuestra receta</Text>
-                            <AirbnbRating
-                                count={5}
-                                reviews={["Muy facil","Facil","Media","Dificil","Muy dificil"]}
-                                defaultRating={5}
-                            />
+                        {this.parsePreparacion()}
+                    </View>
+                    <Text style={styles.textSections}>Comparte y opina</Text>
+                    <View style={styles.vistaEntrada}>
+                        <View style={styles.vistaEntradaFinal}>
+                            <View>
+                                <Text style={styles.textofinal}>Puntua</Text>
+                                <Rating
+                                    imageSize={30}
+                                />
+                            </View>
+                            <View>
+                                <Text style={styles.textofinal}>Compartir</Text>
+                                <Icon name={"share"}
+                                      color={'rgb(255,216,0)'}
+                                      size={30}
+                                />
+                            </View>
+                            <View>
+                                <Text style={styles.textofinal}>Favoritos</Text>
+                                <Icon name={"favorite"}
+                                      color={'rgb(255,216,0)'}
+                                      size={30}
+                                />
+                            </View>
                         </View>
                         <View>
-                            <Text>Compartir</Text>
-                            <Icon name={"share"}
-                            color={'rgb(255,216,0)'}/>
-                        </View>
-                        <View>
-                            <Text>Añadir a favoritos</Text>
-                            <Icon name={"favorite"}
-                                  color={'rgb(255,216,0)'}/>
-                        </View>
-                        <View>
-                            <Text>Comentarios</Text>
+                            <Text style={styles.textofinal}>Comentarios</Text>
                             <TextInput
                                 placeholder="Escribe aquí"
                                 placeholderTextColor={'rgba(44, 62, 80,1.0)'}
@@ -86,9 +126,18 @@ export default class showReceta extends Component{
                                 value={this.state.comentarios}
                             />
                         </View>
+                    </View>
+                    <View style={{flex:1,
+                        padding: 15}}>
                         <TouchableOpacity  style={ styles.buttonContainer1}>
                             <Text style={styles.buttonText}>He dicho</Text>
                         </TouchableOpacity>
+                        <Text style={{flexDirection:"row"}}>
+                            Para añadir un comentario debes
+                            <Text style={{color:'rgb(255,216,0)'}}onPress={() => Actions.startView()}> inciar sesion</Text>
+                            <Text> o </Text>
+                            <Text style={{color:'rgb(255,216,0)'}}onPress={() => Actions.register()}>registrarse</Text>
+                        </Text>
                     </View>
 
                 </ScrollView>
@@ -108,16 +157,47 @@ const styles= StyleSheet.create({
         flex:1,
         padding: 15
     },
+    vistaEntradaFinal:{
+        flexDirection:"row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginBottom: 20
+    },
+    textofinal:{
+        fontWeight:"bold",
+        fontSize:16,
+        marginBottom: 10
+    },
+    imagenStyle:{
+        height:heightPercentageToDP("20%"),
+        width:widthPercentageToDP("92%"),
+    },
     buttonContainer1:{
-        marginTop: heightPercentageToDP('5%'),
+        marginTop: heightPercentageToDP('2%'),
         backgroundColor: 'rgb(255,216,0)',
         paddingVertical: 10,
         borderRadius:7
+    },
+    avStyle:{
+        borderWidth:2,
+        borderColor:'rgb(255,216,0)',
+        position: "absolute",
+        alignSelf: "center",
     },
     buttonText: {
         textAlign: 'center',
         color:'black',
         fontSize:20,
         fontWeight: '700'
+    },
+    textSections:{
+        fontFamily:'Allura-Regular',
+        fontSize:32
+    },
+    pasoStyle:{
+        alignSelf: "center",
+        marginRight: 10,
+        fontSize:17,
+        color:'rgb(255,216,0)',
     }
 });

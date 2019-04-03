@@ -3,15 +3,16 @@ import arroz from '../img/arroz.png'
 import huevos from '../img/huevos.png'
 import fabada from '../img/fabada.png'
 import avatar from "../img/coco.jpg"
+import paso1 from "../img/imagenpaso1.png"
+import paso2 from "../img/imagenpaso2.png"
+import paso3 from "../img/imagenpaso3.png"
+
 export const recetas =[
     {
         key:1,
         titulo:"Paella valenciana",
         avatar:avatar,
-        entradilla:"La receta de paella es una preparación típica" +
-            "española que debes elaborar al menos una vez. Esta" +
-            "plato contiene gran variedad de modificaciones que," +
-            "adaptadas con expansion por el mundo entero",
+        entradilla:"La receta de paella es una preparación típica española que debes elaborar al menos una vez. Este plato contiene gran variedad de modificaciones que, adaptadas con expansion por el mundo entero ",
         imagen: paella,
         tiempo: 120,
         dificultad:"Media",
@@ -29,6 +30,32 @@ export const recetas =[
             "1 hoja de laurel",
             "1/2 manojo de perejil seco",
             "1/2 taza de caldo de pollo"
+        ],
+        preparacion:[
+            {
+                paso:1,
+                imagen:paso1,
+                titulo:"Freir la carne y verduras",
+                descripcion:" Una  vez el aceite esté caliente comienzas a freir la carne a fuego lento." +
+                    "La carne de pollo y de conejo se tiene que freir hasta que coja un color dorado bonito. Cuando" +
+                    "la carne coja éste color sabemos que está lista para sacar."
+            },
+            {
+                paso:2,
+                imagen:paso2,
+                titulo:"Freir todos los ingredientes",
+                descripcion:" Una  vez el aceite esté caliente comienzas a freir la carne a fuego lento." +
+                    "La carne de pollo y de conejo se tiene que freir hasta que coja un color dorado bonito. Cuando" +
+                    "la carne coja éste color sabemos que está lista para sacar."
+            },
+            {
+                paso:3,
+                imagen:paso3,
+                titulo:"Añadir ingredientes",
+                descripcion:" Una  vez el aceite esté caliente comienzas a freir la carne a fuego lento." +
+                    "La carne de pollo y de conejo se tiene que freir hasta que coja un color dorado bonito. Cuando" +
+                    "la carne coja éste color sabemos que está lista para sacar."
+            }
         ]
     },
     {
@@ -56,6 +83,32 @@ export const recetas =[
             "1 hoja de laurel",
             "1/2 manojo de perejil seco",
             "1/2 taza de caldo de pollo"
+        ],
+        preparacion:[
+            {
+                paso:1,
+                imagen:paso1,
+                titulo:"Freir la carne y verduras",
+                descripcion:" Una  vez el aceite esté caliente comienzas a freir la carne a fuego lento." +
+                    "La carne de pollo y de conejo se tiene que freir hasta que coja un color dorado bonito. Cuando" +
+                    "la carne coja éste color sabemos que está lista para sacar."
+            },
+            {
+                paso:2,
+                imagen:paso2,
+                titulo:"Freir todos los ingredientes",
+                descripcion:" Una  vez el aceite esté caliente comienzas a freir la carne a fuego lento." +
+                    "La carne de pollo y de conejo se tiene que freir hasta que coja un color dorado bonito. Cuando" +
+                    "la carne coja éste color sabemos que está lista para sacar."
+            },
+            {
+                paso:3,
+                imagen:paso3,
+                titulo:"Añadir ingredientes",
+                descripcion:" Una  vez el aceite esté caliente comienzas a freir la carne a fuego lento." +
+                    "La carne de pollo y de conejo se tiene que freir hasta que coja un color dorado bonito. Cuando" +
+                    "la carne coja éste color sabemos que está lista para sacar."
+            }
         ]
     },
     {
@@ -83,6 +136,32 @@ export const recetas =[
             "1 hoja de laurel",
             "1/2 manojo de perejil seco",
             "1/2 taza de caldo de pollo"
+        ],
+        preparacion:[
+            {
+                paso:1,
+                imagen:paso1,
+                titulo:"Freir la carne y verduras",
+                descripcion:" Una  vez el aceite esté caliente comienzas a freir la carne a fuego lento." +
+                    "La carne de pollo y de conejo se tiene que freir hasta que coja un color dorado bonito. Cuando" +
+                    "la carne coja éste color sabemos que está lista para sacar."
+            },
+            {
+                paso:2,
+                imagen:paso2,
+                titulo:"Freir todos los ingredientes",
+                descripcion:" Una  vez el aceite esté caliente comienzas a freir la carne a fuego lento." +
+                    "La carne de pollo y de conejo se tiene que freir hasta que coja un color dorado bonito. Cuando" +
+                    "la carne coja éste color sabemos que está lista para sacar."
+            },
+            {
+                paso:3,
+                imagen:paso3,
+                titulo:"Añadir ingredientes",
+                descripcion:" Una  vez el aceite esté caliente comienzas a freir la carne a fuego lento." +
+                    "La carne de pollo y de conejo se tiene que freir hasta que coja un color dorado bonito. Cuando" +
+                    "la carne coja éste color sabemos que está lista para sacar."
+            }
         ]
     },
     {
@@ -110,6 +189,32 @@ export const recetas =[
             "1 hoja de laurel",
             "1/2 manojo de perejil seco",
             "1/2 taza de caldo de pollo"
+        ],
+        preparacion:[
+            {
+                paso:1,
+                imagen:paso1,
+                titulo:"Freir la carne y verduras",
+                descripcion:" Una  vez el aceite esté caliente comienzas a freir la carne a fuego lento." +
+                    "La carne de pollo y de conejo se tiene que freir hasta que coja un color dorado bonito. Cuando" +
+                    "la carne coja éste color sabemos que está lista para sacar."
+            },
+            {
+                paso:2,
+                imagen:paso2,
+                titulo:"Freir todos los ingredientes",
+                descripcion:" Una  vez el aceite esté caliente comienzas a freir la carne a fuego lento." +
+                    "La carne de pollo y de conejo se tiene que freir hasta que coja un color dorado bonito. Cuando" +
+                    "la carne coja éste color sabemos que está lista para sacar."
+            },
+            {
+                paso:3,
+                imagen:paso3,
+                titulo:"Añadir ingredientes",
+                descripcion:" Una  vez el aceite esté caliente comienzas a freir la carne a fuego lento." +
+                    "La carne de pollo y de conejo se tiene que freir hasta que coja un color dorado bonito. Cuando" +
+                    "la carne coja éste color sabemos que está lista para sacar."
+            }
         ]
     }
 ]

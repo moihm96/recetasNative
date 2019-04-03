@@ -13,13 +13,23 @@ import fiveStars from "../img/5stars.png";
 import reloj from "../img/reloj.png";
 import dificilOff from "../img/dificilOff.png";
 import imgUser from "../img/imgUser.png";
+import {Rating} from "react-native-elements";
+import {AirbnbRating} from "react-native-ratings";
 
 const optionView = (props)=>{
     const {recetas} = props;
     return(
         <View style={styles.opcionContainerStyle}>
             <View style={styles.opcionStyle}>
-                <Image source={fiveStars} style={styles.puntuacionStyle}/>
+                <Rating
+                    type='star'
+                    ratingColor='rgb(255,216,0)'
+                    ratingBackgroundColor='white'
+                    imageSize={20}
+                    style={styles.puntuacionStyle}
+                    readonly
+                    startingValue={recetas.puntuacion}
+                />
             </View>
             <View style={styles.opcionStyle}>
                 <Image source={reloj} style={styles.tiempoStyle}/>
@@ -50,7 +60,6 @@ const styles= StyleSheet.create({
         alignItems: "center",
     },
     puntuacionStyle:{
-        resizeMode:"contain",
         width:widthPercentageToDP("30")
     },
     tiempoStyle:{
