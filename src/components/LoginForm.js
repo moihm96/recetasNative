@@ -6,27 +6,42 @@ import {
     Text,
     TouchableOpacity,
     KeyboardAvoidingView,
-    ScrollView
+    ScrollView,
+    ActivityIndicator
 } from 'react-native';
 import {Buttons} from "./Buttons"
 import { widthPercentageToDP, heightPercentageToDP } from '../auxiliar/ScreenDimension'
 import { Actions } from 'react-native-router-flux';
-export default class LoginForm extends Component{
+import {emailChanged,passwordChanged,loginUser} from "../actions/AuthActions";
+import {connect} from "react-redux"
+class LoginForm extends Component{
     onRegister = () => {
         Actions.register();
     }
-    render(){
+    onEmailChange(text) {
+        this.props.emailChanged(text);
+    }
+
+    onPasswordChange(text) {
+        this.props.passwordChanged(text);
+    }
+
+    onButtonPress() {
+        const { email, password } = this.props;
+
+        this.props.loginUser({ email, password });
+    }
+    renderButton(){
+        console.log(this.props.loading)
+        if(this.props.loading){
+            return(
+                <View style={styles.spinnerStyle}>
+                    <ActivityIndicator size={"large"}/>
+                </View>
+            )
+        }
         return(
-            <KeyboardAvoidingView style = {styles.container}>
-                <TextInput
-                    placeholder="username or email"
-                    style={ styles.input}
-                />
-                <TextInput
-                    secureTextEntry={true}
-                    placeholder="password"
-                    style={ styles.input}
-                />
+            <View style={{padding: 10}}>
                 <TouchableOpacity>
                     <Text style={styles.buttonPassword}>¿No recuerdas la contraseña?</Text>
                 </TouchableOpacity>
@@ -35,7 +50,34 @@ export default class LoginForm extends Component{
                     text1={"Entrar"}
                     text2={"Registrarse"}
                     onPress2={this.onRegister}
+                    onPress1={this.onButtonPress.bind(this)}
                 />
+            </View>
+        )
+    }
+
+    render(){
+        return(
+            <KeyboardAvoidingView style = {styles.container}>
+                <TextInput
+                    placeholder="username or email"
+                    style={ styles.input}
+                    onChangeText={this.onEmailChange.bind(this)}
+                    value={this.props.email}
+                />
+                <TextInput
+                    secureTextEntry={true}
+                    placeholder="password"
+                    style={ styles.input}
+                    onChangeText={this.onPasswordChange.bind(this)}
+                    value={this.props.password}
+                />
+                <Text style={styles.errorTextStyle}>
+                    {this.props.error}
+                </Text>
+                <View>
+                    {this.renderButton()}
+                </View>
             </KeyboardAvoidingView>
 
         );
@@ -58,5 +100,24 @@ const styles = StyleSheet.create({
         textAlign:'right',
         color:'rgb(208,166,0)'
     },
+    errorTextStyle: {
+        fontSize: 20,
+        alignSelf: 'center',
+        color: 'red'
+    },
+    spinnerStyle: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 
 });
+const mapStateToProps = ({ auth }) => {
+    const { email, password, error, loading } = auth;
+
+    return { email, password, error, loading };
+};
+
+export default connect(mapStateToProps, {
+    emailChanged, passwordChanged, loginUser
+})(LoginForm);
