@@ -41,7 +41,7 @@ class LoginForm extends Component{
             )
         }
         return(
-            <View style={{padding: 10}}>
+            <View>
                 <TouchableOpacity>
                     <Text style={styles.buttonPassword}>¿No recuerdas la contraseña?</Text>
                 </TouchableOpacity>
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     input:{
        height: 40,
        backgroundColor:'white',
-        marginBottom: 15,
+        marginBottom: 7,
         color:'black',
         paddingHorizontal: 10
     },
