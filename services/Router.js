@@ -38,15 +38,18 @@ const Routes = () => (
                 <Scene
                     key="favoritos"
                     component={Favoritos}
+                    hideNavBar={true}
                     />
 
                 <Scene
                     key="usersRecetas"
                     component={userRecetas}
+                    hideNavBar={true}
                     />
                 <Scene
                     key="ownRecetas"
                     component={ownRecetas}
+                    hideNavBar={true}
                     />
             <Stack key="nuevaReceta">
                 <Scene
