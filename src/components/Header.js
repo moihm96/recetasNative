@@ -30,6 +30,10 @@ class Header extends Component{
     onClickSearch(isOpen){
         this.setState({modalVisible:isOpen})
     }
+    search(term){
+        this.props.onFilter(term)
+        this.setState({term})
+    }
     render(){
         return(
             <ImageBackground    source = {cabecera}
@@ -53,7 +57,7 @@ class Header extends Component{
                                 style={styles.inputStyle}
                                 placeholder={"Buscar"}
                                 placeholderTextColor={"black"}
-                                onChangeText={term=> this.setState({term})}
+                                onChangeText={term=> this.search(term)}
                                 value={this.state.term}
                             />
 
