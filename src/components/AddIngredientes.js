@@ -19,7 +19,7 @@ let arrayEmpty=["0"]
 let personas=["0","2","4","6","8"]
 let person=arrayEmpty[0]
 const ingredientes=[]
-var ingredients=[""]
+let ingredients=[""]
 export default class AddIngredientes extends Component{
     constructor(props){
         super(props)
@@ -93,7 +93,18 @@ export default class AddIngredientes extends Component{
                         <Buttons
                             text1={"Siguiente"}
                             text2={"Atrás"}
-                            onPress2={()=> Actions.pop}
+                            onPress1={()=>Actions.addPreparation({
+                                title:this.props.title,
+                                autor:this.props.autor,
+                                entradilla:this.props.entradilla,
+                                time:this.props.time,
+                                dificultad:this.props.dificultad,
+                                imagenPrincipal:this.props.imagenPrincipal,
+                                avatarSource:this.props.avatarSource,
+                                person:this.state.person,
+                                ingredients:this.state.ingredients
+                            })}
+                            onPress2={()=> Actions.pop()}
                         />
                     </View>
 

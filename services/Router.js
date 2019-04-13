@@ -10,6 +10,7 @@ import ownRecetas from '../src/container/ui/ownRecetas'
 import userRecetas from '../src/container/ui/userRecetas'
 import addRecetas from '../src/components/addRecetas'
 import addIngr from '../src/components/AddIngredientes'
+import addPreparation from '../src/components/addPreparation'
 import showReceta from "../src/components/showReceta"
 import {StyleSheet} from 'react-native'
 const Routes = () => (
@@ -35,26 +36,31 @@ const Routes = () => (
                         component={Register}
                         hideNavBar={true}
                         />
+
+            <Stack key="recetas">
                 <Scene
                     key="favoritos"
                     component={Favoritos}
                     hideNavBar={true}
-                    />
+                />
 
                 <Scene
                     key="usersRecetas"
                     component={userRecetas}
                     hideNavBar={true}
-                    />
+                />
                 <Scene
                     key="ownRecetas"
                     component={ownRecetas}
                     hideNavBar={true}
-                    />
-            <Stack key="nuevaReceta">
+                />
                 <Scene
                     key="addRecetas"
                     component={addRecetas}
+                />
+                <Scene
+                    key="addPreparation"
+                    component={addPreparation}
                 />
                 <Scene
                     key="addIngr"

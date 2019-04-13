@@ -11,12 +11,11 @@ import {
     StyleSheet}
     from 'react-native';
 import ImagePicker from "react-native-image-picker"
-import { Slider } from 'react-native-elements';
+import {Avatar, Slider} from 'react-native-elements';
 import SelectInput from "react-native-select-input-ios";
 import foto from "../img/foto.png"
 import fotoPrincipal from "../img/fotoPrincipal.png"
 import fondo from "../img/fondo.png"
-import {KeyboardAvoidingView} from "./LoginForm";
 import {heightPercentageToDP} from "../auxiliar/ScreenDimension";
 import {Actions} from "react-native-router-flux";
 import {Buttons} from "./Buttons"
@@ -38,7 +37,8 @@ export default class addRecetas extends Component {
             time:0,
             arrayDif:dif,
             dificultad:dificultad,
-            avatarSource: null
+            imagenPrincipal: fotoPrincipal,
+            avatarSource:foto
         };
     }
     pickerDif(){
@@ -49,6 +49,29 @@ export default class addRecetas extends Component {
         return(array)
     }
     openCamera=()=>{
+        ImagePicker.showImagePicker(options, (response) => {
+            console.log('Response = ', response);
+
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            }
+            else if (response.error) {
+                console.log('Image Picker Error: ', response.error);
+            }
+
+            else {
+                let source = { uri: response.uri };
+
+                // You can also display the image using data:
+                // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+                this.setState({
+                    imagenPrincipal: source,
+                });
+            }
+        });
+    }
+    openCameraAvatar=()=>{
         ImagePicker.showImagePicker(options, (response) => {
             console.log('Response = ', response);
 
@@ -94,11 +117,26 @@ export default class addRecetas extends Component {
                         </TouchableOpacity>
                         <Image
                             style={{width:100, height:100}}
-                            source={this.state.avatarSource}
+                            source={this.state.imagenPrincipal}
+                        />
+                        <TextInput
+                            placeholder="Autor"
+                            style={styles.input}
+                            placeholderTextColor={'rgba(44, 62, 80,1.0)'}
+                            onChangeText={(autor) => this.setState({autor})}
+                            value={this.state.autor}
                         />
 
 
-                        <Text>Foto de mi abuela</Text>
+                        <TouchableOpacity onPress={this.openCameraAvatar}>
+                            <Text>Foto de la abuela</Text>
+                        </TouchableOpacity>
+                        <Avatar
+                            source={this.state.avatarSource}
+                            rounded
+                            size={"medium"}
+                        />
+
 
                         <Text>Tiempo de preparación:  {this.state.time} minutos</Text>
                         <View style={{ flex: 1, alignItems: 'stretch', justifyContent: 'center' }}>
@@ -119,13 +157,7 @@ export default class addRecetas extends Component {
                                 style={styles.input}
                             />
                         </View>
-                        <TextInput
-                            placeholder="Autor"
-                            style={styles.input}
-                            placeholderTextColor={'rgba(44, 62, 80,1.0)'}
-                            onChangeText={(autor) => this.setState({autor})}
-                            value={this.state.autor}
-                        />
+
                         <TextInput
                             placeholder="Entradilla de la receta"
                             placeholderTextColor={'rgba(44, 62, 80,1.0)'}
@@ -138,8 +170,16 @@ export default class addRecetas extends Component {
                     </View>
                     <View style={styles.buttonStyles}>
                         <Buttons
-                            onPress1={()=>Actions.addIngr()}
-                            onPress2={()=>Actions.pop}
+                            onPress1={()=>Actions.addIngr({
+                                title:this.state.title,
+                                autor:this.state.autor,
+                                entradilla:this.state.entradilla,
+                                time:this.state.time,
+                                dificultad:this.state.dificultad,
+                                imagenPrincipal:this.state.imagenPrincipal,
+                                avatarSource:this.state.avatarSource
+                            })}
+                            onPress2={()=>Actions.pop()}
                             text1={"Siguiente"}
                             text2={"Cancelar"}
                         />
