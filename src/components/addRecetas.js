@@ -24,9 +24,8 @@ const options={
     takePhotoButtonTitle: 'Take photo with your camera',
     chooseFromLibraryButtonTitle: 'Choose photo from library',
 }
-let arrayEmpty=["Baja"]
+
 let dif=["Baja","Media","Alta"]
-let dificultad=arrayEmpty[0]
 export default class addRecetas extends Component {
     constructor(props){
         super(props)
@@ -36,9 +35,9 @@ export default class addRecetas extends Component {
             entradilla:"",
             time:0,
             arrayDif:dif,
-            dificultad:dificultad,
-            imagenPrincipal: fotoPrincipal,
-            avatarSource:foto
+            dificultad:"Baja",
+            imagenPrincipal:"",
+            avatarSource:""
         };
     }
     pickerDif(){
@@ -60,13 +59,12 @@ export default class addRecetas extends Component {
             }
 
             else {
-                let source = { uri: response.uri };
 
                 // You can also display the image using data:
                 // let source = { uri: 'data:image/jpeg;base64,' + response.data };
 
                 this.setState({
-                    imagenPrincipal: source,
+                    imagenPrincipal: response.uri,
                 });
             }
         });
@@ -83,13 +81,12 @@ export default class addRecetas extends Component {
             }
 
             else {
-                let source = { uri: response.uri };
 
                 // You can also display the image using data:
                 // let source = { uri: 'data:image/jpeg;base64,' + response.data };
 
                 this.setState({
-                    avatarSource: source,
+                    avatarSource: response.uri,
                 });
             }
         });
@@ -117,7 +114,7 @@ export default class addRecetas extends Component {
                         </TouchableOpacity>
                         <Image
                             style={{width:100, height:100}}
-                            source={this.state.imagenPrincipal}
+                            source={{uri:this.state.imagenPrincipal}}
                         />
                         <TextInput
                             placeholder="Autor"
@@ -132,7 +129,7 @@ export default class addRecetas extends Component {
                             <Text>Foto de la abuela</Text>
                         </TouchableOpacity>
                         <Avatar
-                            source={this.state.avatarSource}
+                            source={{uri:this.state.avatarSource}}
                             rounded
                             size={"medium"}
                         />

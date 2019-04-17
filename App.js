@@ -5,6 +5,7 @@ import {Provider} from "react-redux";
 import {createStore,applyMiddleware} from "redux";
 import ReduxThunk from "redux-thunk";
 import reducers from './src/reducers'
+console.ignoredYellowBox = ['Warning: Each', "Warning: Failed prop type","Warning: Failed child context type"];
 class App extends Component {
     componentWillMount() {
         const config={

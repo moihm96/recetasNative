@@ -8,7 +8,9 @@ import {
     Image,
     TextInput,
     FlatList,
-    ScrollView
+    ScrollView,
+    Platform,
+    YellowBox
 } from 'react-native'
 import fondo from "../img/fondo.png"
 import {Buttons} from "./Buttons";
@@ -21,17 +23,64 @@ const options={
     chooseFromLibraryButtonTitle: 'Choose photo from library',
 }
 let pasosAux=[];
+import Helpers from "./helpers"
+import * as firebase from 'firebase'
+import RNFetchBlob from 'react-native-fetch-blob'
+const Blob = RNFetchBlob.polyfill.Blob
+const fs = RNFetchBlob.fs
+window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
+window.Blob = Blob
+
+const uploadImage = (uri, imageName, mine = 'image/jpg') => {
+    return new Promise((resolve, reject) => {
+        const uploadUri = Platform.OS ==='ios' ? uri.replace('file://', '') : uri
+        let uploadBlob = null
+        const imageRef = firebase.storage().ref('image').child(imageName)
+        fs.readFile(uploadUri, 'base64')
+            .then((data) => {
+                return Blob.build(data, {type: `${mine};BASE64`})
+            })
+            .then((blob) =>{
+                uploadBlob = blob
+                return imageRef.put(blob, {contentType: mine })
+            })
+            .then(() => {
+                uploadBlob.close()
+                return imageRef.getDownloadURL()
+            })
+            .then((url) => {
+                resolve(url)
+            })
+            .catch((error) => {
+                reject(error)
+            })
+    })
+}
 export default class addPreparation extends Component{
     constructor(props){
         super(props)
         this.state={
             pasos:[],
             title: "",
-            imagePaso:null,
+            imagePaso:"",
             descripcion:"",
-            id:""
+            id:"",
+            uid:"",
+            imagen:"",
+            avatar:""
 
         }
+    }
+    async componentWillMount(){
+        try {
+            let user = await firebase.auth().currentUser;
+            this.setState({
+                uid: user.uid
+            })
+        } catch (error) {
+            console.log(error)
+        }
+
     }
     openCamera=()=>{
         ImagePicker.showImagePicker(options, (response) => {
@@ -45,22 +94,22 @@ export default class addPreparation extends Component{
             }
 
             else {
-                let source = { uri: response.uri };
+
 
                 // You can also display the image using data:
                 // let source = { uri: 'data:image/jpeg;base64,' + response.data };
 
                 this.setState({
-                    imagePaso: source,
+                    imagePaso: response.uri,
                 });
             }
         });
     }
     onAdd(){
         /**pasosAux.titulo.push(this.state.title.toString() );
-        pasosAux.imagen.push(this.state.imagePaso);
-        pasosAux.descr.push(this.state.descripcion.toString());
-        pasosAux.pid.push(this.state.id);*/
+         pasosAux.imagen.push(this.state.imagePaso);
+         pasosAux.descr.push(this.state.descripcion.toString());
+         pasosAux.pid.push(this.state.id);*/
         pasosAux.titulo= this.state.title;
         pasosAux.imagen= this.state.imagePaso;
         pasosAux.descr= this.state.descripcion;
@@ -71,9 +120,9 @@ export default class addPreparation extends Component{
 
         this.setState({
             title: "",
-            imagePaso:null,
+            imagePaso:"",
             descripcion:"",
-            id:""
+            id:"",
         })
     }
     renderPasos(){
@@ -86,6 +135,77 @@ export default class addPreparation extends Component{
                 )
             })
         }
+    }
+    saveForm(){
+        if(this.state.uid){
+            try {
+                /**this.props.title ? Helpers.setRecetaTitulo(this.state.uid,this.props.title) : null
+                this.props.autor ? Helpers.setRecetaAutor(this.state.uid,this.props.autor) : null
+                this.props.entradilla ? Helpers.setRecetaEntradilla(this.state.uid,this.props.entradilla) : null
+                this.props.time ? Helpers.setRecetaTiempo(this.state.uid,this.props.time) : null
+                this.props.dificultad ? Helpers.setRecetaDificultad(this.state.uid,this.props.dificultad) : null
+                this.props.person ? Helpers.setRecetaNumPersonas(this.state.uid,this.props.person) : null
+                this.props.ingredients ? Helpers.setRecetaIngredientes(this.state.uid,this.props.ingredients) : null
+                this.state.pasos ? Helpers.setRecetaPasos(this.state.uid, this.state.pasos) :null
+                this.props.imagenPrincipal ?
+                    uploadImage(this.props.imagenPrincipal, `${this.state.uid}.jpg`)
+                        .then((responseData) => {
+                            Helpers.setRecetaImageUrl(this.state.uid, responseData)
+                        })
+                        .done()
+                    : null
+                this.props.avatarSource ?
+                    uploadImage(this.props.avatarSource, `${this.state.uid}.jpg`)
+                        .then((responseData) => {
+                            Helpers.setRecetaAvatarsource(this.state.uid, responseData)
+                        })
+                        .done()
+                    : null
+
+                Actions.usersRecetas()*/
+                this.props.imagenPrincipal ?
+                    uploadImage(this.props.imagenPrincipal, `imagen${this.state.uid}.jpg`)
+                        .then((responseData) => {
+                            Helpers.setImageUrl(this.state.uid,this.props.title,responseData)
+                        })
+                        .done()
+                    : null
+                this.props.avatarSource ?
+                    uploadImage(this.props.avatarSource, `avatar${this.state.uid}.jpg`)
+                        .then((responseData) => {
+                            Helpers.setAvatarUrl(this.state.uid,this.props.title,responseData)
+                        })
+                        .done()
+                    : null
+
+                this.state.pasos.map((data, index) => {
+                    if(data.imagen){
+                        uploadImage(data.imagen,`${data.titulo}.jpg`)
+                            .then((responseData)=>{
+                                Helpers.setPaso(this.state.uid,this.props.title,index,responseData)
+                            })
+                    }
+                });
+
+                Helpers.setReceta(
+                    this.state.uid,
+                    this.props.title,
+                    this.props.autor,
+                    this.props.entradilla,
+                    this.props.time,
+                    this.props.dificultad,
+                    this.props.person,
+                    this.props.ingredients,
+                    this.state.pasos
+                )
+
+                Actions.usersRecetas()
+
+            } catch (error){
+                console.log(error)
+            }
+        }
+
     }
 
 
@@ -123,7 +243,7 @@ export default class addPreparation extends Component{
                         </TouchableOpacity>
                         <Image
                             style={{width:100, height:100}}
-                            source={this.state.imagePaso}
+                            source={{uri:this.state.imagePaso}}
                         />
                         <View style={styles.listStyle}>
                             <Text>Añadir paso</Text>
@@ -141,6 +261,7 @@ export default class addPreparation extends Component{
                                 text1={"Guardar"}
                                 text2={"Atrás"}
                                 onPress2={()=> Actions.pop()}
+                                onPress1={this.saveForm.bind(this)}
                             />
                         </View>
                     </View>

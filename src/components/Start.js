@@ -4,7 +4,8 @@ import {
     View,
     Image,
     Text,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    ScrollView
 } from 'react-native';
 import LoginForm from './LoginForm'
 import { widthPercentageToDP, heightPercentageToDP } from '../auxiliar/ScreenDimension'
@@ -14,15 +15,17 @@ export default class Start extends Component{
     render(){
         return(
             <KeyboardAvoidingView style ={styles.container}>
-                <View style ={styles.logoContainer}>
-                    <Text style={styles.title}>Inicia Sesión</Text>
-                    <Image
-                         style = {styles.logo}
-                        source={ comida }/>
-                </View>
-                <View style = {styles.formContainer}>
-                    <LoginForm/>
-                </View>
+                <ScrollView>
+                    <View style ={styles.logoContainer}>
+                        <Text style={styles.title}>Inicia Sesión</Text>
+                        <Image
+                            style = {styles.logo}
+                            source={ comida }/>
+                    </View>
+                    <View style = {styles.formContainer}>
+                        <LoginForm/>
+                    </View>
+                </ScrollView>
             </KeyboardAvoidingView>
         );
     }
