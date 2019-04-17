@@ -10,7 +10,8 @@ import {
     FlatList,
     ScrollView,
     Platform,
-    YellowBox
+    YellowBox,
+    Alert
 } from 'react-native'
 import fondo from "../img/fondo.png"
 import {Buttons} from "./Buttons";
@@ -198,6 +199,7 @@ export default class addPreparation extends Component{
                     this.props.ingredients,
                     this.state.pasos
                 )
+                Alert.alert("Recetas", "Receta creada con éxito")
 
                 Actions.usersRecetas()
 
