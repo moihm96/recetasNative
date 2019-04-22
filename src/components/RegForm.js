@@ -13,30 +13,22 @@ import SelectInput from 'react-native-select-input-ios'
 let arrayEmpty=["Cualquiera"]
 let sexos=["Cualquiera","Hombre","Mujer"]
 let sexo=arrayEmpty[0]
-export default class RegForm extends Component{
-    constructor(props){
-        super(props)
-        this.state={
-            email:"",
-            password:"",
-            userName:"",
-            arraySexo:sexos,
-            sexo:sexo
+import {userUpdate, createUser} from "../actions/RegActions";
+import {connect} from 'react-redux';
 
-        };
-    }
+ class RegForm extends Component{
     pickerSexo(){
         let array = []
-        this.state.arraySexo.map((data, i) => {
+        sexos.map((data, i) => {
             array.push({value:data, label: data})
         });
         return(array)
     }
-    updateSexo = (sexo) => {
-        this.setState({ sexo: sexo })
-    }
-    onBack(){
-        Actions.startView()
+    onButtonPress(){
+       const {userName,email,password,sexo} = this.props;
+
+       this.props.createUser({userName,email,password,sexo: sexo || 'Hombre'});
+
     }
     render(){
         return(
@@ -49,15 +41,15 @@ export default class RegForm extends Component{
                         placeholder="Nombre de usuario"
                         placeholderTextColor={'rgba(44, 62, 80,1.0)'}
                         style={ styles.input}
-                        onChangeText={(userName) => this.setState({userName})}
-                        value={this.state.userName}
+                        onChangeText={value => this.props.userUpdate({ prop: 'userName', value })}
+                        value={this.props.userName}
                     />
                     <TextInput
                         placeholder="Email"
                         placeholderTextColor={'rgba(44, 62, 80,1.0)'}
                         style={ styles.input}
-                        onChangeText={(email) => this.setState({email})}
-                        value={this.state.email}
+                        onChangeText={value => this.props.userUpdate({ prop: 'email', value })}
+                        value={this.props.email}
                         keyboardType={'email-address'}
                     />
 
@@ -66,8 +58,8 @@ export default class RegForm extends Component{
                         placeholder="Password"
                         placeholderTextColor={'rgba(44, 62, 80,1.0)'}
                         style={ styles.input}
-                        onChangeText={(password) => this.setState({password})}
-                        value={this.state.password}
+                        onChangeText={value => this.props.userUpdate({ prop: 'password', value })}
+                        value={this.props.password}
                     />
 
                     <TextInput
@@ -81,11 +73,11 @@ export default class RegForm extends Component{
                         <SelectInput
                             style={styles.textInputStyle}
                             options = {this.pickerSexo()}
-                            value = {this.state.sexo}
-                            onSubmitEditing = {(value) => this.setState({sexo: value})}
+                            value = {this.props.sexo}
+                            onSubmitEditing = {value => this.props.userUpdate({ prop: 'sexo', value })}
                         />
                     </View>
-                    <TouchableOpacity onPress={this.onBack} style={ styles.buttonContainer2}>
+                    <TouchableOpacity onPress={this.onButtonPress.bind(this)} style={ styles.buttonContainer2}>
                         <Text style={styles.buttonText}>Registrarse</Text>
                     </TouchableOpacity>
                 </KeyboardAvoidingView>
@@ -158,3 +150,14 @@ const styles = StyleSheet.create({
         borderColor:'grey'
     }
 });
+
+
+ const mapStateToProps = (state) => {
+    const { userName,email,password,sexo } = state.regForm;
+
+    return { userName,email,password,sexo };
+};
+
+export default connect(mapStateToProps, {
+    userUpdate, createUser
+})(RegForm);
