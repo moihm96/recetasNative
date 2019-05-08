@@ -14,7 +14,7 @@ import favOn from "../img/favOn.png";
 const recetaView = (props) =>{
     const {receta} =props;
     return(
-        <ImageBackground style={styles.imageContainer} source={receta.imagen}>
+        <ImageBackground style={styles.imageContainer} source={{uri:receta.imageUrl}}>
             <View style={styles.iconContainerStyle}>
                 <Image source={favOn} style={styles.iconStyle}/>
             </View>

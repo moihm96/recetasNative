@@ -7,13 +7,13 @@ import {
     KeyboardAvoidingView,
     TextInput, TouchableOpacity
 } from 'react-native';
-import {heightPercentageToDP, widthPercentageToDP} from "../auxiliar/ScreenDimension";
+import {heightPercentageToDP, widthPercentageToDP} from "../../auxiliar/ScreenDimension";
 import { Actions } from 'react-native-router-flux';
 import SelectInput from 'react-native-select-input-ios'
 let arrayEmpty=["Cualquiera"]
 let sexos=["Cualquiera","Hombre","Mujer"]
 let sexo=arrayEmpty[0]
-import {userUpdate, createUser} from "../actions/RegActions";
+import {userUpdate, createUser} from "../../actions/RegActions";
 import {connect} from 'react-redux';
 
  class RegForm extends Component{

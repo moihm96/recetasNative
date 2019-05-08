@@ -10,11 +10,11 @@ import {
     StyleSheet,
     Text
 } from 'react-native'
- import cabecera from '../img/cabecera.png'
-import {heightPercentageToDP,widthPercentageToDP} from "../auxiliar/ScreenDimension";
+ import cabecera from '../../img/cabecera.png'
+import {heightPercentageToDP,widthPercentageToDP} from "../../auxiliar/ScreenDimension";
 import IonIcon from 'react-native-vector-icons/Ionicons'
 import { Actions } from 'react-native-router-flux'
-import ModalSearch from "../Grid/ModalSearch";
+import ModalSearch from "../../Grid/ModalSearch";
 class Header extends Component{
     constructor(props){
         super(props)

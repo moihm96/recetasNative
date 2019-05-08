@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import {Image, View,Text,FlatList,ScrollVIew} from 'react-native';
+import {Image, View,Text,FlatList,ScrollView} from 'react-native';
 import {recetas} from "../../data/datasource";
 import FavouriteItemList from '../../components/FavouriteItemList'
-import Header from '../../components/Header'
+import Header from './Header'
 export default class ownRecetas extends Component {
     constructor(props){
         super(props);

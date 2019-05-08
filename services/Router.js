@@ -1,27 +1,30 @@
-import Launch from '../src/components/Launch'
-import StartView from '../src/components/Start'
-import Register from '../src/components/RegForm'
+import Launch from '../src/container/ui/Launch'
+import StartView from '../src/container/ui/Start'
+import Register from '../src/container/ui/RegForm'
 import React from 'react'
 import { Router, Scene, Actions, Stack} from 'react-native-router-flux'
-import Header from '../src/components/Header'
-import Menu from '../src/components/sideMenu'
+import Header from '../src/container/ui/Header'
+import Menu from '../src/container/ui/sideMenu'
 import Favoritos from '../src/container/ui/Favoritos'
 import ownRecetas from '../src/container/ui/ownRecetas'
 import userRecetas from '../src/container/ui/userRecetas'
 import addRecetas from '../src/components/addRecetas'
 import addIngr from '../src/components/AddIngredientes'
 import addPreparation from '../src/components/addPreparation'
-import showReceta from "../src/components/showReceta"
+import showReceta from "../src/container/ui/showReceta"
 import {StyleSheet} from 'react-native'
 const Routes = () => (
     <Router backAndroidHandler={onBackAndroid}>
 
         <Scene key = "root"
-               navBar={Header}
-               navigationBarStyle={styles.navBarStyle}
-               drawer
-               drawerWidth={300}
-               contentComponent={Menu}>
+               navBar={Header}>
+            <Scene
+                key = 'app'
+                drawer
+                drawerWidth={300}
+                contentComponent={Menu}
+                hideNavBar
+            >
                 <Scene
                     key = "launch"
                     component = {Launch}
@@ -71,6 +74,7 @@ const Routes = () => (
                     component={showReceta}
                 />
             </Stack>
+            </Scene>
 
         </Scene>
 

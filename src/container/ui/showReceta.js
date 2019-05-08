@@ -9,12 +9,12 @@ import {
     TextInput,
     TouchableOpacity
 } from 'react-native'
-import fondo from "../img/fondo.png"
-import {heightPercentageToDP, widthPercentageToDP} from "../auxiliar/ScreenDimension";
+import fondo from "../../img/fondo.png"
+import {heightPercentageToDP, widthPercentageToDP} from "../../auxiliar/ScreenDimension";
 import {Avatar,Icon} from "react-native-elements";
 import FontIcon from "react-native-vector-icons/FontAwesome"
 import {Rating} from "react-native-ratings";
-import Option from "./optionView"
+import Option from "../../components/optionView"
 import {Actions} from "react-native-router-flux";
 export default class showReceta extends Component{
     constructor(props){
@@ -36,19 +36,19 @@ export default class showReceta extends Component{
         }
     }
     parsePreparacion(){
-        if(this.props.receta.preparacion){
-            return this.props.receta.preparacion.map((data,i)=>{
+        if(this.props.receta.pasos){
+            return this.props.receta.pasos.map((data,i)=>{
                 return(
                     <View key={i} style={{padding: 10}}>
                         <Image  style={styles.imagenStyle}
                                 resizeMode={"cover"}
-                                source={data.imagen}/>
+                                source={{uri:data.imagen}}/>
                         <View style={{flexDirection: "row", marginTop: 5}}>
-                            <Text style={styles.pasoStyle}>{data.paso}</Text>
+                            <Text style={styles.pasoStyle}>{data.pid}</Text>
                             <View style={{borderLeftWidth:5,
                                 borderColor:'rgb(255,216,0)', paddingLeft: 10}}>
                                 <Text style={{fontWeight:"bold", fontSize:15}}>{data.titulo}</Text>
-                                <Text style={{ fontSize:15}}>{data.descripcion}</Text>
+                                <Text style={{ fontSize:15}}>{data.descr}</Text>
                             </View>
                         </View>
                     </View>
@@ -65,11 +65,11 @@ export default class showReceta extends Component{
                 <ScrollView>
                     <Text style={styles.textSections}>{this.props.receta.titulo}</Text>
                     <View style={styles.vistaEntrada}>
-                        <Image  source={this.props.receta.imagen}
+                        <Image  source={{uri:this.props.receta.imageUrl}}
                                 style={styles.imagenStyle}
                                 resizeMode={"cover"}/>
                         <View style={{justifyContent: "flex-end"}}>
-                            <Avatar rounded source={this.props.receta.avatar} size={"medium"} containerStyle={styles.avStyle}/>
+                            <Avatar rounded source={{uri:this.props.receta.avatar}} size={"medium"} containerStyle={styles.avStyle}/>
                         </View>
                         <Option
                             recetas={this.props.receta}
@@ -78,13 +78,13 @@ export default class showReceta extends Component{
                         <Text>
                             Autor:
                             <Text style={{fontWeight: 'bold'}}>
-                                {this.props.receta.users}
+                                {this.props.receta.autor}
                             </Text>
                         </Text>
                     </View>
                     <Text style={styles.textSections}>Ingredientes</Text>
                     <View style={styles.vistaEntrada}>
-                        <Text style={{color:'rgb(255,216,0)' }}>Para {this.props.receta.personas} personas</Text>
+                        <Text style={{color:'rgb(255,216,0)' }}>Para {this.props.receta.numPerson} personas</Text>
                         {this.parseIngredientes()}
                     </View>
                     <Text style={styles.textSections}>Preparacion</Text>

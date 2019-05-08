@@ -7,8 +7,17 @@ import {
 } from 'react-native';
 import {recetas} from '../../data/datasource'
 import FavouriteItemList from '../../components/FavouriteItemList'
-import Header from '../../components/Header'
+import Header from './Header'
+import {userFetch} from "../../actions/UserProfileAction";
+import {connect} from 'react-redux'
+import {heightPercentageToDP, widthPercentageToDP} from "../../auxiliar/ScreenDimension";
+import _ from 'lodash'
 export default class Favoritos extends Component {
+    /**async componentWillMount() {
+        this.props.userFetch();
+        console.log(this.props);
+    }*/
+
     constructor(props){
         super(props);
         this.state={
@@ -48,3 +57,9 @@ export default class Favoritos extends Component {
 
 const styles = StyleSheet.create({
 });
+/**const mapStateToProps = state => {
+    const userProfile = state.user;
+
+    return {userProfile};
+}
+export default connect(mapStateToProps, {userFetch})(Favoritos)*/

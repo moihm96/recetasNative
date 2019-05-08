@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import Routes from './services/Router';
-import * as firebase from "firebase";
+import * as firebase from 'firebase';
 import {Provider} from "react-redux";
-import {createStore,applyMiddleware} from "redux";
+import {createStore, applyMiddleware} from "redux";
 import ReduxThunk from "redux-thunk";
 import reducers from './src/reducers'
-console.ignoredYellowBox = ['Warning: Each', "Warning: Failed prop type","Warning: Failed child context type"];
+
+
 class App extends Component {
     componentWillMount() {
+        console.disableYellowBox='true';
         const config={
             apiKey: "AIzaSyBOI8LwWP-1VRLNMicdecjNanQIIQmK0EU",
             authDomain: "react-native-a2f5d.firebaseapp.com",

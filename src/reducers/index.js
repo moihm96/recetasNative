@@ -1,8 +1,13 @@
 import {combineReducers} from "redux";
 import AuthReducer from "./AuthReducer"
 import RegReducer from "./RegReducer";
+import UserReducer from './UserProfileReducer'
+import AllRecipes from './RecetasReducer'
+
 
 export default combineReducers({
     auth:AuthReducer,
-    regForm:RegReducer
+    regForm:RegReducer,
+    DataUser: UserReducer,
+    allRecipes:AllRecipes
 })

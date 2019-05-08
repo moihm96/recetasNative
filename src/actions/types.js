@@ -6,3 +6,7 @@ export const LOGIN_USER = 'login_user';
 
 export const USER_UPDATE = 'update_user';
 export const USER_CREATE = 'user_create';
+export const FETCH_USER_SUCCESS = 'fetch_user_success'
+export const GET_USER_ID = 'get_user_id'
+
+export const FETCH_ALL_RECIPES_SUCCESS = 'fetch_recipes_success';

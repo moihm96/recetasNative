@@ -5,9 +5,7 @@ import {
     PASSWORD_CHANGED,
     LOGIN_USER_SUCCESS,
     LOGIN_USER_FAIL,
-    LOGIN_USER,
-    USER_UPDATE,
-    USER_CREATE
+    LOGIN_USER
 } from './types';
 
 export const emailChanged = (text) => {
@@ -35,7 +33,6 @@ export const loginUser = ({ email, password }) => {
 };
 
 
-
 const loginUserFail = (dispatch) => {
     dispatch({ type: LOGIN_USER_FAIL });
     Actions.register()
@@ -48,4 +45,5 @@ const loginUserSuccess = (dispatch, user) => {
     });
 
     Actions.usersRecetas();
+
 };

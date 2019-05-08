@@ -40,6 +40,7 @@ export default class AddIngredientes extends Component{
     }
     onAdd(){
         //Adding Items To Array.
+
         ingredients.push( this.state.ingrediente.toString() );
 
         this.setState({ingrediente:""})

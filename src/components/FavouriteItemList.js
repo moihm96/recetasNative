@@ -27,7 +27,6 @@ class FavouriteItemList extends Component{
                     <Option
                         recetas={this.props.receip}
                     />
-
                 </View>
             </TouchableOpacity>
         );

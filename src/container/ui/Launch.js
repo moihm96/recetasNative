@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {StyleSheet, Text, View,Image } from 'react-native';
-import abuela from '../img/abuela.jpg'
-import { widthPercentageToDP, heightPercentageToDP } from '../auxiliar/ScreenDimension'
+import abuela from '../../img/abuela.jpg'
+import { widthPercentageToDP, heightPercentageToDP } from '../../auxiliar/ScreenDimension'
 import { Actions } from 'react-native-router-flux';
 
 export default class Launch extends Component {

@@ -2,16 +2,39 @@ import React, { Component } from 'react';
 import {Image, View,Text,FlatList,ScrollView} from 'react-native';
 import {recetas} from "../../data/datasource";
 import FavouriteItemList from '../../components/FavouriteItemList'
-import Header from '../../components/Header'
-export default class userRecetas extends Component {
+import Header from './Header'
+import {allRecipesFetch} from "../../actions/RecetasActions";
+import {connect} from 'react-redux'
+import _ from 'lodash'
+
+class userRecetas extends Component {
+    componentWillMount() {
+        this.props.allRecipesFetch();
+
+        /**this.setState({
+            data: this.props
+        });*/
+        console.log(this.props.recipes)
+        this.setState({
+            data: this.props.recipes
+        })
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps.recipes)
+        this.setState({
+            data: nextProps.recipes
+        })
+    }
+
     constructor(props){
         super(props);
         this.state={
-            data:recetas
+            data:[]
         }
     }
     filterSearch = (text) =>{
-        const newData = recetas.filter(function(item){
+        const newData = this.props.recipes.filter(function(item){
             const itemData = item.titulo.toUpperCase()
             const textData = text.toUpperCase()
             return itemData.indexOf(textData) > -1
@@ -29,7 +52,6 @@ export default class userRecetas extends Component {
                 <FlatList
                     data={this.state.data}
                     renderItem={({item}) =>
-
                         <FavouriteItemList
                             receip={item}
                         />
@@ -39,3 +61,11 @@ export default class userRecetas extends Component {
         );
     }
 }
+
+const mapStateToProps = state =>{
+    const recipes = state.allRecipes;
+
+    return {recipes}
+}
+
+export default connect(mapStateToProps ,{allRecipesFetch})(userRecetas)

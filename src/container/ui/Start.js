@@ -7,9 +7,9 @@ import {
     KeyboardAvoidingView,
     ScrollView
 } from 'react-native';
-import LoginForm from './LoginForm'
-import { widthPercentageToDP, heightPercentageToDP } from '../auxiliar/ScreenDimension'
-import comida from '../img/comida.jpg'
+import LoginForm from '../../components/LoginForm'
+import { widthPercentageToDP, heightPercentageToDP } from '../../auxiliar/ScreenDimension'
+import comida from '../../img/comida.jpg'
 export default class Start extends Component{
 
     render(){

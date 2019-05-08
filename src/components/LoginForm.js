@@ -13,7 +13,8 @@ import {Buttons} from "./Buttons"
 import { widthPercentageToDP, heightPercentageToDP } from '../auxiliar/ScreenDimension'
 import { Actions } from 'react-native-router-flux';
 import {emailChanged,passwordChanged,loginUser} from "../actions/AuthActions";
-import {connect} from "react-redux"
+import {connect} from "react-redux";
+import * as firebase from 'firebase'
 class LoginForm extends Component{
     onRegister = () => {
         Actions.register();
@@ -30,6 +31,16 @@ class LoginForm extends Component{
         const { email, password } = this.props;
 
         this.props.loginUser({ email, password });
+       /** firebase.auth().signInWithEmailAndPassword(this.props.email, this.props.password)
+            .then(user =>{
+                console.log(user.uid)
+            })
+
+        const {currentUser} = firebase.auth()
+        if(currentUser){
+            console.log(currentUser.uid)
+        }*/
+
     }
     renderButton(){
         console.log(this.props.loading)
@@ -75,9 +86,7 @@ class LoginForm extends Component{
                 <Text style={styles.errorTextStyle}>
                     {this.props.error}
                 </Text>
-                <View>
-                    {this.renderButton()}
-                </View>
+                <View>{this.renderButton()}</View>
             </KeyboardAvoidingView>
 
         );

@@ -14,23 +14,32 @@ let paises=["Cualquiera","España","Cuba"]
 let pais=arrayEmpty[0]
 import {Avatar} from 'react-native-elements'
 import SelectInput from 'react-native-select-input-ios'
-import {heightPercentageToDP,widthPercentageToDP} from "../auxiliar/ScreenDimension";
-import fondo from '../img/fondo.png'
-import favIcon from '../img/favOff.png'
-import add from '../img/Add.png'
-import imgOur from '../img/imgOur.png'
-import imgUser from '../img/imgUser.png'
-import abuelita from '../img/coco.jpg'
-import Earth from '../img/Earth.png'
+import {heightPercentageToDP,widthPercentageToDP} from "../../auxiliar/ScreenDimension";
+import fondo from '../../img/fondo.png'
+import favIcon from '../../img/favOff.png'
+import add from '../../img/Add.png'
+import imgOur from '../../img/imgOur.png'
+import imgUser from '../../img/imgUser.png'
+import abuelita from '../../img/coco.jpg'
+import Earth from '../../img/Earth.png'
 import {Actions} from 'react-native-router-flux'
+import {userFetch} from "../../actions/UserProfileAction";
+import {connect} from 'react-redux';
+import * as firebase from 'firebase/index';
+import _ from 'lodash'
 
-export default class sideMenu extends Component{
+class sideMenu extends Component{
+    componentDidMount() {
+        this.props.userFetch();
+    }
+
     constructor(props){
         super(props)
 
         this.state = {
             arrayPais:paises,
             pais:pais,
+            uid:""
         };
     }
     pickerPais(){
@@ -44,6 +53,7 @@ export default class sideMenu extends Component{
         Actions.startView();
     }
     render(){
+        console.log(this.props.user)
         return(
             <ImageBackground source={fondo}
                              style={styles.container}>
@@ -158,3 +168,10 @@ const styles= StyleSheet.create({
         fontSize:16
     }
 });
+const mapStateToProps = state => {
+    const user = state.DataUser
+    const uid = state.DataUser
+    return { user, uid };
+};
+
+export default connect(mapStateToProps, {userFetch})(sideMenu)
