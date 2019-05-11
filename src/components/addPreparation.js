@@ -167,14 +167,14 @@ export default class addPreparation extends Component{
                 this.props.imagenPrincipal ?
                     uploadImage(this.props.imagenPrincipal, `imagen${this.state.uid}.jpg`)
                         .then((responseData) => {
-                            Helpers.setImageUrl(this.state.uid,this.props.title,responseData)
+                            Helpers.setImageUrl(this.state.uid,uid_recetas,responseData)
                         })
                         .done()
                     : null
                 this.props.avatarSource ?
                     uploadImage(this.props.avatarSource, `avatar${this.state.uid}.jpg`)
                         .then((responseData) => {
-                            Helpers.setAvatarUrl(this.state.uid,this.props.title,responseData)
+                            Helpers.setAvatarUrl(this.state.uid,uid_recetas,responseData)
                         })
                         .done()
                     : null
@@ -183,12 +183,12 @@ export default class addPreparation extends Component{
                     if(data.imagen){
                         uploadImage(data.imagen,`${data.titulo}.jpg`)
                             .then((responseData)=>{
-                                Helpers.setPaso(this.state.uid,this.props.title,index,responseData)
+                                Helpers.setPaso(this.state.uid,uid_recetas,index,responseData)
                             })
                     }
                 });
 
-                Helpers.setReceta(
+                let uid_recetas = Helpers.setReceta(
                     this.state.uid,
                     this.props.title,
                     this.props.autor,

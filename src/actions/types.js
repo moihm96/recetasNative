@@ -10,3 +10,7 @@ export const FETCH_USER_SUCCESS = 'fetch_user_success'
 export const GET_USER_ID = 'get_user_id'
 
 export const FETCH_ALL_RECIPES_SUCCESS = 'fetch_recipes_success';
+
+export const ADD_TO_FAVORITES = 'add_to_favorites'
+export const DELETE_FAVORITES = 'delete_favorites'
+export const FETCH_FAVORITES= 'fetch_favorites'

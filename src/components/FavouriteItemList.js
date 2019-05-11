@@ -17,6 +17,7 @@ class FavouriteItemList extends Component{
     onRowPress(){
         Actions.showReceta({receta:this.props.receip});
     }
+
     render(){
         return(
             <TouchableOpacity onPress={this.onRowPress.bind(this)}>
