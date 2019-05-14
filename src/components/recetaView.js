@@ -25,6 +25,7 @@ class recetaView extends Component{
         this.state ={
             like: true,
             isFav: false,
+            id:''
         };
     }
 

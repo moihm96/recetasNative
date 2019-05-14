@@ -1,6 +1,7 @@
-import {USER_CREATE, USER_UPDATE} from "./types";
+import {LOGIN_USER_SUCCESS, USER_UPDATE} from "./types";
 import * as firebase from 'firebase';
 import {Actions} from "react-native-router-flux";
+import {loginUser} from "./AuthActions";
 
 export const userUpdate = ({prop,value}) =>{
     return{
@@ -14,12 +15,24 @@ export const createUser =({userName,email,password,sexo}) => {
 
         firebase.auth().createUserWithEmailAndPassword(email,password)
             .then( user => {
-                firebase.database().ref("/user/"+user.uid+"/details/").set({userName,email,password,sexo})
-                    .then(()=>{
-                        dispatch({type: USER_CREATE})
-                        Actions.usersRecetas({type: 'reset'});
-                    })
+               user.updateProfile({
+                   displayName:userName,
+                   sexo:sexo
+               }).then(() =>{
+                   dispatch({
+                       type: LOGIN_USER_SUCCESS,
+                       payload: user
+                   });
+                   Actions.usersRecetas();
+               })
+
             })
     }
 
 }
+
+/** firebase.database().ref("/user/"+user.uid+"/details/").set({userName,email,password,sexo})
+ .then(()=>{
+                        dispatch({type: USER_CREATE})
+                        Actions.usersRecetas({type: 'reset'});
+                    })*/

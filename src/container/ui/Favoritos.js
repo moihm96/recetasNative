@@ -8,24 +8,40 @@ import {
 import {recetas} from '../../data/datasource'
 import FavouriteItemList from '../../components/FavouriteItemList'
 import Header from './Header'
-import {userFetch} from "../../actions/UserProfileAction";
-import {connect} from 'react-redux'
 import {heightPercentageToDP, widthPercentageToDP} from "../../auxiliar/ScreenDimension";
 import _ from 'lodash'
-export default class Favoritos extends Component {
-    /**async componentWillMount() {
-        this.props.userFetch();
-        console.log(this.props);
-    }*/
+import {connect} from 'react-redux'
+import {fecthFav} from "../../actions/FavAction";
+import * as firebase from 'firebase'
+class Favoritos extends Component {
+     componentWillMount() {
+        if(this.props.user){
+            this.props.fecthFav(this.props.user.uid);
+            //console.log(this.props)
+
+            this.setState({
+                data:this.props.favorites
+            })
+        }
+
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            data:nextProps.favorites
+        })
+    }
+
 
     constructor(props){
         super(props);
         this.state={
-            data:recetas
+            data:[],
+            text: ''
         }
     }
     filterSearch = (text) =>{
-        const newData = recetas.filter(function(item){
+        const newData = this.props.favorites.filter(function(item){
             const itemData = item.titulo.toUpperCase()
             const textData = text.toUpperCase()
             return itemData.indexOf(textData) > -1
@@ -57,9 +73,12 @@ export default class Favoritos extends Component {
 
 const styles = StyleSheet.create({
 });
-/**const mapStateToProps = state => {
-    const userProfile = state.user;
 
-    return {userProfile};
-}
-export default connect(mapStateToProps, {userFetch})(Favoritos)*/
+const mapStateToProps = state => {
+    const favorites = _.map(state.favRecipes, (val,uid) => {
+        return { ...val,uid};
+    });
+    const {user} = state.auth
+    return { favorites, user };
+};
+export default connect(mapStateToProps,{fecthFav})(Favoritos)

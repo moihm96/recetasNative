@@ -28,7 +28,8 @@ export default class AddIngredientes extends Component{
             arrayPersonas:personas,
             person:person,
             ingrediente:"",
-            ingredients:ingredients,
+            ingredients:[],
+            auxIngredients:[]
         }
     }
     pickerIngredientes(){
@@ -41,15 +42,16 @@ export default class AddIngredientes extends Component{
     onAdd(){
         //Adding Items To Array.
 
-        ingredients.push( this.state.ingrediente.toString() );
+        this.state.ingredients.push( this.state.ingrediente.toString() );
+        this.state.auxIngredients.push(this.state.ingrediente.toString())
 
         this.setState({ingrediente:""})
 
     }
 
     parseData(){
-        if(this.state.ingredients){
-            return this.state.ingredients.map((data,i)=>{
+        if(this.state.auxIngredients){
+            return this.state.auxIngredients.map((data,i)=>{
                 return(
                     <View key={i}>
                         <Text>{data}</Text>
@@ -94,17 +96,22 @@ export default class AddIngredientes extends Component{
                         <Buttons
                             text1={"Siguiente"}
                             text2={"Atrás"}
-                            onPress1={()=>Actions.addPreparation({
-                                title:this.props.title,
-                                autor:this.props.autor,
-                                entradilla:this.props.entradilla,
-                                time:this.props.time,
-                                dificultad:this.props.dificultad,
-                                imagenPrincipal:this.props.imagenPrincipal,
-                                avatarSource:this.props.avatarSource,
-                                person:this.state.person,
-                                ingredients:this.state.ingredients
-                            })}
+                            onPress1={()=>{
+                                this.setState({auxIngredients:[]})
+                                Actions.addPreparation({
+                                    title:this.props.title,
+                                    autor:this.props.autor,
+                                    entradilla:this.props.entradilla,
+                                    time:this.props.time,
+                                    dificultad:this.props.dificultad,
+                                    imagenPrincipal:this.props.imagenPrincipal,
+                                    avatarSource:this.props.avatarSource,
+                                    person:this.state.person,
+                                    ingredients:this.state.ingredients
+                                })
+                            }
+
+                                }
                             onPress2={()=> Actions.pop()}
                         />
                     </View>

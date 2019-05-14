@@ -2,13 +2,15 @@ import {combineReducers} from "redux";
 import AuthReducer from "./AuthReducer"
 import RegReducer from "./RegReducer";
 import UserReducer from './UserProfileReducer'
-import AllRecipes from './RecetasReducer'
+import AllRecipes from './RecetasAllReducer'
 import FavRecipes from './FavReducer'
+import OwnRecipes from './RecetasReducer'
 
 export default combineReducers({
     auth:AuthReducer,
     regForm:RegReducer,
-    DataUser: UserReducer,
+    userDetails: UserReducer,
     allRecipes:AllRecipes,
-    favRecipes : FavRecipes
+    favRecipes : FavRecipes,
+    ownRecipes: OwnRecipes
 })

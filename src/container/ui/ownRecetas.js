@@ -3,13 +3,39 @@ import {Image, View,Text,FlatList,ScrollView} from 'react-native';
 import {recetas} from "../../data/datasource";
 import FavouriteItemList from '../../components/FavouriteItemList'
 import Header from './Header'
-export default class ownRecetas extends Component {
+import _ from 'lodash'
+import * as firebase from 'firebase'
+import {connect} from 'react-redux'
+import {fetchRecipes} from "../../actions/RecetasActions";
+
+class ownRecetas extends Component {
     constructor(props){
         super(props);
         this.state={
-            data:recetas
+            data:[] ,
+            text:'',
+            id: ''
         }
     }
+
+      componentWillMount() {
+        if(this.props.user){
+            this.props.fetchRecipes(this.props.user.uid)
+            this.setState({
+                data:this.props.ownRecipes
+            })
+        }
+
+
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            data: nextProps.ownRecipes
+        })
+    }
+
+
     filterSearch = (text) =>{
         const newData = recetas.filter(function(item){
             const itemData = item.titulo.toUpperCase()
@@ -39,3 +65,15 @@ export default class ownRecetas extends Component {
         );
     }
 }
+
+const mapStateToProps = state =>{
+    const ownRecipes = _.map(state.ownRecipes, (val,uid) =>{
+        return {...val,uid}
+    })
+    const {user} = state.auth
+
+
+    return {ownRecipes, user}
+}
+
+export default connect(mapStateToProps,{fetchRecipes})(ownRecetas)

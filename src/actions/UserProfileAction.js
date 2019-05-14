@@ -1,21 +1,15 @@
 import {FETCH_USER_SUCCESS} from "./types";
 import * as firebase from 'firebase'
+import {Actions} from "react-native-router-flux";
 
-export const userFetch = () => {
-    const {currentUser} = firebase.auth();
-    console.log(currentUser)
+export const userFetch = (id) => {
 
-    if(currentUser){
         return (dispatch) => {
-            firebase.database().ref(`/user/${currentUser.uid}/details`)
+            firebase.database().ref(`/user/${id}/details`)
                 .on('value', snapshot => {
                     dispatch({ type: FETCH_USER_SUCCESS, payload: snapshot.val() });
+                    Actions.usersRecetas();
                 });
         };
-    }else{
-        return (dispatch => {
-            dispatch({type: FETCH_USER_SUCCESS, payload: null})
-        })
-    }
 };
 

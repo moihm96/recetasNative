@@ -13,6 +13,7 @@ import {Buttons} from "./Buttons"
 import { widthPercentageToDP, heightPercentageToDP } from '../auxiliar/ScreenDimension'
 import { Actions } from 'react-native-router-flux';
 import {emailChanged,passwordChanged,loginUser} from "../actions/AuthActions";
+import {userFetch} from "../actions/UserProfileAction";
 import {connect} from "react-redux";
 import * as firebase from 'firebase'
 class LoginForm extends Component{
@@ -122,11 +123,11 @@ const styles = StyleSheet.create({
 
 });
 const mapStateToProps = ({ auth }) => {
-    const { email, password, error, loading } = auth;
+    const { email, password, error, loading, user } = auth;
 
-    return { email, password, error, loading };
+    return { email, password, error, loading, user };
 };
 
 export default connect(mapStateToProps, {
-    emailChanged, passwordChanged, loginUser
+    emailChanged, passwordChanged, loginUser, userFetch
 })(LoginForm);

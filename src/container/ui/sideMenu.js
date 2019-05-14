@@ -29,10 +29,6 @@ import * as firebase from 'firebase/index';
 import _ from 'lodash'
 
 class sideMenu extends Component{
-    componentDidMount() {
-        this.props.userFetch();
-    }
-
     constructor(props){
         super(props)
 
@@ -52,11 +48,26 @@ class sideMenu extends Component{
     openLoggin(){
         Actions.startView();
     }
-    render(){
-        console.log(this.props.user)
-        return(
-            <ImageBackground source={fondo}
-                             style={styles.container}>
+    login(){
+        if(this.props.user){
+            return(
+                <View style={styles.avatarStyle}>
+                    <Avatar
+                        medium
+                        source={abuelita}
+                        size={80}
+                        rounded
+                    />
+                    <Text style={styles.textRegistrate}>{this.props.user.displayName}</Text>
+                    <TouchableOpacity style={styles.buttonContainer}
+                                      onPress={() => this.openLoggin()}
+                    >
+                        <Text style={styles.textIniciar}>Log Out</Text>
+                    </TouchableOpacity>
+                </View>
+            )
+        }else{
+            return(
                 <View style={styles.avatarStyle}>
                     <Avatar
                         medium
@@ -71,6 +82,16 @@ class sideMenu extends Component{
                         <Text style={styles.textIniciar}>Inicia Sesion</Text>
                     </TouchableOpacity>
                 </View>
+            )
+        }
+
+    }
+    render(){
+
+        return(
+            <ImageBackground source={fondo}
+                             style={styles.container}>
+                {this.login()}
 
                 <View style={styles.opcionStyle}>
                     <Image source={Earth} style={styles.imageStyle} />
@@ -169,9 +190,8 @@ const styles= StyleSheet.create({
     }
 });
 const mapStateToProps = state => {
-    const user = state.DataUser
-    const uid = state.DataUser
-    return { user, uid };
+    const {user} = state.auth
+    return{user}
 };
 
-export default connect(mapStateToProps, {userFetch})(sideMenu)
+export default connect(mapStateToProps,null )(sideMenu)
