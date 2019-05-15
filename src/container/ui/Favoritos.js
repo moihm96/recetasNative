@@ -6,7 +6,7 @@ import {
     ScrollView
 } from 'react-native';
 import {recetas} from '../../data/datasource'
-import FavouriteItemList from '../../components/FavouriteItemList'
+import FavouriteItemList from '../../components/ItemList'
 import Header from './Header'
 import {heightPercentageToDP, widthPercentageToDP} from "../../auxiliar/ScreenDimension";
 import _ from 'lodash'
@@ -24,7 +24,7 @@ class Favoritos extends Component {
             })
         }
 
-    }
+     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({

@@ -23,7 +23,7 @@ import imgUser from '../../img/imgUser.png'
 import abuelita from '../../img/coco.jpg'
 import Earth from '../../img/Earth.png'
 import {Actions} from 'react-native-router-flux'
-import {userFetch} from "../../actions/UserProfileAction";
+import {signOut} from '../../actions/AuthActions'
 import {connect} from 'react-redux';
 import * as firebase from 'firebase/index';
 import _ from 'lodash'
@@ -48,6 +48,9 @@ class sideMenu extends Component{
     openLoggin(){
         Actions.startView();
     }
+    signout(){
+        this.props.signOut();
+    }
     login(){
         if(this.props.user){
             return(
@@ -60,7 +63,7 @@ class sideMenu extends Component{
                     />
                     <Text style={styles.textRegistrate}>{this.props.user.displayName}</Text>
                     <TouchableOpacity style={styles.buttonContainer}
-                                      onPress={() => this.openLoggin()}
+                                      onPress={() => this.signout()}
                     >
                         <Text style={styles.textIniciar}>Log Out</Text>
                     </TouchableOpacity>
@@ -194,4 +197,4 @@ const mapStateToProps = state => {
     return{user}
 };
 
-export default connect(mapStateToProps,null )(sideMenu)
+export default connect(mapStateToProps,{signOut} )(sideMenu)

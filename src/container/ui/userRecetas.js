@@ -1,19 +1,14 @@
 import React, { Component } from 'react';
-import {Image, View,Text,FlatList,ScrollView} from 'react-native';
-import {recetas} from "../../data/datasource";
-import FavouriteItemList from '../../components/FavouriteItemList'
+import {FlatList,ScrollView} from 'react-native';
+import FavouriteItemList from '../../components/ItemList'
 import Header from './Header'
 import {allRecipesFetch} from "../../actions/RecetasAllActions";
 import {connect} from 'react-redux'
-import _ from 'lodash'
 
 class userRecetas extends Component {
     componentWillMount() {
         this.props.allRecipesFetch();
 
-        /**this.setState({
-            data: this.props
-        });*/
         //console.log(this.props.recipes)
         this.setState({
             data: this.props.recipes

@@ -1,7 +1,6 @@
-import {LOGIN_USER_SUCCESS, USER_UPDATE} from "./types";
+import { USER_CREATE, USER_UPDATE} from "./types";
 import * as firebase from 'firebase';
 import {Actions} from "react-native-router-flux";
-import {loginUser} from "./AuthActions";
 
 export const userUpdate = ({prop,value}) =>{
     return{
@@ -20,7 +19,7 @@ export const createUser =({userName,email,password,sexo}) => {
                    sexo:sexo
                }).then(() =>{
                    dispatch({
-                       type: LOGIN_USER_SUCCESS,
+                       type: USER_CREATE,
                        payload: user
                    });
                    Actions.usersRecetas();

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Image, View,Text,FlatList,ScrollView} from 'react-native';
 import {recetas} from "../../data/datasource";
-import FavouriteItemList from '../../components/FavouriteItemList'
+import FavouriteItemList from '../../components/ItemList'
 import Header from './Header'
 import _ from 'lodash'
 import * as firebase from 'firebase'

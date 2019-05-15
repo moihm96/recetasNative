@@ -30,7 +30,21 @@ class recetaView extends Component{
     }
 
 
-     async componentWillMount(){
+
+    componentWillMount() {
+        if(this.props.user){
+            this.props.fecthFav(this.props.user.uid);
+            for(let i=0; i<this.props.favorites.length;i++){
+                if(this.props.favorites[i].uid.localeCompare(this.props.receta.uid)===0){
+                    this.setState({
+                        isFav:true
+                    })
+                }
+            }
+        }
+
+    }
+     /**async componentWillMount(){
          try {
              let user = await firebase.auth().currentUser;
 
@@ -48,7 +62,7 @@ class recetaView extends Component{
                  })
              }
          }
-    }
+    }*/
 
     onFav= (recipe, isActive) => {
         this.setState({
@@ -56,9 +70,9 @@ class recetaView extends Component{
         })
 
          if(!this.state.isFav){
-             this.props.addFav(this.props.receta, this.state.id)
+             this.props.addFav(this.props.receta, this.props.user.uid)
          } else{
-             this.props.deleteFav(this.props.receta.uid, this.state.id)
+             this.props.deleteFav(this.props.receta.uid, this.props.user.uid)
          }
     }
     render(){
@@ -106,7 +120,8 @@ const mapStateToProps = state => {
     const favorites = _.map(state.favRecipes, (val,uid) => {
         return { ...val,uid};
     });
-    return { favorites };
+    const {user} = state.auth
+    return { favorites, user };
 };
 export default connect(mapStateToProps,{
     addFav,deleteFav,fecthFav

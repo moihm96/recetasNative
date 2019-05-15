@@ -26,7 +26,7 @@ const options={
 let pasosAux=[];
 import Helpers from "./helpers"
 import * as firebase from 'firebase'
-import RNFetchBlob from 'react-native-fetch-blob'
+import RNFetchBlob from 'rn-fetch-blob'
 const Blob = RNFetchBlob.polyfill.Blob
 const fs = RNFetchBlob.fs
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
@@ -165,14 +165,14 @@ export default class addPreparation extends Component{
 
                 Actions.usersRecetas()*/
                 this.props.imagenPrincipal ?
-                    uploadImage(this.props.imagenPrincipal, `imagen${this.state.uid}.jpg`)
+                    uploadImage(this.props.imagenPrincipal, `imagen${this.state.uid}${this.props.titulo}.jpg`)
                         .then((responseData) => {
                             Helpers.setImageUrl(this.state.uid,uid_recetas,responseData)
                         })
                         .done()
                     : null
                 this.props.avatarSource ?
-                    uploadImage(this.props.avatarSource, `avatar${this.state.uid}.jpg`)
+                    uploadImage(this.props.avatarSource, `avatar${this.state.uid}${this.props.titulo}.jpg`)
                         .then((responseData) => {
                             Helpers.setAvatarUrl(this.state.uid,uid_recetas,responseData)
                         })
