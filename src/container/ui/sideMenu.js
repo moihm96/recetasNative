@@ -27,6 +27,7 @@ import {signOut} from '../../actions/AuthActions'
 import {connect} from 'react-redux';
 import * as firebase from 'firebase/index';
 import _ from 'lodash'
+import ModalLogin from "../../Grid/ModalLogin";
 
 class sideMenu extends Component{
     constructor(props){
@@ -35,7 +36,9 @@ class sideMenu extends Component{
         this.state = {
             arrayPais:paises,
             pais:pais,
-            uid:""
+            uid:"",
+            modalVisible:Boolean(this.props.user),
+            election:0
         };
     }
     pickerPais(){
@@ -89,12 +92,31 @@ class sideMenu extends Component{
         }
 
     }
+    showFavorito(){
+        console.log(this.props.user)
+        if (this.props.user){
+            Actions.favoritos()
+        } else {
+            this.setState({
+                modalVisible:!this.props.user,
+                election:1
+            })
+        }
+    }
+    onClickClose(isOpen){
+        this.setState({modalVisible:isOpen})
+    }
     render(){
 
         return(
             <ImageBackground source={fondo}
                              style={styles.container}>
                 {this.login()}
+                <ModalLogin
+                    modalVisible={this.state.modalVisible}
+                    election={this.state.election}
+                    callback={this}
+                />
 
                 <View style={styles.opcionStyle}>
                     <Image source={Earth} style={styles.imageStyle} />
@@ -111,13 +133,19 @@ class sideMenu extends Component{
                 </View>
                 <View style={styles.opcionStyle}>
                     <Image source={favIcon} style={styles.imageStyle}/>
-                    <TouchableWithoutFeedback onPress={() => Actions.favoritos()}>
+                    <TouchableWithoutFeedback onPress={() => this.showFavorito()}>
                         <Text style={styles.textMenu}>Favoritos</Text>
                     </TouchableWithoutFeedback>
                 </View>
                 <View style={styles.opcionStyle}>
                     <Image source={add} style={styles.imageStyle}/>
-                    <TouchableWithoutFeedback  onPress={() => Actions.addRecetas()}>
+                    <TouchableWithoutFeedback onPress={() => {
+                        if (this.props.user){
+                            Actions.addRecetas()
+                        } else {
+                            this.setState({modalVisible:!this.props.user, election:2})
+                        }
+                    }}>
                         <Text style={styles.textMenu}>Añadir Receta</Text>
                     </TouchableWithoutFeedback>
                 </View>
@@ -129,7 +157,13 @@ class sideMenu extends Component{
                 </View>
                 <View style={styles.opcionStyle}>
                     <Image source={imgOur} style={styles.imageStyle}/>
-                    <TouchableWithoutFeedback  onPress={() => Actions.ownRecetas()}>
+                    <TouchableWithoutFeedback onPress={() => {
+                        if (this.props.user){
+                            Actions.ownRecetas()
+                        } else{
+                            this.setState({modalVisible:!this.props.user, election:3})
+                        }
+                    }}>
                         <Text style={styles.textMenu}>Nuestras Recetas</Text>
                     </TouchableWithoutFeedback>
                 </View>

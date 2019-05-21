@@ -11,6 +11,9 @@ import LoginForm from '../../components/LoginForm'
 import { widthPercentageToDP, heightPercentageToDP } from '../../auxiliar/ScreenDimension'
 import comida from '../../img/comida.jpg'
 export default class Start extends Component{
+    onUser = (isUser) =>{
+        console.log(isUser)
+    }
 
     render(){
         return(
@@ -23,7 +26,10 @@ export default class Start extends Component{
                             source={ comida }/>
                     </View>
                     <View style = {styles.formContainer}>
-                        <LoginForm/>
+                        <LoginForm
+                            onUser={this.onUser}
+                            election={0}
+                        />
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>

@@ -31,20 +31,15 @@ class LoginForm extends Component{
     onButtonPress() {
         const { email, password } = this.props;
 
-        this.props.loginUser({ email, password });
-       /** firebase.auth().signInWithEmailAndPassword(this.props.email, this.props.password)
-            .then(user =>{
-                console.log(user.uid)
-            })
+        this.props.loginUser({ email, password }, this.props.election);
 
-        const {currentUser} = firebase.auth()
-        if(currentUser){
-            console.log(currentUser.uid)
-        }*/
-
+    }
+    onUser(modal){
+        this.props.onUser(modal)
     }
     renderButton(){
         console.log(this.props.loading)
+        this.onUser(this.props.modal)
         if(this.props.loading){
             return(
                 <View style={styles.spinnerStyle}>
@@ -123,9 +118,9 @@ const styles = StyleSheet.create({
 
 });
 const mapStateToProps = ({ auth }) => {
-    const { email, password, error, loading, user } = auth;
+    const { email, password, error, loading, user, modal } = auth;
 
-    return { email, password, error, loading, user };
+    return { email, password, error, loading, user , modal};
 };
 
 export default connect(mapStateToProps, {

@@ -22,12 +22,12 @@ export const passwordChanged = (text) => {
     };
 };
 
-export const loginUser = ({ email, password }) => {
+export const loginUser = ({ email, password }, election) => {
     return (dispatch) => {
         dispatch({ type: LOGIN_USER });
 
         firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(user => loginUserSuccess(dispatch, user))
+            .then(user => loginUserSuccess(dispatch, user, election))
             .catch(() => loginUserFail(dispatch));
     };
 };
@@ -38,13 +38,25 @@ const loginUserFail = (dispatch) => {
     Actions.register()
 };
 
-const loginUserSuccess = (dispatch, user) => {
+const loginUserSuccess = (dispatch, user, election) => {
     dispatch({
         type: LOGIN_USER_SUCCESS,
         payload: user
     });
 
-    Actions.usersRecetas();
+    switch(election) {
+        case 1:
+            Actions.favoritos()
+            break;
+        case 2:
+            Actions.addRecetas()
+            break;
+        case 3:
+            Actions.ownRecetas()
+            break
+        default:
+        Actions.userRecetas()
+    }
 };
 
 export const signOut = () =>{

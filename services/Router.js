@@ -32,13 +32,15 @@ const Routes = () => (
                     panHandlers={null}
                     hideNavBar={true}
                      />
-                <Scene  key="startView"
-                        component={StartView}
-                        />
-                <Scene  key="register"
-                        component={Register}
-                        hideNavBar={true}
-                        />
+                <Stack key="Login">
+                    <Scene  key="startView"
+                            component={StartView}
+                    />
+                    <Scene  key="register"
+                            component={Register}
+                            hideNavBar={true}
+                    />
+                </Stack>
 
             <Stack key="recetas">
                 <Scene
