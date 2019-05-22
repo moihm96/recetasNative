@@ -30,9 +30,3 @@ export const createUser =({userName,email,password,sexo, photoUrl}) => {
     }
 
 }
-
-/** firebase.database().ref("/user/"+user.uid+"/details/").set({userName,email,password,sexo})
- .then(()=>{
-                        dispatch({type: USER_CREATE})
-                        Actions.usersRecetas({type: 'reset'});
-                    })*/

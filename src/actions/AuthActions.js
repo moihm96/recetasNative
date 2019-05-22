@@ -22,41 +22,35 @@ export const passwordChanged = (text) => {
     };
 };
 
-export const loginUser = ({ email, password }, election) => {
+export const loginUser = ({ email, password }) => {
     return (dispatch) => {
         dispatch({ type: LOGIN_USER });
 
-        firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(user => loginUserSuccess(dispatch, user, election))
-            .catch(() => loginUserFail(dispatch));
+        firebase.auth().signInWithEmailAndPassword(email, password).then(
+            (user) =>{ loginUserSuccess(dispatch, user)}
+        ).catch(
+            () => {
+                loginUserFail(dispatch)
+            }
+        )
     };
 };
 
 
 const loginUserFail = (dispatch) => {
     dispatch({ type: LOGIN_USER_FAIL });
+    console.log('No se ha autenticado')
     Actions.register()
 };
 
-const loginUserSuccess = (dispatch, user, election) => {
+const loginUserSuccess = (dispatch, user) => {
     dispatch({
         type: LOGIN_USER_SUCCESS,
         payload: user
     });
+    Actions.ownRecetas()
 
-    switch(election) {
-        case 1:
-            Actions.favoritos()
-            break;
-        case 2:
-            Actions.addRecetas()
-            break;
-        case 3:
-            Actions.ownRecetas()
-            break
-        default:
-        Actions.userRecetas()
-    }
+
 };
 
 export const signOut = () =>{

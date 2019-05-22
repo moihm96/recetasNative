@@ -11,8 +11,16 @@ import LoginForm from '../../components/LoginForm'
 import { widthPercentageToDP, heightPercentageToDP } from '../../auxiliar/ScreenDimension'
 import comida from '../../img/comida.jpg'
 export default class Start extends Component{
+    constructor(props){
+        super(props)
+        this.state={
+            modal: false
+        }
+    }
     onUser = (isUser) =>{
-        console.log(isUser)
+        this.setState({
+            modal:isUser
+        })
     }
 
     render(){
@@ -28,7 +36,6 @@ export default class Start extends Component{
                     <View style = {styles.formContainer}>
                         <LoginForm
                             onUser={this.onUser}
-                            election={0}
                         />
                     </View>
                 </ScrollView>

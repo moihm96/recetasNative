@@ -38,7 +38,6 @@ class sideMenu extends Component{
             pais:pais,
             uid:"",
             modalVisible:Boolean(this.props.user),
-            election:0
         };
     }
     pickerPais(){
@@ -47,12 +46,6 @@ class sideMenu extends Component{
             array.push({value:data, label: data})
         });
         return(array)
-    }
-    openLoggin(){
-        Actions.startView();
-    }
-    signout(){
-        this.props.signOut();
     }
     login(){
         if(this.props.user){
@@ -66,7 +59,7 @@ class sideMenu extends Component{
                     />
                     <Text style={styles.textRegistrate}>{this.props.user.displayName}</Text>
                     <TouchableOpacity style={styles.buttonContainer}
-                                      onPress={() => this.signout()}
+                                      onPress={() => this.props.signOut()}
                     >
                         <Text style={styles.textIniciar}>Log Out</Text>
                     </TouchableOpacity>
@@ -83,7 +76,7 @@ class sideMenu extends Component{
                     />
                     <Text style={styles.textRegistrate}>Registrate o inicia sesion</Text>
                     <TouchableOpacity style={styles.buttonContainer}
-                                      onPress={() => this.openLoggin()}
+                                      onPress={() => Actions.startView()}
                     >
                         <Text style={styles.textIniciar}>Inicia Sesion</Text>
                     </TouchableOpacity>
@@ -98,8 +91,7 @@ class sideMenu extends Component{
             Actions.favoritos()
         } else {
             this.setState({
-                modalVisible:!this.props.user,
-                election:1
+                modalVisible:!this.props.user
             })
         }
     }
@@ -111,10 +103,9 @@ class sideMenu extends Component{
         return(
             <ImageBackground source={fondo}
                              style={styles.container}>
-                {this.login()}
+                <View>{this.login()}</View>
                 <ModalLogin
                     modalVisible={this.state.modalVisible}
-                    election={this.state.election}
                     callback={this}
                 />
 
@@ -143,7 +134,7 @@ class sideMenu extends Component{
                         if (this.props.user){
                             Actions.addRecetas()
                         } else {
-                            this.setState({modalVisible:!this.props.user, election:2})
+                            this.setState({modalVisible:!this.props.user})
                         }
                     }}>
                         <Text style={styles.textMenu}>Añadir Receta</Text>
@@ -161,7 +152,7 @@ class sideMenu extends Component{
                         if (this.props.user){
                             Actions.ownRecetas()
                         } else{
-                            this.setState({modalVisible:!this.props.user, election:3})
+                            this.setState({modalVisible:!this.props.user})
                         }
                     }}>
                         <Text style={styles.textMenu}>Nuestras Recetas</Text>

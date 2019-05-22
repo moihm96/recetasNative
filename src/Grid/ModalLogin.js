@@ -42,7 +42,6 @@ class ModalLogin extends Component{
                         </View>
                         <LoginForm
                             onUser={this.onUser}
-                            election={this.props.election}
                         />
                     </View>
                 </Modal>
