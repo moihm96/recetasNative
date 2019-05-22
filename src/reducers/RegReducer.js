@@ -7,7 +7,8 @@ const INITIAL_STATE = {
     userName:'',
     email: '',
     password: '',
-    sexo:''
+    sexo:'',
+    photoUrl:''
 };
 
 export default (state = INITIAL_STATE, action) => {

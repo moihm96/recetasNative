@@ -5,8 +5,12 @@ import {
     Picker,
     Text,
     KeyboardAvoidingView,
-    TextInput, TouchableOpacity
+    TextInput,
+    TouchableOpacity,
+    Image,
+    Platform
 } from 'react-native';
+import {Avatar} from "react-native-elements";
 import {heightPercentageToDP, widthPercentageToDP} from "../../auxiliar/ScreenDimension";
 import { Actions } from 'react-native-router-flux';
 import SelectInput from 'react-native-select-input-ios'
@@ -15,8 +19,74 @@ let sexos=["Cualquiera","Hombre","Mujer"]
 let sexo=arrayEmpty[0]
 import {userUpdate, createUser} from "../../actions/RegActions";
 import {connect} from 'react-redux';
-
+import ImagePicker from "react-native-image-picker";
+import * as firebase from "firebase";
+import RNFetchBlob from "rn-fetch-blob";
+const Blob = RNFetchBlob.polyfill.Blob
+const fs = RNFetchBlob.fs
+window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
+window.Blob = Blob
+const options={
+    title: 'Elige foto de perfil',
+    takePhotoButtonTitle: 'Take photo with your camera',
+    chooseFromLibraryButtonTitle: 'Choose photo from library',
+}
+const uploadImage = (uri, imageName, mine = 'image/jpg') => {
+    return new Promise((resolve, reject) => {
+        const uploadUri = Platform.OS ==='ios' ? uri.replace('file://', '') : uri
+        let uploadBlob = null
+        const imageRef = firebase.storage().ref('image').child(imageName)
+        fs.readFile(uploadUri, 'base64')
+            .then((data) => {
+                return Blob.build(data, {type: `${mine};BASE64`})
+            })
+            .then((blob) =>{
+                uploadBlob = blob
+                return imageRef.put(blob, {contentType: mine })
+            })
+            .then(() => {
+                uploadBlob.close()
+                return imageRef.getDownloadURL()
+            })
+            .then((url) => {
+                resolve(url)
+            })
+            .catch((error) => {
+                reject(error)
+            })
+    })
+}
  class RegForm extends Component{
+    constructor(props){
+        super(props)
+        this.state={
+            avatarPrincipal:''
+
+        }
+    }
+     openCamera=()=>{
+         ImagePicker.showImagePicker(options, (response) => {
+             console.log('Response = ', response);
+
+             if (response.didCancel) {
+                 console.log('User cancelled image picker');
+             }
+             else if (response.error) {
+                 console.log('Image Picker Error: ', response.error);
+             }
+
+             else {
+                 // You can also display the image using data:
+                 // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+                 this.props.userUpdate({prop:'photoUrl', value: response.uri})
+                 uploadImage(this.props.photoUrl,`${this.props.userName}.jpg`)
+                     .then((responseData) =>{
+                         this.props.userUpdate({ prop: 'photoUrl', value: responseData })
+                     })
+
+             }
+         });
+     }
     pickerSexo(){
         let array = []
         sexos.map((data, i) => {
@@ -25,9 +95,9 @@ import {connect} from 'react-redux';
         return(array)
     }
     onButtonPress(){
-       const {userName,email,password,sexo} = this.props;
+       const {userName,email,password,sexo, photoUrl} = this.props;
 
-       this.props.createUser({userName,email,password,sexo: sexo || 'Hombre'});
+       this.props.createUser({userName,email,password,sexo: sexo || 'Hombre', photoUrl});
 
     }
     render(){
@@ -36,7 +106,17 @@ import {connect} from 'react-redux';
                 <View style={styles.title}>
                     <Text style={styles.texTitle}>Registrarse</Text>
                 </View>
+
                 <KeyboardAvoidingView style={styles.regInput}>
+                    <TouchableOpacity onPress={this.openCamera} style={{alignItems:'center'}}>
+                        <Text>Foto de perfil</Text>
+                        <Avatar
+                            rounded
+                            size={"medium"}
+                            source={{uri:this.props.photoUrl}}
+                        />
+                    </TouchableOpacity>
+
                     <TextInput
                         placeholder="Nombre de usuario"
                         placeholderTextColor={'rgba(44, 62, 80,1.0)'}
@@ -153,9 +233,9 @@ const styles = StyleSheet.create({
 
 
  const mapStateToProps = (state) => {
-    const { userName,email,password,sexo } = state.regForm;
+    const { userName,email,password,sexo, photoUrl } = state.regForm;
 
-    return { userName,email,password,sexo };
+    return { userName,email,password,sexo , photoUrl};
 };
 
 export default connect(mapStateToProps, {

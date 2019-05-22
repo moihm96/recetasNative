@@ -9,13 +9,14 @@ export const userUpdate = ({prop,value}) =>{
     }
 }
 
-export const createUser =({userName,email,password,sexo}) => {
+export const createUser =({userName,email,password,sexo, photoUrl}) => {
     return(dispatch) =>{
 
         firebase.auth().createUserWithEmailAndPassword(email,password)
             .then( user => {
                user.updateProfile({
                    displayName:userName,
+                   photoUrl:photoUrl,
                    sexo:sexo
                }).then(() =>{
                    dispatch({
