@@ -59,9 +59,9 @@ class sideMenu extends Component{
                     />
                     <Text style={styles.textRegistrate}>{this.props.user.displayName}</Text>
                     <TouchableOpacity style={styles.buttonContainer}
-                                      onPress={() => this.props.signOut()}
+                                      onPress={() => Actions.showPerfil()}
                     >
-                        <Text style={styles.textIniciar}>Log Out</Text>
+                        <Text style={styles.textIniciar}>Editar Perfil</Text>
                     </TouchableOpacity>
                 </View>
             )

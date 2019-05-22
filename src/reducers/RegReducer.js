@@ -1,14 +1,14 @@
 import {
     USER_UPDATE,
-    USER_CREATE
+    USER_CREATE, UPDATE_USER
 } from '../actions/types';
 
 const INITIAL_STATE = {
-    userName:'',
+    displayName:'',
     email: '',
     password: '',
     sexo:'',
-    photoUrl:''
+    photoURL:''
 };
 
 export default (state = INITIAL_STATE, action) => {

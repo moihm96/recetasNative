@@ -16,7 +16,7 @@ export const createUser =({userName,email,password,sexo, photoUrl}) => {
             .then( user => {
                user.updateProfile({
                    displayName:userName,
-                   photoUrl:photoUrl,
+                   photoURL:photoUrl,
                    sexo:sexo
                }).then(() =>{
                    dispatch({
@@ -28,5 +28,9 @@ export const createUser =({userName,email,password,sexo, photoUrl}) => {
 
             })
     }
+
+}
+
+export const updateUser = ({uid,userName,email,password,sexo, photoUrl}) =>{
 
 }

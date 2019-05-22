@@ -12,6 +12,7 @@ import addRecetas from '../src/components/addRecetas'
 import addIngr from '../src/components/AddIngredientes'
 import addPreparation from '../src/components/addPreparation'
 import showReceta from "../src/container/ui/showReceta"
+import showPerfil from "../src/container/ui/showPerfil"
 import {StyleSheet} from 'react-native'
 const Routes = () => (
     <Router backAndroidHandler={onBackAndroid}>
@@ -39,6 +40,9 @@ const Routes = () => (
                     <Scene  key="register"
                             component={Register}
                             hideNavBar={true}
+                    />
+                    <Scene  key="showPerfil"
+                            component={showPerfil}
                     />
                 </Stack>
 
