@@ -1,4 +1,4 @@
-import { USER_CREATE, USER_UPDATE} from "./types";
+import {FETCH_OWN_RECIPES, GET_GENERO, USER_CREATE, USER_UPDATE} from "./types";
 import * as firebase from 'firebase';
 import {Actions} from "react-native-router-flux";
 
@@ -9,15 +9,15 @@ export const userUpdate = ({prop,value}) =>{
     }
 }
 
-export const createUser =({userName,email,password,sexo, photoUrl}) => {
+export const createUser =({userName,email,password,genero, photoUrl}) => {
     return(dispatch) =>{
 
         firebase.auth().createUserWithEmailAndPassword(email,password)
             .then( user => {
+                firebase.database().ref(`/user/${user.uid}`).set({genero})
                user.updateProfile({
                    displayName:userName,
                    photoURL:photoUrl,
-                   sexo:sexo
                }).then(() =>{
                    dispatch({
                        type: USER_CREATE,
@@ -31,6 +31,34 @@ export const createUser =({userName,email,password,sexo, photoUrl}) => {
 
 }
 
-export const updateUser = ({uid,userName,email,password,sexo, photoUrl}) =>{
+export const getGenero = (uid) =>{
+    return(dispatch) =>{
+        firebase.database().ref(`/user/${uid}/genero`)
+            .on('value',snapshot =>{
+            dispatch({type: GET_GENERO, payload: snapshot.val()})
+        })
+
+    }
+}
+
+export const updateUser = (user,uid,displayName,email,genero,photoURL) =>{
+    return(dispatch) =>{
+        user.updateEmail(email).then(()=>{
+            user.updateProfile({
+                displayName:displayName,
+                photoURL:photoURL
+            }).then(()=>{
+                firebase.database().ref(`user/${uid}/genero`).set(genero).then(
+                    console.log("Se ha añadido el genero")
+                ).then( ()=>{
+                    dispatch({
+                        type: USER_CREATE,
+                        payload: user
+                    });
+                    Actions.showPerfil();
+                })
+            })
+        })
+    }
 
 }

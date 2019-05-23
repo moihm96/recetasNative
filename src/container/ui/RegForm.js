@@ -79,7 +79,7 @@ const uploadImage = (uri, imageName, mine = 'image/jpg') => {
                  // You can also display the image using data:
                  // let source = { uri: 'data:image/jpeg;base64,' + response.data };
                  this.props.userUpdate({prop:'photoUrl', value: response.uri})
-                 uploadImage(this.props.photoUrl,`${this.props.userName}.jpg`)
+                 uploadImage(this.props.photoUrl,`${this.props.displayName}.jpg`)
                      .then((responseData) =>{
                          this.props.userUpdate({ prop: 'photoUrl', value: responseData })
                      })
@@ -95,9 +95,9 @@ const uploadImage = (uri, imageName, mine = 'image/jpg') => {
         return(array)
     }
     onButtonPress(){
-       const {userName,email,password,sexo, photoUrl} = this.props;
+       const {displayName,email,password,genero, photoUrl} = this.props;
 
-       this.props.createUser({userName,email,password,sexo: sexo || 'Hombre', photoUrl});
+       this.props.createUser({displayName,email,password,genero: genero || 'Hombre', photoUrl});
 
     }
     render(){
@@ -121,8 +121,8 @@ const uploadImage = (uri, imageName, mine = 'image/jpg') => {
                         placeholder="Nombre de usuario"
                         placeholderTextColor={'rgba(44, 62, 80,1.0)'}
                         style={ styles.input}
-                        onChangeText={value => this.props.userUpdate({ prop: 'userName', value })}
-                        value={this.props.userName}
+                        onChangeText={value => this.props.userUpdate({ prop: 'displayName', value })}
+                        value={this.props.displayName}
                     />
                     <TextInput
                         placeholder="Email"
@@ -149,12 +149,12 @@ const uploadImage = (uri, imageName, mine = 'image/jpg') => {
                         style={ styles.input}
                     />
                     <View style={styles.sexoStyle}>
-                        <Text style={styles.textSexo}>Sexo</Text>
+                        <Text style={styles.textSexo}>Género</Text>
                         <SelectInput
                             style={styles.textInputStyle}
                             options = {this.pickerSexo()}
-                            value = {this.props.sexo}
-                            onSubmitEditing = {value => this.props.userUpdate({ prop: 'sexo', value })}
+                            value = {this.props.genero}
+                            onSubmitEditing = {value => this.props.userUpdate({ prop: 'genero', value })}
                         />
                     </View>
                     <TouchableOpacity onPress={this.onButtonPress.bind(this)} style={ styles.buttonContainer2}>
@@ -233,9 +233,9 @@ const styles = StyleSheet.create({
 
 
  const mapStateToProps = (state) => {
-    const { userName,email,password,sexo, photoUrl } = state.regForm;
+    const { displayName,email,password,genero, photoUrl } = state.regForm;
 
-    return { userName,email,password,sexo , photoUrl};
+    return { displayName,email,password,genero , photoUrl};
 };
 
 export default connect(mapStateToProps, {
