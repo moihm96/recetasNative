@@ -13,7 +13,6 @@ import addIngr from '../src/components/AddIngredientes'
 import addPreparation from '../src/components/addPreparation'
 import showReceta from "../src/container/ui/showReceta"
 import showPerfil from "../src/container/ui/showPerfil"
-import modReceta from '../src/components/modReceta'
 import addPaso from '../src/components/addPaso'
 import {StyleSheet} from 'react-native'
 const Routes = () => (
@@ -80,10 +79,6 @@ const Routes = () => (
                 <Scene
                     key="addPaso"
                     component={addPaso}
-                />
-                <Scene
-                    key="modReceta"
-                    component={modReceta}
                 />
                 <Scene
                     key="showReceta"

@@ -31,14 +31,7 @@ class misOptions extends Component{
             showModal:false
         }
     }
-    modifyRecipe(){
-        const {recetas}=this.props
-        if(recetas){
-            Actions.modReceta({
-                receta: recetas
-            })
-        }
-    }
+
 
     onAccept(){
         const {recetas} = this.props
@@ -101,7 +94,7 @@ class misOptions extends Component{
                             <Text style={styles.textStyleVisible}>Visible</Text>
                         </View>
                     </TouchableWithoutFeedback>
-                    <TouchableWithoutFeedback onPress={this.modifyRecipe.bind(this)}>
+                    <TouchableWithoutFeedback>
                         <View style={styles.opcionStyle}>
                             <Image
                                 source={pencil}
