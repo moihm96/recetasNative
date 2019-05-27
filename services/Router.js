@@ -6,13 +6,15 @@ import { Router, Scene, Actions, Stack} from 'react-native-router-flux'
 import Header from '../src/container/ui/Header'
 import Menu from '../src/container/ui/sideMenu'
 import Favoritos from '../src/container/ui/Favoritos'
-import ownRecetas from '../src/container/ui/ownRecetas'
+import ownRecetas from '../src/container/ui/misRecetas'
 import userRecetas from '../src/container/ui/userRecetas'
 import addRecetas from '../src/components/addRecetas'
 import addIngr from '../src/components/AddIngredientes'
 import addPreparation from '../src/components/addPreparation'
 import showReceta from "../src/container/ui/showReceta"
 import showPerfil from "../src/container/ui/showPerfil"
+import modReceta from '../src/components/modReceta'
+import addPaso from '../src/components/addPaso'
 import {StyleSheet} from 'react-native'
 const Routes = () => (
     <Router backAndroidHandler={onBackAndroid}>
@@ -74,6 +76,14 @@ const Routes = () => (
                 <Scene
                     key="addIngr"
                     component={addIngr}
+                />
+                <Scene
+                    key="addPaso"
+                    component={addPaso}
+                />
+                <Scene
+                    key="modReceta"
+                    component={modReceta}
                 />
                 <Scene
                     key="showReceta"

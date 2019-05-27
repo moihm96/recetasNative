@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import {Image, View,Text,FlatList,ScrollView} from 'react-native';
 import {recetas} from "../../data/datasource";
-import FavouriteItemList from '../../components/ItemList'
+import MyItemList from '../../components/myItemList'
 import Header from './Header'
 import _ from 'lodash'
 import * as firebase from 'firebase'
 import {connect} from 'react-redux'
 import {fetchRecipes} from "../../actions/RecetasActions";
 
-class ownRecetas extends Component {
+class misRecetas extends Component {
     constructor(props){
         super(props);
         this.state={
@@ -56,7 +56,7 @@ class ownRecetas extends Component {
                     data={this.state.data}
                     renderItem={({item}) =>
 
-                        <FavouriteItemList
+                        <MyItemList
                             receip={item}
                         />
                     }
@@ -76,4 +76,4 @@ const mapStateToProps = state =>{
     return {ownRecipes, user}
 }
 
-export default connect(mapStateToProps,{fetchRecipes})(ownRecetas)
+export default connect(mapStateToProps,{fetchRecipes})(misRecetas)

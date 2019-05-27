@@ -155,7 +155,7 @@ class sideMenu extends Component{
                             this.setState({modalVisible:!this.props.user})
                         }
                     }}>
-                        <Text style={styles.textMenu}>Nuestras Recetas</Text>
+                        <Text style={styles.textMenu}>Mis Recetas</Text>
                     </TouchableWithoutFeedback>
                 </View>
             </ImageBackground>

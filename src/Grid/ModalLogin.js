@@ -7,7 +7,7 @@ import {
     Modal,
     TouchableOpacity
 } from 'react-native';
-import exit from '../img/exit.png'
+import salida from '../img/exit.png'
 import LoginForm from "../components/LoginForm";
 import {heightPercentageToDP, widthPercentageToDP} from "../auxiliar/ScreenDimension";
 import {connect} from 'react-redux'
@@ -32,10 +32,10 @@ class ModalLogin extends Component{
                 >
                     <View style={styles.container}>
                         <View>
-                            <TouchableOpacity style={styles.buttonStyle}>
+                            <TouchableOpacity style={styles.buttonStyle} onPress={() => this.onClickCancel()}>
                                 <Image
                                     style={styles.imageStyle}
-                                    source={exit}
+                                    source={salida}
                                 />
                             </TouchableOpacity>
                             <Text style = {styles.texto}>Para poder acceder necesitas iniciar sesión</Text>
@@ -64,8 +64,10 @@ const styles = StyleSheet.create({
     },
     buttonStyle:{
         alignItems: 'flex-end',
-        padding: 7
+        padding: 10
+
     }
+
 })
 const mapStateToProps = state =>{
     const {user} = state.auth

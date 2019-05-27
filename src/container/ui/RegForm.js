@@ -79,11 +79,6 @@ const uploadImage = (uri, imageName, mine = 'image/jpg') => {
                  // You can also display the image using data:
                  // let source = { uri: 'data:image/jpeg;base64,' + response.data };
                  this.props.userUpdate({prop:'photoUrl', value: response.uri})
-                 uploadImage(this.props.photoUrl,`${this.props.displayName}.jpg`)
-                     .then((responseData) =>{
-                         this.props.userUpdate({ prop: 'photoUrl', value: responseData })
-                     })
-
              }
          });
      }

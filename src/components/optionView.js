@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import { widthPercentageToDP, heightPercentageToDP } from '../auxiliar/ScreenDimension'
 import {
     StyleSheet,
@@ -16,34 +16,35 @@ import imgUser from "../img/imgUser.png";
 import {Rating} from "react-native-elements";
 import {AirbnbRating} from "react-native-ratings";
 
-const optionView = (props)=>{
-    const {recetas} = props;
-    return(
-        <View style={styles.opcionContainerStyle}>
-            <View style={styles.opcionStyle}>
-                <Rating
-                    type='star'
-                    ratingColor='rgb(255,216,0)'
-                    ratingBackgroundColor='white'
-                    imageSize={20}
-                    style={styles.puntuacionStyle}
-                    readonly
-                    startingValue={recetas.puntuacion}
-                />
-            </View>
-            <View style={styles.opcionStyle}>
-                <Image source={reloj} style={styles.tiempoStyle}/>
-                <Text>{recetas.tiempo}</Text>
-            </View>
-            <View style={styles.opcionStyle}>
-                <Image source={dificilOff}style={styles.dificultadStyle}/>
-                <Text>{recetas.dificultad}</Text>
-            </View>
-            <View style={styles.opcionStyle}>
-                <Image source={imgUser}style={styles.userStyle}/>
-            </View>
-        </View>
-    )
+class optionView extends Component{
+    render(){
+        return(
+                <View style={styles.opcionContainerStyle}>
+                    <View style={styles.opcionStyle}>
+                        <Rating
+                            type='star'
+                            ratingColor='rgb(255,216,0)'
+                            ratingBackgroundColor='white'
+                            imageSize={20}
+                            style={styles.puntuacionStyle}
+                            readonly
+                            startingValue={this.props.recetas.puntuacion}
+                        />
+                    </View>
+                    <View style={styles.opcionStyle}>
+                        <Image source={reloj} style={styles.tiempoStyle}/>
+                        <Text>{this.props.recetas.tiempo}</Text>
+                    </View>
+                    <View style={styles.opcionStyle}>
+                        <Image source={dificilOff}style={styles.dificultadStyle}/>
+                        <Text>{this.props.recetas.dificultad}</Text>
+                    </View>
+                    <View style={styles.opcionStyle}>
+                        <Image source={imgUser}style={styles.userStyle}/>
+                    </View>
+                </View>
+        )
+    }
 }
 
 const styles= StyleSheet.create({
