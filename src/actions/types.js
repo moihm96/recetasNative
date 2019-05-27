@@ -18,3 +18,5 @@ export const FETCH_OWN_RECIPES = 'fetch_own_recipes';
 export const ADD_TO_FAVORITES = 'add_to_favorites'
 export const DELETE_FAVORITES = 'delete_favorites'
 export const FETCH_FAVORITES= 'fetch_favorites'
+
+export const SET_PASO = 'set_paso'
