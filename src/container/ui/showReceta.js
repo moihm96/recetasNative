@@ -14,7 +14,7 @@ import {heightPercentageToDP, widthPercentageToDP} from "../../auxiliar/ScreenDi
 import {Avatar,Icon} from "react-native-elements";
 import FontIcon from "react-native-vector-icons/FontAwesome"
 import {Rating} from "react-native-ratings";
-import Option from "../../components/optionView"
+import Option from "../../components/showRecipe/optionView"
 import {Actions} from "react-native-router-flux";
 export default class showReceta extends Component{
     constructor(props){
@@ -69,7 +69,11 @@ export default class showReceta extends Component{
                                 style={styles.imagenStyle}
                                 resizeMode={"cover"}/>
                         <View style={{justifyContent: "flex-end"}}>
-                            <Avatar rounded source={{uri:this.props.receta.avatar}} size={"medium"} containerStyle={styles.avStyle}/>
+                            <Avatar
+                                source={{uri:this.props.receta.avatarUrl}}
+                                rounded
+                                size={"medium"}
+                                containerStyle={styles.avStyle}/>
                         </View>
                         <Option
                             recetas={this.props.receta}

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { widthPercentageToDP, heightPercentageToDP } from '../auxiliar/ScreenDimension'
+import { widthPercentageToDP, heightPercentageToDP } from '../../auxiliar/ScreenDimension'
 import {
     StyleSheet,
     View,
@@ -9,10 +9,10 @@ import {
     TouchableOpacity,
     ImageBackground
 } from 'react-native';
-import fiveStars from "../img/5stars.png";
-import reloj from "../img/reloj.png";
-import dificilOff from "../img/dificilOff.png";
-import imgUser from "../img/imgUser.png";
+import fiveStars from "../../img/5stars.png";
+import reloj from "../../img/reloj.png";
+import dificilOff from "../../img/dificilOff.png";
+import imgUser from "../../img/imgUser.png";
 import {Rating} from "react-native-elements";
 import {AirbnbRating} from "react-native-ratings";
 

@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import { widthPercentageToDP, heightPercentageToDP } from '../auxiliar/ScreenDimension'
+import { widthPercentageToDP, heightPercentageToDP } from '../../auxiliar/ScreenDimension'
 import {
     StyleSheet,
     View,

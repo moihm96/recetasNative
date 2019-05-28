@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import { widthPercentageToDP, heightPercentageToDP } from '../auxiliar/ScreenDimension'
+import { widthPercentageToDP, heightPercentageToDP } from '../../auxiliar/ScreenDimension'
 import {
     StyleSheet,
     View,
@@ -9,11 +9,11 @@ import {
     TouchableOpacity,
     ImageBackground
 } from 'react-native';
-import favOn from "../img/favOn.png";
-import favOff from "../img/favOff.png";
+import favOn from "../../img/favOn.png";
+import favOff from "../../img/favOff.png";
 
 import {connect} from 'react-redux';
-import {addFav,deleteFav,fecthFav} from "../actions/FavAction";
+import {addFav,deleteFav,fecthFav} from "../../actions/FavAction";
 import * as firebase from "firebase";
 import _ from 'lodash'
 

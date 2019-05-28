@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Routes from './services/Router';
+import Routes from './src/services/Router';
 import * as firebase from 'firebase';
 import {Provider} from "react-redux";
 import {createStore, applyMiddleware} from "redux";

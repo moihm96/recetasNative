@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {FlatList,ScrollView} from 'react-native';
-import FavouriteItemList from '../../components/ItemList'
+import FavouriteItemList from '../../components/showRecipe/ItemList'
 import Header from './Header'
 import {allRecipesFetch} from "../../actions/RecetasAllActions";
 import {connect} from 'react-redux'

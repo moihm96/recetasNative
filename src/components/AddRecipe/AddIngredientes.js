@@ -9,12 +9,13 @@ import {
     TextInput,
     FlatList
 } from 'react-native'
-import fondo from "../img/fondo.png"
-import del from "../img/delete.png"
-import {Buttons} from "./Buttons"
-import add from "../img/Add.png"
+import fondo from "../../img/fondo.png"
+import del from "../../img/delete.png"
+import {Buttons} from "../Buttons"
+import add from "../../img/Add.png"
 import SelectInput from "react-native-select-input-ios";
 import {Actions} from "react-native-router-flux";
+import {heightPercentageToDP, widthPercentageToDP} from "../../auxiliar/ScreenDimension";
 let arrayEmpty=["0"]
 let personas=["0","2","4","6","8"]
 let person=arrayEmpty[0]
@@ -42,23 +43,42 @@ export default class AddIngredientes extends Component{
     onAdd(){
         //Adding Items To Array.
 
-        this.state.ingredients.push( this.state.ingrediente.toString() );
+        this.state.ingredients.push(this.state.ingrediente.toString());
         this.state.auxIngredients.push(this.state.ingrediente.toString())
 
         this.setState({ingrediente:""})
 
+    }
+    deleteItem(index){
+
+        let array = [...this.state.auxIngredients]
+        if(index !== -1){
+            array.splice(index,1)
+            this.setState({
+                auxIngredients:array,
+                ingredients:array
+            })
+        }
     }
 
     parseData(){
         if(this.state.auxIngredients){
             return this.state.auxIngredients.map((data,i)=>{
                 return(
-                    <View key={i}>
+                    <View key={i} style={styles.deleteStyle}>
                         <Text>{data}</Text>
+                        <TouchableOpacity onPress={() => this.deleteItem(i)}>
+                            <Image
+                                source={del}
+                                style={styles.ingredientImageStyle}
+                            />
+                        </TouchableOpacity>
                     </View>
                 )
             })
         }
+
+
     }
 
     render(){
@@ -136,6 +156,12 @@ const styles= StyleSheet.create({
         backgroundColor:"white",
         padding: 15
     },
+    deleteStyle:{
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems:"center",
+        marginTop: heightPercentageToDP(1)
+    },
     listStyle:{
         flexDirection: "row",
         justifyContent: "space-between",
@@ -151,4 +177,8 @@ const styles= StyleSheet.create({
         width: 20,
         height: 20
     },
+    ingredientImageStyle:{
+        width: widthPercentageToDP(5),
+        height: heightPercentageToDP(3)
+    }
 });

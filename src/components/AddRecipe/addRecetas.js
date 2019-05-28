@@ -13,12 +13,12 @@ import {
 import ImagePicker from "react-native-image-picker"
 import {Avatar, Slider} from 'react-native-elements';
 import SelectInput from "react-native-select-input-ios";
-import foto from "../img/foto.png"
-import fotoPrincipal from "../img/fotoPrincipal.png"
-import fondo from "../img/fondo.png"
-import {heightPercentageToDP} from "../auxiliar/ScreenDimension";
+import foto from "../../img/foto.png"
+import fotoPrincipal from "../../img/fotoPrincipal.png"
+import fondo from "../../img/fondo.png"
+import {heightPercentageToDP} from "../../auxiliar/ScreenDimension";
 import {Actions} from "react-native-router-flux";
-import {Buttons} from "./Buttons"
+import {Buttons} from "../Buttons"
 const options={
     title: 'my pic app',
     takePhotoButtonTitle: 'Take photo with your camera',

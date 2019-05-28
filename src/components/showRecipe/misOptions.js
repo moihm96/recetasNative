@@ -1,25 +1,26 @@
 import React, {Component} from 'react'
-import { widthPercentageToDP, heightPercentageToDP } from '../auxiliar/ScreenDimension'
+import { widthPercentageToDP, heightPercentageToDP } from '../../auxiliar/ScreenDimension'
 import {
     StyleSheet,
     View,
     Image,
     Text,
     TouchableWithoutFeedback,
+    TouchableOpacity
 } from 'react-native';
-import fiveStars from "../img/5stars.png";
-import reloj from "../img/reloj.png";
-import dificilOff from "../img/dificilOff.png";
-import imgUser from "../img/imgUser.png";
-import noVisible from '../img/noVisible.png'
-import visible from '../img/visible.png'
-import basura from '../img/basura.png'
-import pencil from '../img/pencil.png'
+import fiveStars from "../../img/5stars.png";
+import reloj from "../../img/reloj.png";
+import dificilOff from "../../img/dificilOff.png";
+import imgUser from "../../img/imgUser.png";
+import noVisible from '../../img/noVisible.png'
+import visible from '../../img/visible.png'
+import basura from '../../img/basura.png'
+import pencil from '../../img/pencil.png'
 import {Rating} from "react-native-elements";
 import {AirbnbRating} from "react-native-ratings";
 
 import {connect} from 'react-redux'
-import {Confirm} from "../Grid/Confirm";
+import {Confirm} from "../../Grid/Confirm";
 import * as firebase from 'firebase'
 import {Actions} from "react-native-router-flux";
 
@@ -46,6 +47,11 @@ class misOptions extends Component{
         })
     }
 
+    modifyRecipe = () =>{
+        Actions.modReceta({
+            receta:this.props.recetas
+        });
+    }
     render(){
         const {recetas} = this.props;
         return(
@@ -94,7 +100,7 @@ class misOptions extends Component{
                             <Text style={styles.textStyleVisible}>Visible</Text>
                         </View>
                     </TouchableWithoutFeedback>
-                    <TouchableWithoutFeedback>
+                    <TouchableOpacity onPress={this.modifyRecipe}>
                         <View style={styles.opcionStyle}>
                             <Image
                                 source={pencil}
@@ -102,7 +108,7 @@ class misOptions extends Component{
                             />
                             <Text>Modificar</Text>
                         </View>
-                    </TouchableWithoutFeedback>
+                    </TouchableOpacity>
                     <TouchableWithoutFeedback onPress={() => this.setState({ showModal: !this.state.showModal })}>
                         <View style={styles.opcionStyle}>
                             <Image

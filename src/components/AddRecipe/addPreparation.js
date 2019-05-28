@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {
+import{
     View,
     Text,
     ImageBackground,
@@ -10,17 +10,19 @@ import {
     Image,
     TouchableOpacity,
     ScrollView,
-    Platform
+    Platform,
+    Dimensions
 } from 'react-native'
-import {Buttons} from "./Buttons";
-import fondo from "../img/fondo.png"
-import fotoPrincipal from '../img/fotoPrincipal.png'
-import add from '../img/Add.png'
+import {Buttons} from "../Buttons";
+import fondo from "../../img/fondo.png"
+import fotoPrincipal from '../../img/fotoPrincipal.png'
+import add from '../../img/Add.png'
 import {Actions} from "react-native-router-flux";
-import Helpers from './helpers'
+import Helpers from '../helpers'
 import {connect} from "react-redux"
 import * as firebase from 'firebase'
 import RNFetchBlob from 'rn-fetch-blob'
+import {widthPercentageToDP} from "../../auxiliar/ScreenDimension";
 const Blob = RNFetchBlob.polyfill.Blob
 const fs = RNFetchBlob.fs
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
@@ -129,22 +131,26 @@ class addPreparation extends Component{
         });
     }
 
+
     render(){
         return(
             <ImageBackground source={fondo}style={{flex:1,backgroundColor: "white" }} >
                 <ScrollView >
                     <View style={styles.container}>
                         <FlatList
+                            style={{marginHorizontal: 5}}
                             key={this.props.pasos.pid}
                             data={this.props.pasos}
+                            numColumns={3}
+                            columnWrapperStyle={{marginTop: 5, marginLet:5}}
                             renderItem={({item}) =>
                                 <View>
                                     <Image
                                         source={{uri:item.imagen}}
-                                        style={{width:100, height:100}}
+                                        style={{width:widthPercentageToDP(27),  height:100}}
                                     />
-                                    <Text>{item.titulo}</Text>
                                 </View>
+
                             }
                         />
                         <TouchableOpacity onPress={this.onAddPaso}>
@@ -171,7 +177,8 @@ class addPreparation extends Component{
 const styles= StyleSheet.create({
     container:{
         backgroundColor: "white",
-    }
+    },
+
 });
 
 const mapStateToProps = state =>{

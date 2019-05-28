@@ -11,10 +11,10 @@ import {
     ScrollView
 } from 'react-native'
 import {connect} from 'react-redux'
-import {setPaso} from "../actions/PasosAction";
-import fondo from "../img/fondo.png"
-import ImagePicker from "react-native-image-picker";
-import {Buttons} from "./Buttons";
+import {setPaso} from "../../actions/PasosAction";
+import fondo from "../../img/fondo.png"
+import ImagePicker from "react-native-image-picker/index";
+import {Buttons} from "../Buttons";
 const options={
     title: 'my pic app',
     takePhotoButtonTitle: 'Take photo with your camera',

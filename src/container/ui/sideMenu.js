@@ -25,7 +25,7 @@ import Earth from '../../img/Earth.png'
 import {Actions} from 'react-native-router-flux'
 import {signOut} from '../../actions/AuthActions'
 import {connect} from 'react-redux';
-import * as firebase from 'firebase/index';
+import * as firebase from 'firebase';
 import _ from 'lodash'
 import ModalLogin from "../../Grid/ModalLogin";
 
