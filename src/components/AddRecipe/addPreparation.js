@@ -22,7 +22,7 @@ import Helpers from '../helpers'
 import {connect} from "react-redux"
 import * as firebase from 'firebase'
 import RNFetchBlob from 'rn-fetch-blob'
-import {widthPercentageToDP} from "../../auxiliar/ScreenDimension";
+import {heightPercentageToDP, widthPercentageToDP} from "../../auxiliar/ScreenDimension";
 const Blob = RNFetchBlob.polyfill.Blob
 const fs = RNFetchBlob.fs
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
@@ -162,12 +162,14 @@ class addPreparation extends Component{
                             </ImageBackground>
                         </TouchableOpacity>
                     </View>
-                    <Buttons
-                        text1={"Guardar todo"}
-                        onPress1={this.saveForm.bind(this)}
-                        text2={"Atrás"}
-                        onPress2={()=>Actions.pop()}
-                    />
+                    <View style={{paddingLeft: widthPercentageToDP(15), paddingRight: widthPercentageToDP(15)}}>
+                        <Buttons
+                            text1={"Guardar todo"}
+                            onPress1={this.saveForm.bind(this)}
+                            text2={"Atrás"}
+                            onPress2={()=>Actions.pop()}
+                        />
+                    </View>
                 </ScrollView>
             </ImageBackground>
         )

@@ -13,6 +13,7 @@ import fondo from "../../img/fondo.png"
 import del from "../../img/delete.png"
 import {Buttons} from "../Buttons"
 import add from "../../img/Add.png"
+
 import SelectInput from "react-native-select-input-ios";
 import {Actions} from "react-native-router-flux";
 import {heightPercentageToDP, widthPercentageToDP} from "../../auxiliar/ScreenDimension";
@@ -88,20 +89,26 @@ export default class AddIngredientes extends Component{
                 <View>
                     <Text style={styles.nuevaText}>Ingredientes</Text>
                     <View style={styles.vista}>
-                        <Text >Ingredientes para...</Text>
-                        <SelectInput
-                            options = {this.pickerIngredientes()}
-                            value = {this.state.person}
-                            onSubmitEditing = {(value) => this.setState({person: value})}
-                        />
+                        <View style={styles.difStyle}>
+                            <Text styel={{flex:1}}>Ingredientes para...</Text>
+                            <SelectInput
+                                style={{flex:4}}
+                                options = {this.pickerIngredientes()}
+                                value = {this.state.person}
+                                onSubmitEditing = {(value) => this.setState({person: value})}
+                            />
+                        </View>
                         {this.parseData()}
                         <View style={styles.listStyle}>
                             <TextInput
                                 placeholder="Añadir ingrediente"
-                                placeholderTextColor={'black'}
+                                placeholderTextColor={'grey'}
                                 onChangeText={TextInputValue => this.setState({ingrediente : TextInputValue }) }
                                 value={this.state.ingrediente}
                                 clearButtonMode={"always"}
+                                returnKeyType="Añadir"
+                                onSubmitEditing={()=> this.onAdd()}
+
                             />
                             <TouchableOpacity onPress={() => this.onAdd()}>
                                 <Image
@@ -180,5 +187,11 @@ const styles= StyleSheet.create({
     ingredientImageStyle:{
         width: widthPercentageToDP(5),
         height: heightPercentageToDP(3)
+    },
+    difStyle:{
+        flexDirection:'row',
+        alignItems:'center',
+        borderBottomWidth: 1,
+        borderColor:'rgb(210,210,210)'
     }
 });

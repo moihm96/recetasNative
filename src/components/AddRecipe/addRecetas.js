@@ -6,7 +6,6 @@ import {
     TextInput,
     TouchableOpacity,
     View,
-    TouchableHighlight,
     ImageBackground,
     StyleSheet}
     from 'react-native';
@@ -16,15 +15,14 @@ import SelectInput from "react-native-select-input-ios";
 import foto from "../../img/foto.png"
 import fotoPrincipal from "../../img/fotoPrincipal.png"
 import fondo from "../../img/fondo.png"
-import {heightPercentageToDP} from "../../auxiliar/ScreenDimension";
+import {heightPercentageToDP, widthPercentageToDP} from "../../auxiliar/ScreenDimension";
 import {Actions} from "react-native-router-flux";
 import {Buttons} from "../Buttons"
 const options={
-    title: 'my pic app',
-    takePhotoButtonTitle: 'Take photo with your camera',
-    chooseFromLibraryButtonTitle: 'Choose photo from library',
+    title: 'Recetas de la abuela',
+    takePhotoButtonTitle: 'Usa tu camara',
+    chooseFromLibraryButtonTitle: 'Escoge una foto de la galeria',
 }
-
 let dif=["Baja","Media","Alta"]
 export default class addRecetas extends Component {
     constructor(props){
@@ -103,66 +101,89 @@ export default class addRecetas extends Component {
                         <TextInput
                             placeholder="Titulo de la receta"
                             style={styles.input}
-                            placeholderTextColor={'rgba(44, 62, 80,1.0)'}
+                            placeholderTextColor={'grey'}
                             onChangeText={(title) => this.setState({title})}
                             value={this.state.title}
                         />
 
 
-                        <TouchableOpacity onPress={this.openCamera}>
-                            <Text>Foto de la cabecera y listados</Text>
+                        <TouchableOpacity onPress={this.openCamera} style={{marginTop:heightPercentageToDP(3), marginBottom:heightPercentageToDP(2)}}>
+                            <Text style={{marginBottom:heightPercentageToDP(1)}}>Foto de la cabecera y listados</Text>
+                            <View style={{borderColor:'rgb(210,210,210)',borderWidth:1}}>
+                                <Image
+                                    style={{height:heightPercentageToDP(15)}}
+                                    source={{uri:this.state.imagenPrincipal}}
+                                />
+                            </View>
+
                         </TouchableOpacity>
-                        <Image
-                            style={{width:100, height:100}}
-                            source={{uri:this.state.imagenPrincipal}}
-                        />
-                        <TextInput
-                            placeholder="Autor"
-                            style={styles.input}
-                            placeholderTextColor={'rgba(44, 62, 80,1.0)'}
-                            onChangeText={(autor) => this.setState({autor})}
-                            value={this.state.autor}
-                        />
 
-
-                        <TouchableOpacity onPress={this.openCameraAvatar}>
+                        <TouchableOpacity onPress={this.openCameraAvatar} style={{alignItems:'center', marginBottom: heightPercentageToDP(2)}}>
                             <Text>Foto de la abuela</Text>
+                            <Avatar
+                                source={{uri:this.state.avatarSource}}
+                                rounded
+                                size={"medium"}
+                            />
                         </TouchableOpacity>
-                        <Avatar
-                            source={{uri:this.state.avatarSource}}
-                            rounded
-                            size={"medium"}
-                        />
 
 
                         <Text>Tiempo de preparación:  {this.state.time} minutos</Text>
-                        <View style={{ flex: 1, alignItems: 'stretch', justifyContent: 'center' }}>
-                            <Slider
-                                maximumValue={150}
-                                value={this.state.time}
-                                onValueChange={time => this.setState({ time })}
-                                thumbTintColor={'rgb(255,216,0)'}
-                                step={1}
-                            />
-                        </View>
+                        <Slider
+                            maximumValue={200}
+                            value={this.state.time}
+                            onValueChange={time => this.setState({ time })}
+                            trackStyle={{borderRadius: 5,borderWidth: 1, borderColor:'grey', height:heightPercentageToDP(1.75)}}
+                            thumbStyle={{borderWidth:1, borderColor: 'white', alignItems:'flex-end',height:heightPercentageToDP(3)}}
+                            thumbTouchSize={{width: widthPercentageToDP(10), height: heightPercentageToDP(10)}}
+                            thumbTintColor={'rgb(255,216,0)'}
+                            minimumTrackTintColor={'rgb(255,216,0)'}
+                            maximumTrackTintColor={"white"}
+                            step={5}
+                        />
+
+
                         <View style={styles.difStyle}>
-                            <Text >Dificultad</Text>
+                            <Text style={{flex:2}}>Dificultad</Text>
                             <SelectInput
                                 options = {this.pickerDif()}
                                 value = {this.state.dificultad}
                                 onSubmitEditing = {(value) => this.setState({dificultad: value})}
-                                style={styles.input}
+                                style={{flex:2}}
                             />
                         </View>
+                        <TextInput
+                            placeholder="Autor"
+                            style={styles.input}
+                            placeholderTextColor={'grey'}
+                            onChangeText={(autor) => this.setState({autor})}
+                            value={this.state.autor}
+                            returnKeyType="Siguiente"
+                            onSubmitEditing={this._next}
+                        />
 
                         <TextInput
-                            placeholder="Entradilla de la receta"
-                            placeholderTextColor={'rgba(44, 62, 80,1.0)'}
+                            ref={ref=> {this._entradilla = ref}}
+                            placeholder={'Entradilla de la receta'}
+
                             style={styles.input}
                             multiline={true}
                             numberOfLines={5}
                             onChangeText={(entradilla) => this.setState({entradilla})}
                             value={this.state.entradilla}
+                            returnKeyType="Siguiente"
+                            maxLength={200}
+                            blurOnSubmit={true}
+                            onSubmitEditing={()=>Actions.addIngr({
+                                title:this.state.title,
+                                autor:this.state.autor,
+                                entradilla:this.state.entradilla,
+                                time:this.state.time,
+                                dificultad:this.state.dificultad,
+                                imagenPrincipal:this.state.imagenPrincipal,
+                                avatarSource:this.state.avatarSource
+                            })}
+
                         />
                     </View>
                     <View style={styles.buttonStyles}>
@@ -187,6 +208,9 @@ export default class addRecetas extends Component {
             </ImageBackground>
         );
     }
+    _next = () => {
+        this._entradilla && this._entradilla.focus()
+    }
 }
 const styles= StyleSheet.create({
     container:{
@@ -200,11 +224,14 @@ const styles= StyleSheet.create({
         padding: 15
     },
     difStyle:{
-
+        flexDirection:'row',
+        alignItems:'center',
+        borderBottomWidth: 1,
+        borderColor:'rgb(210,210,210)'
     },
     input:{
         borderBottomWidth: 1,
-        borderColor:'grey'
+        borderColor:'rgb(210,210,210)'
     },
     buttonStyles:{
         padding:20

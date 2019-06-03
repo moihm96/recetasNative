@@ -76,8 +76,8 @@ class sideMenu extends Component{
                     />
                     <Text style={styles.textRegistrate}>Registrate o inicia sesion</Text>
                     <TouchableOpacity style={styles.buttonContainer}
-                                      onPress={() => Actions.startView()}
-                    >
+                                      hitSlop={styles.hitSlopContainer}
+                                      onPress={() => Actions.startView()}>
                         <Text style={styles.textIniciar}>Inicia Sesion</Text>
                     </TouchableOpacity>
                 </View>
@@ -167,6 +167,12 @@ const styles= StyleSheet.create({
     container:{
         flex:1,
         padding: 20
+    },
+    hitSlopContainer:{
+        top: heightPercentageToDP(5),
+        left: widthPercentageToDP(5),
+        bottom: heightPercentageToDP(5),
+        right: widthPercentageToDP(5)
     },
     avatarStyle:{
         alignItems:'center',
