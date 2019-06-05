@@ -26,6 +26,7 @@ const options={
 let dif=["Baja","Media","Alta"]
 export default class modReceta extends Component {
     componentWillMount() {
+        console.log(this.props.receta)
         this.setState({
             titulo: this.props.receta.titulo ,
             autor: this.props.receta.autor,
@@ -115,7 +116,7 @@ export default class modReceta extends Component {
                             placeholder="Titulo de la receta"
                             style={styles.input}
                             placeholderTextColor={'rgba(44, 62, 80,1.0)'}
-                            onChangeText={(title) => this.setState({title})}
+                            onChangeText={(titulo) => this.setState({titulo})}
                             value={this.state.titulo}
                         />
 
@@ -151,7 +152,7 @@ export default class modReceta extends Component {
                             <Slider
                                 maximumValue={150}
                                 value={this.state.tiempo}
-                                onValueChange={time => this.setState({ time })}
+                                onValueChange={tiempo => this.setState({ tiempo })}
                                 thumbTintColor={'rgb(255,216,0)'}
                                 step={1}
                             />
@@ -179,7 +180,14 @@ export default class modReceta extends Component {
                     <View style={styles.buttonStyles}>
                         <Buttons
                             onPress1={()=>Actions.modIngredients({
-                                receta:this.props.receta
+                                receta:this.props.receta,
+                                titulo: this.state.titulo ,
+                                autor: this.state.autor,
+                                entradilla: this.state.entradilla,
+                                tiempo: this.state.tiempo,
+                                dificultad:this.state.dificultad,
+                                imageUrl: this.state.imageUrl,
+                                avatarUrl: this.state.avatarUrl
                             })}
                             onPress2={()=>Actions.pop()}
                             text1={"Siguiente"}

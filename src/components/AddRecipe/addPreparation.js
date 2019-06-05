@@ -95,7 +95,7 @@ class addPreparation extends Component{
                 });
 
 
-                let uid_recetas = Helpers.setReceta(
+                let uid_recetas = Helpers.pushReceta(
                     this.props.user.uid,
                     this.props.title,
                     this.props.autor,

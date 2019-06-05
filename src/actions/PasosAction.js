@@ -1,4 +1,4 @@
-import {SET_PASO} from "./types";
+import {SET_PASO, SET_PASOs} from "./types";
 
 export const setPaso = (paso) =>{
     return{

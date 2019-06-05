@@ -6,8 +6,7 @@ import {
     StyleSheet,
     Text,
     Image,
-    TextInput,
-    FlatList
+    TextInput
 } from 'react-native'
 import fondo from "../../img/fondo.png"
 import del from "../../img/delete.png"

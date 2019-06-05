@@ -100,8 +100,13 @@ class addPaso extends Component{
                             placeholderTextColor={'rgba(44, 62, 80,1.0)'}
                             onChangeText={(titulo) => this.setState({titulo})}
                             value={this.state.titulo}
+                            returnKeyType="Siguiente"
+                            onSubmitEditing={this._nextPaso}
                         />
                         <TextInput
+                            ref={ref => this._numPaso = ref}
+                            returnKeyType="Siguiente"
+                            onSubmitEditing={this._nextDescr}
                             placeholder="Numero del paso"
                             style={styles.input}
                             placeholderTextColor={'rgba(44, 62, 80,1.0)'}
@@ -109,6 +114,8 @@ class addPaso extends Component{
                             value={this.state.pid}
                         />
                         <TextInput
+                            ref={ref => this._descrPaso = ref}
+                            returnKeyType="Siguiente"
                             placeholder="Descripcion del paso"
                             placeholderTextColor={'rgba(44, 62, 80,1.0)'}
                             style={styles.input}
@@ -116,6 +123,8 @@ class addPaso extends Component{
                             numberOfLines={5}
                             onChangeText={(descripcion) => this.setState({descripcion})}
                             value={this.state.descripcion}
+                            onSubmitEditing={this.openCamera}
+                            blurOnSubmit={true}
                         />
                         <TouchableOpacity onPress={this.openCamera}>
                             <Text>Foto del paso</Text>
@@ -137,6 +146,12 @@ class addPaso extends Component{
             </ImageBackground>
 
         )
+    }
+    _nextPaso = () =>{
+        this._numPaso && this._numPaso.focus()
+    }
+    _nextDescr = () =>{
+        this._descrPaso && this._descrPaso.focus()
     }
 }
 const styles= StyleSheet.create({

@@ -1,7 +1,7 @@
-import {SET_PASO} from "../actions/types";
+import {SET_PASO, SET_PASOs} from "../actions/types";
 
 const INITIAL_STATE = {
-    pasos:[]
+    pasos:[],
 }
 
 export default (state = INITIAL_STATE, action) => {

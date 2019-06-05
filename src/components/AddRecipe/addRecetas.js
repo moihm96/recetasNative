@@ -165,7 +165,6 @@ export default class addRecetas extends Component {
                         <TextInput
                             ref={ref=> {this._entradilla = ref}}
                             placeholder={'Entradilla de la receta'}
-
                             style={styles.input}
                             multiline={true}
                             numberOfLines={5}
