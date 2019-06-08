@@ -120,7 +120,7 @@ export default class modIngredients extends Component{
                                 onChangeText={TextInputValue => this.setState({ingrediente : TextInputValue }) }
                                 value={this.state.ingrediente}
                                 clearButtonMode={"always"}
-                                returnKeyType="Done"
+                                returnKeyType="done"
                                 onSubmitEditing={()=> this.onAdd()}
 
                             />

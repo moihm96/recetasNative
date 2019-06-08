@@ -31,36 +31,13 @@ const options={
     takePhotoButtonTitle: 'Take photo with your camera',
     chooseFromLibraryButtonTitle: 'Choose photo from library',
 }
-const uploadImage = (uri, imageName, mine = 'image/jpg') => {
-    return new Promise((resolve, reject) => {
-        const uploadUri = Platform.OS ==='ios' ? uri.replace('file://', '') : uri
-        let uploadBlob = null
-        const imageRef = firebase.storage().ref('image').child(imageName)
-        fs.readFile(uploadUri, 'base64')
-            .then((data) => {
-                return Blob.build(data, {type: `${mine};BASE64`})
-            })
-            .then((blob) =>{
-                uploadBlob = blob
-                return imageRef.put(blob, {contentType: mine })
-            })
-            .then(() => {
-                uploadBlob.close()
-                return imageRef.getDownloadURL()
-            })
-            .then((url) => {
-                resolve(url)
-            })
-            .catch((error) => {
-                reject(error)
-            })
-    })
-}
+
  class RegForm extends Component{
     constructor(props){
         super(props)
         this.state={
-            avatarPrincipal:''
+            avatarPrincipal:'',
+            repeatPassword:''
 
         }
     }
@@ -95,6 +72,15 @@ const uploadImage = (uri, imageName, mine = 'image/jpg') => {
        this.props.createUser({displayName,email,password,genero: genero || 'Hombre', photoUrl});
 
     }
+     _nextEmail = () =>{
+         this._email && this._email.focus()
+     }
+     _pass = () =>{
+         this._password && this._password.focus()
+     }
+     _nextPass = () =>{
+         this._repeatPassword && this._repeatPassword.focus()
+     }
     render(){
         return(
             <View style={styles.container}>
@@ -118,30 +104,41 @@ const uploadImage = (uri, imageName, mine = 'image/jpg') => {
                         style={ styles.input}
                         onChangeText={value => this.props.userUpdate({ prop: 'displayName', value })}
                         value={this.props.displayName}
+                        returnKeyType="next"
+                        onSubmitEditing={this._nextEmail}
                     />
                     <TextInput
+                        ref={ref => this._email = ref}
                         placeholder="Email"
                         placeholderTextColor={'rgba(44, 62, 80,1.0)'}
                         style={ styles.input}
                         onChangeText={value => this.props.userUpdate({ prop: 'email', value })}
                         value={this.props.email}
                         keyboardType={'email-address'}
+                        returnKeyType="next"
+                        onSubmitEditing={this._pass}
                     />
 
                     <TextInput
+                        ref={ref => this._password = ref}
                         secureTextEntry={true}
                         placeholder="Password"
                         placeholderTextColor={'rgba(44, 62, 80,1.0)'}
                         style={ styles.input}
                         onChangeText={value => this.props.userUpdate({ prop: 'password', value })}
                         value={this.props.password}
+                        returnKeyType="next"
+                        onSubmitEditing={this._nextPass}
                     />
 
                     <TextInput
+                        ref={ref => this._repeatPassword = ref}
                         secureTextEntry={true}
                         placeholder="Repite la contraseña"
                         placeholderTextColor={'rgba(44, 62, 80,1.0)'}
                         style={ styles.input}
+                        onChangeText={(repeatPassword) => this.setState({repeatPassword})}
+                        value={this.state.repeatPassword}
                     />
                     <View style={styles.sexoStyle}>
                         <Text style={styles.textSexo}>Género</Text>

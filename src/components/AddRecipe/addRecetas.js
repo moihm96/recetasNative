@@ -158,7 +158,7 @@ export default class addRecetas extends Component {
                             placeholderTextColor={'grey'}
                             onChangeText={(autor) => this.setState({autor})}
                             value={this.state.autor}
-                            returnKeyType="Siguiente"
+                            returnKeyType="next"
                             onSubmitEditing={this._next}
                         />
 
@@ -170,7 +170,7 @@ export default class addRecetas extends Component {
                             numberOfLines={5}
                             onChangeText={(entradilla) => this.setState({entradilla})}
                             value={this.state.entradilla}
-                            returnKeyType="Siguiente"
+                            returnKeyType="next"
                             maxLength={200}
                             blurOnSubmit={true}
                             onSubmitEditing={()=>Actions.addIngr({

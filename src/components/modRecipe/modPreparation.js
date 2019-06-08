@@ -58,22 +58,6 @@ const uploadImage = (uri, imageName, mine = 'image/jpg') => {
 }
 class modPreparation extends Component{
     componentWillMount() {
-        console.log(
-            this.props.uid_receta,
-            this.props.user.uid,
-            this.props.titulo,
-            this.props.autor,
-            this.props.entradilla,
-            this.props.tiempo,
-            this.props.dificultad,
-            this.props.numPerson,
-            this.props.ingredientes,
-            this.props.pasos,
-            this.props.imageAux,
-            this.props.imageUrl,
-            this.props.avatarAux,
-            this.props.avatarUrl
-        )
         this.setState({
             pasos:this.props.pasos
         })

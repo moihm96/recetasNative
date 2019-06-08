@@ -14,7 +14,7 @@ import ImagePicker from "react-native-image-picker"
 import {Avatar, Slider} from 'react-native-elements';
 import SelectInput from "react-native-select-input-ios";
 import fondo from "../../img/fondo.png"
-import {heightPercentageToDP} from "../../auxiliar/ScreenDimension";
+import {heightPercentageToDP, widthPercentageToDP} from "../../auxiliar/ScreenDimension";
 import {Actions} from "react-native-router-flux";
 import {Buttons} from "../Buttons"
 const options={
@@ -133,26 +133,22 @@ export default class modReceta extends Component {
                             placeholderTextColor={'rgba(44, 62, 80,1.0)'}
                             onChangeText={(titulo) => this.setState({titulo})}
                             value={this.state.titulo}
+                            onSubmitEditing={this.openCamera}
                         />
 
 
-                        <TouchableOpacity onPress={this.openCamera}>
-                            <Text>Foto de la cabecera y listados</Text>
+                        <TouchableOpacity onPress={this.openCamera} style={{marginTop:heightPercentageToDP(3), marginBottom:heightPercentageToDP(2)}}>
+                            <Text style={{marginBottom:heightPercentageToDP(1)}}>Foto de la cabecera y listados</Text>
+                            <View style={{borderColor:'rgb(210,210,210)',borderWidth:1}}>
+                                <Image
+                                    style={{height:heightPercentageToDP(15)}}
+                                    source={{uri:this.state.imageUrl}}
+                                />
+                            </View>
+
                         </TouchableOpacity>
-                        <Image
-                            style={styles.imageContainer}
-                            source={{uri:this.state.imageUrl}}
-                        />
-                        <TextInput
-                            placeholder="Autor"
-                            style={styles.input}
-                            placeholderTextColor={'rgba(44, 62, 80,1.0)'}
-                            onChangeText={(autor) => this.setState({autor})}
-                            value={this.state.autor}
-                        />
 
-
-                        <TouchableOpacity onPress={this.openCameraAvatar}>
+                        <TouchableOpacity onPress={this.openCameraAvatar} style={{alignItems:'center', marginBottom: heightPercentageToDP(2)}}>
                             <Text>Foto de la abuela</Text>
                             <Avatar
                                 source={{uri:this.state.avatarUrl}}
@@ -168,8 +164,13 @@ export default class modReceta extends Component {
                                 maximumValue={150}
                                 value={this.state.tiempo}
                                 onValueChange={tiempo => this.setState({ tiempo })}
+                                trackStyle={{borderRadius: 5,borderWidth: 1, borderColor:'grey', height:heightPercentageToDP(1.75)}}
+                                thumbStyle={{borderWidth:1, borderColor: 'white', alignItems:'flex-end',height:heightPercentageToDP(3)}}
+                                thumbTouchSize={{width: widthPercentageToDP(10), height: heightPercentageToDP(10)}}
                                 thumbTintColor={'rgb(255,216,0)'}
-                                step={1}
+                                minimumTrackTintColor={'rgb(255,216,0)'}
+                                maximumTrackTintColor={"white"}
+                                step={5}
                             />
                         </View>
                         <View style={styles.difStyle}>
@@ -181,15 +182,39 @@ export default class modReceta extends Component {
                                 style={styles.input}
                             />
                         </View>
+                        <TextInput
+                            placeholder="Autor"
+                            style={styles.input}
+                            placeholderTextColor={'rgba(44, 62, 80,1.0)'}
+                            onChangeText={(autor) => this.setState({autor})}
+                            value={this.state.autor}
+                            returnKeyType="next"
+                            onSubmitEditing={this._next}
+                        />
 
                         <TextInput
-                            placeholder="Entradilla de la receta"
-                            placeholderTextColor={'rgba(44, 62, 80,1.0)'}
+                            ref={ref=> {this._entradilla = ref}}
+                            placeholder={'Entradilla de la receta'}
                             style={styles.input}
                             multiline={true}
                             numberOfLines={5}
                             onChangeText={(entradilla) => this.setState({entradilla})}
                             value={this.state.entradilla}
+                            returnKeyType="send"
+                            maxLength={200}
+                            blurOnSubmit={true}
+                            onSubmitEditing={()=>Actions.modIngredients({
+                                receta:this.props.receta,
+                                titulo: this.state.titulo ,
+                                autor: this.state.autor,
+                                entradilla: this.state.entradilla,
+                                tiempo: this.state.tiempo,
+                                dificultad:this.state.dificultad,
+                                imageUrl: this.state.imageUrl,
+                                avatarUrl: this.state.avatarUrl,
+                                imageAux:this.state.imageAux,
+                                avatarAux:this.state.avatarAux
+                            })}
                         />
                     </View>
                     <View style={styles.buttonStyles}>
@@ -216,6 +241,9 @@ export default class modReceta extends Component {
 
             </ImageBackground>
         );
+    }
+    _next = () => {
+        this._entradilla && this._entradilla.focus()
     }
 }
 const styles= StyleSheet.create({

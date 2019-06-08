@@ -100,12 +100,12 @@ class addPaso extends Component{
                             placeholderTextColor={'rgba(44, 62, 80,1.0)'}
                             onChangeText={(titulo) => this.setState({titulo})}
                             value={this.state.titulo}
-                            returnKeyType="Siguiente"
+                            returnKeyType="next"
                             onSubmitEditing={this._nextPaso}
                         />
                         <TextInput
                             ref={ref => this._numPaso = ref}
-                            returnKeyType="Siguiente"
+                            returnKeyType="next"
                             onSubmitEditing={this._nextDescr}
                             placeholder="Numero del paso"
                             style={styles.input}
@@ -115,7 +115,7 @@ class addPaso extends Component{
                         />
                         <TextInput
                             ref={ref => this._descrPaso = ref}
-                            returnKeyType="Siguiente"
+                            returnKeyType="next"
                             placeholder="Descripcion del paso"
                             placeholderTextColor={'rgba(44, 62, 80,1.0)'}
                             style={styles.input}

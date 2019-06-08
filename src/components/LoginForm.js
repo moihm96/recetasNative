@@ -62,6 +62,9 @@ class LoginForm extends Component{
             </View>
         )
     }
+    _nextPass = () =>{
+        this._password && this._password.focus()
+    }
 
     render(){
         return(
@@ -71,6 +74,9 @@ class LoginForm extends Component{
                     style={ styles.input}
                     onChangeText={this.onEmailChange.bind(this)}
                     value={this.props.email}
+                    keyboardType={'email-address'}
+                    returnKeyType="next"
+                    onSubmitEditing={this._nextPass}
                 />
                 <TextInput
                     secureTextEntry={true}
@@ -78,6 +84,9 @@ class LoginForm extends Component{
                     style={ styles.input}
                     onChangeText={this.onPasswordChange.bind(this)}
                     value={this.props.password}
+                    ref={ref => this._password = ref}
+                    returnKeyType="send"
+                    onSubmitEditing={this.onButtonPress.bind(this)}
                 />
                 <Text style={styles.errorTextStyle}>
                     {this.props.error}

@@ -118,6 +118,9 @@ class showPerfil extends Component{
 
         this.props.updateUser(user,uid,displayName,email,genero,photoURL)
     }
+    _nextEmail = () =>{
+        this._email && this._email.focus()
+    }
 
     render(){
         return(
@@ -140,6 +143,8 @@ class showPerfil extends Component{
                             displayName:value
                         })}
                         value={this.state.displayName}
+                        returnKeyType="next"
+                        onSubmitEditing={this._nextEmail}
                     />
                     <TextInput
                         placeholder="Email"
@@ -150,6 +155,7 @@ class showPerfil extends Component{
                         })}
                         value={this.state.email}
                         keyboardType={'email-address'}
+                        ref={ref => this._email = ref}
                     />
 
                     <View style={styles.sexoStyle}>
