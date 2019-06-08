@@ -18,6 +18,7 @@ import modReceta from '../components/modRecipe/modReceta'
 import modIngredients from '../components/modRecipe/modIngredients'
 import modPreparation from '../components/modRecipe/modPreparation'
 import modPaso from '../components/modRecipe/modPaso'
+import modAddPaso from '../components/modRecipe/modAddPaso'
 
 
 import {StyleSheet} from 'react-native'
@@ -103,6 +104,11 @@ const Routes = () => (
                     <Scene
                         key="modPaso"
                         component={modPaso}
+                    />
+
+                    <Scene
+                        key="modAddPaso"
+                        component={modAddPaso}
                     />
 
                 <Scene

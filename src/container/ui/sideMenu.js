@@ -27,7 +27,7 @@ import {signOut} from '../../actions/AuthActions'
 import {connect} from 'react-redux';
 import * as firebase from 'firebase';
 import _ from 'lodash'
-import ModalLogin from "../../Grid/ModalLogin";
+import ModalLogin from "../../components/ModalLogin";
 
 class sideMenu extends Component{
     constructor(props){

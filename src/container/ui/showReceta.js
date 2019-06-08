@@ -48,7 +48,7 @@ export default class showReceta extends Component{
                             <View style={{borderLeftWidth:5,
                                 borderColor:'rgb(255,216,0)', paddingLeft: 10}}>
                                 <Text style={{fontWeight:"bold", fontSize:15}}>{data.titulo}</Text>
-                                <Text style={{ fontSize:15}}>{data.descr}</Text>
+                                <Text style={{ fontSize:15}}>{data.descripcion}</Text>
                             </View>
                         </View>
                     </View>

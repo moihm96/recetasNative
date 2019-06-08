@@ -58,16 +58,22 @@ const uploadImage = (uri, imageName, mine = 'image/jpg') => {
 }
 class modPreparation extends Component{
     componentWillMount() {
-        console.log(this.props.uid_receta,
+        console.log(
+            this.props.uid_receta,
             this.props.user.uid,
             this.props.titulo,
             this.props.autor,
             this.props.entradilla,
             this.props.tiempo,
             this.props.dificultad,
-            this.props.person,
-            this.props.ingredients,
-            this.state.pasos)
+            this.props.numPerson,
+            this.props.ingredientes,
+            this.props.pasos,
+            this.props.imageAux,
+            this.props.imageUrl,
+            this.props.avatarAux,
+            this.props.avatarUrl
+        )
         this.setState({
             pasos:this.props.pasos
         })
@@ -79,24 +85,26 @@ class modPreparation extends Component{
         }
     }
 
-    saveForm(){
 
+    saveForm(){
         if(this.props.user){
             try {
-                this.props.imageUrl ?
+
+                this.props.imageUrl && (this.props.imageUrl.localeCompare(this.props.imageAux) !== 0) ?
                     uploadImage(this.props.imageUrl, `imagen${this.props.user.uid}${this.props.titulo}.jpg`)
                         .then((responseData) => {
                             Helpers.setImageUrl(this.props.user.uid,this.props.uid_receta,responseData)
                         })
                         .done()
-                    : null
-                this.props.avatarUrl ?
+                    : () => console.log(this.props.imageUrl)
+
+                this.props.avatarUrl && (this.props.avatarUrl.localeCompare(this.props.avatarAux) !== 0) ?
                     uploadImage(this.props.avatarUrl, `avatar${this.props.user.uid}${this.props.titulo}.jpg`)
                         .then((responseData) => {
                             Helpers.setAvatarUrl(this.props.user.uid,this.props.uid_receta,responseData)
                         })
                         .done()
-                    : null
+                    : ()=> console.log(this.props.avatarUrl)
 
                 this.state.pasos.map((data, index) => {
                     if(data.imagen){
@@ -116,12 +124,12 @@ class modPreparation extends Component{
                     this.props.entradilla,
                     this.props.tiempo,
                     this.props.dificultad,
-                    this.props.person,
-                    this.props.ingredients,
+                    this.props.numPerson,
+                    this.props.ingredientes,
                     this.state.pasos
                 )
 
-                Alert.alert("Recetas", "Receta creada con éxito")
+                Alert.alert("Recetas", "Receta modificada con éxito")
 
                 Actions.usersRecetas()
 
@@ -132,7 +140,8 @@ class modPreparation extends Component{
         }
     }
     onAddPaso =() =>{
-        Actions.addPaso({
+        Actions.modAddPaso({
+            uid_receta:this.props.uid_receta,
             titulo: this.props.titulo ,
             autor: this.props.autor,
             entradilla: this.props.entradilla,
@@ -140,14 +149,17 @@ class modPreparation extends Component{
             dificultad:this.props.dificultad,
             imageUrl: this.props.imageUrl,
             avatarUrl: this.props.avatarUrl,
-            ingredients:this.state.ingredients,
-            person: this.state.person,
-            pasos:this.state.pasos
+            ingredientes:this.props.ingredientes,
+            numPerson: this.props.numPerson,
+            pasos:this.state.pasos,
+            avatarAux:this.props.avatarAux,
+            imageAux:this.props.imageAux
         });
     }
 
     modPaso = (item)  =>{
         Actions.modPaso({
+            uid_receta:this.props.uid_receta,
             titulo: this.props.titulo ,
             autor: this.props.autor,
             entradilla: this.props.entradilla,
@@ -155,10 +167,12 @@ class modPreparation extends Component{
             dificultad:this.props.dificultad,
             imageUrl: this.props.imageUrl,
             avatarUrl: this.props.avatarUrl,
-            ingredients:this.state.ingredients,
-            person: this.state.person,
+            ingredientes:this.props.ingredientes,
+            numPerson: this.props.numPerson,
             pasos:this.state.pasos,
-            paso:item
+            paso:item,
+            avatarAux:this.props.avatarAux,
+            imageAux:this.props.imageAux
         })
     }
 

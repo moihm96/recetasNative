@@ -8,8 +8,8 @@ import {
     TouchableWithoutFeedback,
     Modal
 } from 'react-native';
-import SearchAdvanced from "../components/SearchAdvanced";
-import SearchAdv from "../components/SearchAdv";
+import SearchAdvanced from "./SearchAdvanced";
+import SearchAdv from "./SearchAdv";
 
 import {AnimatedModal} from "react-native-modal-animated";
 class ModalSearch extends Component{

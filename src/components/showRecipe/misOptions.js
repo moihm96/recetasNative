@@ -20,7 +20,7 @@ import {Rating} from "react-native-elements";
 import {AirbnbRating} from "react-native-ratings";
 
 import {connect} from 'react-redux'
-import {Confirm} from "../../Grid/Confirm";
+import {Confirm} from "../Confirm";
 import * as firebase from 'firebase'
 import {Actions} from "react-native-router-flux";
 

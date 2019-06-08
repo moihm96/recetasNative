@@ -34,9 +34,20 @@ export default class modReceta extends Component {
             tiempo: this.props.receta.tiempo,
             arrayDif:dif,
             dificultad:this.props.receta.dificultad,
-            imageUrl: this.props.receta.imageUrl,
-            avatarUrl: this.props.receta.avatarUrl
         })
+
+        if(this.props.receta.imageUrl){
+            this.setState({
+                imageUrl: this.props.receta.imageUrl,
+                imageAux: this.props.receta.imageUrl,
+            })
+        }
+        if(this.props.receta.avatarUrl){
+            this.setState({
+                avatarUrl: this.props.receta.avatarUrl,
+                avatarAux: this.props.receta.avatarUrl
+            })
+        }
     }
 
     constructor(props){
@@ -48,10 +59,14 @@ export default class modReceta extends Component {
             tiempo:0,
             arrayDif:dif,
             dificultad:"Baja",
-            imageUrl:"",
-            avatarUrl:""
+            imageUrl:"imageUrl",
+            avatarUrl:"avatarUrl",
+            imageAux:"imageAux",
+            avatarAux:"avatarAux"
         };
     }
+
+
     pickerDif(){
         let array = []
         this.state.arrayDif.map((data, i) => {
@@ -187,7 +202,9 @@ export default class modReceta extends Component {
                                 tiempo: this.state.tiempo,
                                 dificultad:this.state.dificultad,
                                 imageUrl: this.state.imageUrl,
-                                avatarUrl: this.state.avatarUrl
+                                avatarUrl: this.state.avatarUrl,
+                                imageAux:this.state.imageAux,
+                                avatarAux:this.state.avatarAux
                             })}
                             onPress2={()=>Actions.pop()}
                             text1={"Siguiente"}

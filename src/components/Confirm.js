@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {Text, View, Modal, StyleSheet, TouchableOpacity} from "react-native";
-import {Buttons} from "../components/Buttons";
+import {Buttons} from "./Buttons";
 import {heightPercentageToDP, widthPercentageToDP} from "../auxiliar/ScreenDimension";
 
 const Confirm =({children, visible, onAccept, onDecline}) =>{

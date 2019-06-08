@@ -14,7 +14,7 @@ import {
 import {heightPercentageToDP,widthPercentageToDP} from "../../auxiliar/ScreenDimension";
 import IonIcon from 'react-native-vector-icons/Ionicons'
 import { Actions } from 'react-native-router-flux'
-import ModalSearch from "../../Grid/ModalSearch";
+import ModalSearch from "../../components/ModalSearch";
 class Header extends Component{
     constructor(props){
         super(props)

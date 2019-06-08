@@ -20,32 +20,31 @@ let arrayEmpty=["0"]
 let personas=["0","2","4","6","8"]
 const ingredientes=[]
 let ingredients=[""]
-let person=arrayEmpty[0]
+let person =arrayEmpty[0]
 export default class modIngredients extends Component{
     componentWillMount() {
-        console.log(this.props.receta.uid)
+
         if(this.props.receta.ingredientes){
             this.setState({
-                ingredients:this.props.receta.ingredientes,
+                ingredientes:this.props.receta.ingredientes,
                 auxIngredients:this.props.receta.ingredientes,
             })
         }
 
         this.setState({
-            person:this.props.receta.numPerson,
+            numPerson:this.props.receta.numPerson,
             pasos:this.props.receta.pasos,
             uid_receta:this.props.receta.uid
         })
     }
-
     constructor(props){
         super(props)
         this.state={
             data:ingredientes,
             arrayPersonas:personas,
-            person:person,
+            numPerson:person,
             ingrediente:"",
-            ingredients:[],
+            ingredientes:[],
             auxIngredients:[],
             pasos:[],
             uid_receta:""
@@ -61,20 +60,18 @@ export default class modIngredients extends Component{
     onAdd(){
         //Adding Items To Array.
 
-        this.state.ingredients.push(this.state.ingrediente.toString());
+        //this.state.ingredients.push(this.state.ingrediente.toString());
         this.state.auxIngredients.push(this.state.ingrediente.toString())
 
         this.setState({ingrediente:""})
 
     }
     deleteItem(index){
-
         let array = [...this.state.auxIngredients]
         if(index !== -1){
             array.splice(index,1)
             this.setState({
-                auxIngredients:array,
-                ingredients:array
+                auxIngredients:array
             })
         }
     }
@@ -111,8 +108,8 @@ export default class modIngredients extends Component{
                             <SelectInput
                                 style={{flex:4}}
                                 options = {this.pickerIngredientes()}
-                                value = {this.state.person}
-                                onSubmitEditing = {(value) => this.setState({person: value})}
+                                value = {this.state.numPerson}
+                                onSubmitEditing = {(value) => this.setState({numPerson: value})}
                             />
                         </View>
                         {this.parseData()}
@@ -150,13 +147,14 @@ export default class modIngredients extends Component{
                                     dificultad:this.props.dificultad,
                                     imageUrl: this.props.imageUrl,
                                     avatarUrl: this.props.avatarUrl,
-                                    ingredients:this.state.ingredients,
-                                    person: this.state.person,
+                                    ingredientes:this.state.auxIngredients,
+                                    numPerson: this.state.numPerson,
                                     pasos:this.state.pasos,
-                                    uid_receta: this.state.uid_receta
+                                    uid_receta: this.state.uid_receta,
+                                    avatarAux:this.props.avatarAux,
+                                    imageAux:this.props.imageAux
                                 })
-                            }
-
+                                }
                             }
                             onPress2={()=> Actions.pop()}
                         />

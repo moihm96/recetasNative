@@ -10,28 +10,23 @@ import {
     TextInput,
     ScrollView
 } from 'react-native'
-import {connect} from 'react-redux'
-import {setPaso} from "../../actions/PasosAction";
 import fondo from "../../img/fondo.png"
-import ImagePicker from "react-native-image-picker/index";
+import ImagePicker from "react-native-image-picker";
 import {Buttons} from "../Buttons";
 const options={
-    title: 'my pic app',
+    title: 'Añadir foto paso',
     takePhotoButtonTitle: 'Take photo with your camera',
     chooseFromLibraryButtonTitle: 'Choose photo from library',
 }
 import {Actions} from "react-native-router-flux";
 
-class modPaso extends Component{
+class modAddPaso extends Component{
     componentWillMount() {
-        this.setState({
-            paso:this.props.paso,
-            pasos:this.props.pasos,
-            titulo:this.props.paso.titulo,
-            imagen:this.props.paso.imagen,
-            pid:this.props.paso.pid,
-            descripcion:this.props.paso.descripcion
-        })
+        if(this.props.pasos){
+            this.setState({
+                pasos:this.props.pasos
+            })
+        }
     }
 
     constructor(props){
@@ -76,16 +71,16 @@ class modPaso extends Component{
         this.state.paso.imagen=this.state.imagen
         this.state.paso.pid=this.state.pid
         this.state.paso.descripcion=this.state.descripcion
-        console.log(
-            this.state.pasos,
-            this.state.paso,
-            this.state.titulo,
-            this.state.imagen,
-            this.state.pid,
-            this.state.descripcion
-
-        )
-
+        this.setState({
+            titulo:'',
+            imagen:'',
+            pid:'',
+            descripcion:''
+        })
+        this.state.pasos.push(this.state.paso)
+        this.setState({
+            paso:[]
+        })
         Actions.modPreparation({
             uid_receta:this.props.uid_receta,
             titulo: this.props.titulo ,
@@ -97,17 +92,18 @@ class modPaso extends Component{
             avatarUrl: this.props.avatarUrl,
             ingredientes:this.props.ingredientes,
             numPerson: this.props.numPerson,
-            pasos:this.props.pasos,
+            pasos:this.state.pasos,
             avatarAux:this.props.avatarAux,
             imageAux:this.props.imageAux
         })
+
     }
 
     render(){
         return(
             <ImageBackground source={fondo} style={styles.container}>
                 <ScrollView>
-                    <Text style={styles.nuevaText}>Paso</Text>
+                    <Text style={styles.nuevaText}>Preparacion</Text>
                     <View style={styles.vista}>
                         <TextInput
                             placeholder="Titulo del paso"
@@ -199,4 +195,4 @@ const styles= StyleSheet.create({
     },
 });
 
-export default connect(null,{setPaso})(modPaso)
+export default modAddPaso;

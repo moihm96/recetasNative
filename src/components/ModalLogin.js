@@ -8,7 +8,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import salida from '../img/exit.png'
-import LoginForm from "../components/LoginForm";
+import LoginForm from "./LoginForm";
 import {heightPercentageToDP, widthPercentageToDP} from "../auxiliar/ScreenDimension";
 import {connect} from 'react-redux'
 class ModalLogin extends Component{
