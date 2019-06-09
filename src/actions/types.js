@@ -7,6 +7,7 @@ export const LOG_OUT = 'log_out'
 
 export const USER_UPDATE = 'update_user';
 export const USER_CREATE = 'user_create';
+export const USER_CREATE_FAIL='user_create_fail'
 export const UPDATE_USER = 'user_update'
 export const GET_GENERO= 'get_genero'
 export const FETCH_USER_SUCCESS = 'fetch_user_success'

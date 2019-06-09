@@ -1,6 +1,6 @@
 import {
     USER_UPDATE,
-    USER_CREATE, UPDATE_USER, GET_GENERO
+    USER_CREATE, UPDATE_USER, GET_GENERO, USER_CREATE_FAIL
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -9,6 +9,7 @@ const INITIAL_STATE = {
     password: '',
     photoURL:'',
     genero:'',
+    error:'',
     user:null
 };
 
@@ -20,6 +21,8 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, genero:action.payload}
         case USER_CREATE:
             return {INITIAL_STATE, user:action.payload};
+        case USER_CREATE_FAIL:
+            return {INITIAL_STATE, error:action.payload};
         case USER_UPDATE:
             return { ...state, [action.payload.prop]: action.payload.value };
         default:

@@ -33,7 +33,7 @@ export default (state = INITIAL_STATE, action) => {
         case LOGIN_USER_SUCCESS:
             return { ...state, ...INITIAL_STATE, user: action.payload, modal:false};
         case LOGIN_USER_FAIL:
-            return { ...state, error: 'Authentication Failed.', password: '', loading: false };
+            return { ...state, error: action.payload, password: '', loading: false };
         case LOG_OUT:
             console.log('Sign Out success')
             return {...state,...INITIAL_STATE, user: action.payload};

@@ -29,18 +29,39 @@ export const loginUser = ({ email, password }) => {
         firebase.auth().signInWithEmailAndPassword(email, password).then(
             (user) =>{ loginUserSuccess(dispatch, user)}
         ).catch(
-            () => {
-                loginUserFail(dispatch)
+            (error) => {
+                let errorCode= error.code
+                loginUserFail(dispatch, errorCode)
             }
         )
     };
 };
 
 
-const loginUserFail = (dispatch) => {
-    dispatch({ type: LOGIN_USER_FAIL });
-    console.log('No se ha autenticado')
-    Actions.register()
+const loginUserFail = (dispatch, error) => {
+    switch (error) {
+        case 'auth/invalid-email':
+            return dispatch({
+                type:LOGIN_USER_FAIL,
+                payload:'El email no es correcto'
+            })
+        case 'auth/user-not-found':
+            return dispatch({
+                type:LOGIN_USER_FAIL,
+                payload:'El usuario no existe'
+            })
+        case 'auth/wrong-password':
+            return dispatch({
+                type:LOGIN_USER_FAIL,
+                payload:'La contraseña es incorrecta'
+            })
+        default:
+            return dispatch({
+                type: LOGIN_USER_FAIL,
+                payload: 'No se ha podido autenticar'
+            })
+
+    }
 };
 
 const loginUserSuccess = (dispatch, user) => {

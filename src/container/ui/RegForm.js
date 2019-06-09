@@ -37,7 +37,8 @@ const options={
         super(props)
         this.state={
             avatarPrincipal:'',
-            repeatPassword:''
+            repeatPassword:'',
+            error: ''
 
         }
     }
@@ -67,6 +68,17 @@ const options={
         return(array)
     }
     onButtonPress(){
+        if(this.props.error && this.props.password === this.state.repeatPassword){
+            this.setState({
+                repeatPassword:''
+            })
+        }
+        if(this.props.password !== this.state.repeatPassword){
+            this.setState({
+                error:'Las contraseñas no coinciden'
+            })
+            return;
+        }
        const {displayName,email,password,genero, photoUrl} = this.props;
 
        this.props.createUser({displayName,email,password,genero: genero || 'Hombre', photoUrl});
@@ -81,6 +93,37 @@ const options={
      _nextPass = () =>{
          this._repeatPassword && this._repeatPassword.focus()
      }
+
+     showError(){
+        if(this.props.error){
+            if(this.props.error === 'auth/email-already-in-use'){
+                return(
+                    <View>
+                        <Text style={styles.errorTextStyle}>
+                            El correo ya esta en uso
+                        </Text>
+                    </View>
+                )
+            } else if(this.props.error === 'auth/invalid-email'){
+                return(
+                    <View>
+                        <Text style={styles.errorTextStyle}>
+                            El correo no es válido
+                        </Text>
+                    </View>
+                )
+            }else if(this.props.error === 'auth/weak-password'){
+                return(
+                    <View>
+                        <Text style={styles.errorTextStyle}>
+                            La contraseña no es válida, mínimo 6 carácteres
+                        </Text>
+                    </View>
+                )
+            }
+        }
+     }
+
     render(){
         return(
             <View style={styles.container}>
@@ -149,6 +192,10 @@ const options={
                             onSubmitEditing = {value => this.props.userUpdate({ prop: 'genero', value })}
                         />
                     </View>
+                    {this.showError()}
+                    <Text style={styles.errorTextStyle}>
+                        {this.state.error}
+                    </Text>
                     <TouchableOpacity onPress={this.onButtonPress.bind(this)} style={ styles.buttonContainer2}>
                         <Text style={styles.buttonText}>Registrarse</Text>
                     </TouchableOpacity>
@@ -200,8 +247,6 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderColor:'grey'
     },
-
-
     buttonText: {
         textAlign: 'center',
         color:'rgba(44, 62, 80,1.0)',
@@ -220,14 +265,20 @@ const styles = StyleSheet.create({
         justifyContent:'space-between',
         borderBottomWidth: 1,
         borderColor:'grey'
-    }
+    },
+    errorTextStyle: {
+       marginTop:heightPercentageToDP(1),
+        fontSize: heightPercentageToDP(2.5),
+        alignSelf: 'center',
+        color: 'red'
+    },
 });
 
 
  const mapStateToProps = (state) => {
-    const { displayName,email,password,genero, photoUrl } = state.regForm;
+    const { displayName,email,password,genero, photoUrl, error } = state.regForm;
 
-    return { displayName,email,password,genero , photoUrl};
+    return { displayName,email,password,genero , photoUrl, error};
 };
 
 export default connect(mapStateToProps, {

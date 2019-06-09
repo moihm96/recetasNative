@@ -1,4 +1,4 @@
-import {FETCH_OWN_RECIPES, GET_GENERO, USER_CREATE, USER_UPDATE} from "./types";
+import {FETCH_OWN_RECIPES, GET_GENERO, USER_CREATE, USER_CREATE_FAIL, USER_UPDATE} from "./types";
 import * as firebase from 'firebase';
 import {Actions} from "react-native-router-flux";
 
@@ -26,7 +26,14 @@ export const createUser =({userName,email,password,genero, photoUrl}) => {
                    Actions.usersRecetas();
                })
 
-            })
+            }).catch((error)=>{
+                console.log(error)
+                let errorCode = error.code
+                dispatch({
+                    type: USER_CREATE_FAIL,
+                    payload: errorCode
+                })
+        })
     }
 
 }
