@@ -9,6 +9,7 @@ import {
     TextInput,
     TouchableOpacity
 } from 'react-native'
+import Feather from 'react-native-vector-icons/Feather'
 import fondo from "../../img/fondo.png"
 import {heightPercentageToDP, widthPercentageToDP} from "../../auxiliar/ScreenDimension";
 import {Avatar,Icon} from "react-native-elements";
@@ -16,6 +17,7 @@ import FontIcon from "react-native-vector-icons/FontAwesome"
 import {Rating} from "react-native-ratings";
 import Option from "../../components/showRecipe/optionView"
 import {Actions} from "react-native-router-flux";
+import IonIcon from "react-native-vector-icons/Ionicons";
 export default class showReceta extends Component{
     constructor(props){
         super(props)
@@ -63,7 +65,14 @@ export default class showReceta extends Component{
                 style={styles.container}
             >
                 <ScrollView>
-                    <Text style={styles.textSections}>{this.props.receta.titulo}</Text>
+                    <View style={{flexDirection:'row'}}>
+                        <Feather onPress={()=> Actions.pop()}
+                            name="chevron-left"
+                            color="black"
+                            size={heightPercentageToDP(5)}
+                        />
+                        <Text style={styles.textSections}>{this.props.receta.titulo}</Text>
+                    </View>
                     <View style={styles.vistaEntrada}>
                         <Image  source={{uri:this.props.receta.imageUrl}}
                                 style={styles.imagenStyle}
@@ -201,7 +210,7 @@ const styles= StyleSheet.create({
     pasoStyle:{
         alignSelf: "center",
         marginRight: 10,
-        fontSize:17,
+        fontSize:heightPercentageToDP(5),
         color:'rgb(255,216,0)',
     }
 });
