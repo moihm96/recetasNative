@@ -21,6 +21,7 @@ const options={
     chooseFromLibraryButtonTitle: 'Choose photo from library',
 }
 import {Actions} from "react-native-router-flux";
+import {heightPercentageToDP} from "../../auxiliar/ScreenDimension";
 
 class modPaso extends Component{
     componentWillMount() {
@@ -141,21 +142,24 @@ class modPaso extends Component{
                             onSubmitEditing={this.openCamera}
                             blurOnSubmit={true}
                         />
-                        <TouchableOpacity onPress={this.openCamera}>
-                            <Text>Foto del paso</Text>
+                        <TouchableOpacity onPress={this.openCamera} style={{marginTop:heightPercentageToDP(3), marginBottom:heightPercentageToDP(1)}}>
+                            <Text style={{marginBottom:heightPercentageToDP(1)}}>Foto del paso</Text>
+                            <View style={{borderColor:'rgb(210,210,210)',borderWidth:1}}>
+                                <Image
+                                    style={{height:heightPercentageToDP(15)}}
+                                    source={{uri:this.state.imagen}}
+                                />
+                            </View>
+
                         </TouchableOpacity>
-                        <Image
-                            style={{width:100, height:100}}
-                            source={{uri:this.state.imagen}}
+                    </View>
+                    <View style={{paddingHorizontal: heightPercentageToDP(4)}}>
+                        <Buttons
+                            text1={"Guardar"}
+                            text2={"Atrás"}
+                            onPress2={()=>Actions.pop()}
+                            onPress1={()=>this.addPaso()}
                         />
-                        <View style={{padding: 20}}>
-                            <Buttons
-                                text1={"Guardar"}
-                                text2={"Atrás"}
-                                onPress2={()=>Actions.pop()}
-                                onPress1={()=>this.addPaso()}
-                            />
-                        </View>
                     </View>
                 </ScrollView>
             </ImageBackground>
@@ -197,6 +201,10 @@ const styles= StyleSheet.create({
         width: 20,
         height: 20
     },
+    input:{
+        borderBottomWidth: 1,
+        borderBottomColor:'grey'
+    }
 });
 
 export default connect(null,{setPaso})(modPaso)

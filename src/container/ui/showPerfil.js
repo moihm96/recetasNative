@@ -69,6 +69,7 @@ class showPerfil extends Component{
     }
 
     componentWillMount() {
+        console.log(this.props)
         if(this.props.user){
             this.props.getGenero(this.props.user.uid)
             this.setState({

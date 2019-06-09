@@ -19,7 +19,7 @@ export default (state = INITIAL_STATE, action) => {
         case GET_GENERO:
             return {...state, genero:action.payload}
         case USER_CREATE:
-            return {...state, INITIAL_STATE, user:action.payload};
+            return {INITIAL_STATE, user:action.payload};
         case USER_UPDATE:
             return { ...state, [action.payload.prop]: action.payload.value };
         default:

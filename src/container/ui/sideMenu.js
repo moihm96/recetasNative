@@ -190,7 +190,7 @@ const styles= StyleSheet.create({
     },
     textMenu:{
         fontFamily:'Allura-Regular',
-        fontSize:32
+        fontSize:widthPercentageToDP(8)
     },
     imageStyle:{
         resizeMode:'contain',

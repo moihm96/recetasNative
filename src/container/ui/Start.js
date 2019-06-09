@@ -5,8 +5,10 @@ import {
     Image,
     Text,
     KeyboardAvoidingView,
-    ScrollView
+    ScrollView,
+    ImageBackground
 } from 'react-native';
+import fondo from '../../img/fondo.png'
 import LoginForm from '../../components/LoginForm'
 import { widthPercentageToDP, heightPercentageToDP } from '../../auxiliar/ScreenDimension'
 import comida from '../../img/comida.jpg'
@@ -25,19 +27,21 @@ export default class Start extends Component{
 
     render(){
         return(
-            <KeyboardAvoidingView style ={styles.container}>
+            <KeyboardAvoidingView>
                 <ScrollView>
-                    <View style ={styles.logoContainer}>
-                        <Text style={styles.title}>Inicia Sesión</Text>
-                        <Image
-                            style = {styles.logo}
-                            source={ comida }/>
-                    </View>
-                    <View style = {styles.formContainer}>
-                        <LoginForm
-                            onUser={this.onUser}
-                        />
-                    </View>
+                    <ImageBackground source={fondo}style={{flex:1,backgroundColor: "white" }}>
+                        <View style ={styles.logoContainer}>
+                            <Text style={styles.title}>Inicia Sesión</Text>
+                            <Image
+                                style = {styles.logo}
+                                source={ comida }/>
+                        </View>
+                        <View style = {styles.formContainer}>
+                            <LoginForm
+                                onUser={this.onUser}
+                            />
+                        </View>
+                    </ImageBackground>
                 </ScrollView>
             </KeyboardAvoidingView>
         );
@@ -52,16 +56,18 @@ const styles = StyleSheet.create({
     logo:{
         width: widthPercentageToDP("85"),
         height: heightPercentageToDP("25"),
-        marginTop: 10
+        marginTop: heightPercentageToDP(1)
     },
     logoContainer:{
+        backgroundColor:'white',
         flex:1.4,
         alignItems: 'center',
         flexGrow:1,
         justifyContent: 'center',
-        marginTop: heightPercentageToDP('10%'),
+        marginTop: heightPercentageToDP('5%'),
     },
     formContainer:{
+        backgroundColor:'white',
         flex:2
     },
     title:{

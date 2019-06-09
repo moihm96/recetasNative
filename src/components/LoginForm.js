@@ -49,13 +49,9 @@ class LoginForm extends Component{
         }
         return(
             <View>
-                <TouchableOpacity>
-                    <Text style={styles.buttonPassword}>¿No recuerdas la contraseña?</Text>
-                </TouchableOpacity>
-
                 <Buttons
                     text1={"Entrar"}
-                    text2={"Registrarse"}
+                    text2={"No registrado"}
                     onPress2={this.onRegister}
                     onPress1={this.onButtonPress.bind(this)}
                 />
@@ -69,28 +65,33 @@ class LoginForm extends Component{
     render(){
         return(
             <KeyboardAvoidingView style = {styles.container}>
-                <TextInput
-                    placeholder="username or email"
-                    style={ styles.input}
-                    onChangeText={this.onEmailChange.bind(this)}
-                    value={this.props.email}
-                    keyboardType={'email-address'}
-                    returnKeyType="next"
-                    onSubmitEditing={this._nextPass}
-                />
-                <TextInput
-                    secureTextEntry={true}
-                    placeholder="password"
-                    style={ styles.input}
-                    onChangeText={this.onPasswordChange.bind(this)}
-                    value={this.props.password}
-                    ref={ref => this._password = ref}
-                    returnKeyType="send"
-                    onSubmitEditing={this.onButtonPress.bind(this)}
-                />
-                <Text style={styles.errorTextStyle}>
-                    {this.props.error}
-                </Text>
+                    <TextInput
+                        placeholder="Nombre de usuario o correo"
+                        placeholderTextColor='grey'
+                        style={ styles.input}
+                        onChangeText={this.onEmailChange.bind(this)}
+                        value={this.props.email}
+                        keyboardType={'email-address'}
+                        returnKeyType="next"
+                        onSubmitEditing={this._nextPass}
+                    />
+                    <TextInput
+                        placeholderTextColor='grey'
+                        secureTextEntry={true}
+                        placeholder="Contraseña"
+                        style={ styles.input}
+                        onChangeText={this.onPasswordChange.bind(this)}
+                        value={this.props.password}
+                        ref={ref => this._password = ref}
+                        returnKeyType="send"
+                        onSubmitEditing={this.onButtonPress.bind(this)}
+                    />
+                    <Text style={styles.errorTextStyle}>
+                        {this.props.error}
+                    </Text>
+                    <TouchableOpacity>
+                        <Text style={styles.buttonPassword}>¿No recuerdas la contraseña?</Text>
+                    </TouchableOpacity>
                 <View>{this.renderButton()}</View>
             </KeyboardAvoidingView>
 
@@ -100,15 +101,18 @@ class LoginForm extends Component{
 
 const styles = StyleSheet.create({
    container:{
-       padding:20,
-       marginTop: heightPercentageToDP('3%')
+       backgroundColor:'white',
+       padding:widthPercentageToDP(5),
+       marginTop: heightPercentageToDP('1%')
    },
     input:{
-       height: 40,
+       borderBottomWidth:1,
+        borderBottomColor:'grey',
+       height: heightPercentageToDP(5.5),
        backgroundColor:'white',
-        marginBottom: 7,
+        marginBottom: heightPercentageToDP(0.2),
         color:'black',
-        paddingHorizontal: 10
+        //paddingHorizontal: widthPercentageToDP(5)
     },
     buttonPassword:{
         textAlign:'right',
