@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import {FlatList,ScrollView} from 'react-native';
+import {Alert, FlatList, ScrollView} from 'react-native';
 import FavouriteItemList from '../../components/showRecipe/ItemList'
+import {recetas} from "../../data/datasource"
 import Header from './Header'
 import {allRecipesFetch} from "../../actions/RecetasAllActions";
 import {connect} from 'react-redux'
@@ -25,21 +26,43 @@ class userRecetas extends Component {
     constructor(props){
         super(props);
         this.state={
-            data:[]
+            data:[],
+            auxData:[],
+            text:""
         }
     }
     filterSearch = (text) =>{
         const newData = this.props.recipes.filter(function(item){
             const itemData = item.titulo.toUpperCase()
             const textData = text.toUpperCase()
+            console.log(itemData.indexOf(textData))
             return itemData.indexOf(textData) > -1
         })
-        this.setState({
-            data:newData,
-            text: text
-        })
+        if(Array.isArray(newData) && newData.length){
+
+            this.setState({
+                data:newData,
+                text: text
+            })
+            return console.log("Hay datos con ese titulo: ", this.state.text)
+        }else if(newData.length < 1){
+            return (
+                Alert.alert(
+                    //title
+                    'Busqueda de recetas',
+                    //body
+                    'No existen recetas con ese título',
+                    [
+                        {text: 'OK', onPress: () => console.log('OK Pressed')},
+                    ],
+                    { cancelable: true }
+                )
+            )
+        }
 
     }
+
+
     render() {
         return (
             <ScrollView>
@@ -47,9 +70,9 @@ class userRecetas extends Component {
                 <FlatList
                     data={this.state.data}
                     renderItem={({item}) =>
-                        <FavouriteItemList
-                            receip={item}
-                        />
+                     <FavouriteItemList
+                        receip={item}
+                    />
                     }
                 />
             </ScrollView>

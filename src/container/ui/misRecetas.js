@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Image, View,Text,FlatList,ScrollView} from 'react-native';
+import {Image, View, Text, FlatList, ScrollView, Alert} from 'react-native';
 import {recetas} from "../../data/datasource";
 import MyItemList from '../../components/showRecipe/myItemList'
 import Header from './Header'
@@ -12,7 +12,7 @@ class misRecetas extends Component {
     constructor(props){
         super(props);
         this.state={
-            data:[] ,
+            data:[],
             text:'',
             id: ''
         }
@@ -37,17 +37,37 @@ class misRecetas extends Component {
 
 
     filterSearch = (text) =>{
-        const newData = recetas.filter(function(item){
+        const newData = this.props.ownRecipes.filter(function(item){
             const itemData = item.titulo.toUpperCase()
             const textData = text.toUpperCase()
             return itemData.indexOf(textData) > -1
         })
-        this.setState({
-            data:newData,
-            text: text
-        })
+        if(Array.isArray(newData) && newData.length){
+
+            this.setState({
+                data:newData,
+                text: text
+            })
+            return console.log("Hay datos con ese titulo: ", this.state.text)
+        }else if(newData.length < 1){
+            return (
+                Alert.alert(
+                    //title
+                    'Busqueda de recetas',
+                    //body
+                    'No existen recetas con ese título',
+                    [
+                        {text: 'OK', onPress: () => console.log('OK Pressed')},
+                    ],
+                    { cancelable: true }
+                )
+            )
+        }
 
     }
+
+
+
     render() {
         return (
             <ScrollView>

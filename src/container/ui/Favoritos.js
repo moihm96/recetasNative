@@ -3,7 +3,8 @@ import {
     View,
     FlatList,
     StyleSheet,
-    ScrollView
+    ScrollView,
+    Alert
 } from 'react-native';
 import {recetas} from '../../data/datasource'
 import FavouriteItemList from '../../components/showRecipe/ItemList'
@@ -46,12 +47,30 @@ class Favoritos extends Component {
             const textData = text.toUpperCase()
             return itemData.indexOf(textData) > -1
         })
-        this.setState({
-            data:newData,
-            text: text
-        })
+        if(Array.isArray(newData) && newData.length){
+
+            this.setState({
+                data:newData,
+                text: text
+            })
+            return console.log("Hay datos con ese titulo: ", this.state.text)
+        }else if(newData.length < 1){
+            return (
+                Alert.alert(
+                    //title
+                    'Busqueda de recetas',
+                    //body
+                    'No existen recetas con ese título',
+                    [
+                        {text: 'OK', onPress: () => console.log('OK Pressed')},
+                    ],
+                    { cancelable: true }
+                )
+            )
+        }
 
     }
+
 
     render() {
         return (
