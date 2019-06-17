@@ -105,7 +105,7 @@ export default class AddIngredientes extends Component{
                                 onChangeText={TextInputValue => this.setState({ingrediente : TextInputValue }) }
                                 value={this.state.ingrediente}
                                 clearButtonMode={"always"}
-                                returnKeyType="Añadir"
+                                returnKeyType="send"
                                 onSubmitEditing={()=> this.onAdd()}
 
                             />

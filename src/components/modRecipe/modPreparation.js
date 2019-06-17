@@ -28,14 +28,14 @@ const fs = RNFetchBlob.fs
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
 window.Blob = Blob
 
-const uploadImage = (uri, imageName, mine = 'image/jpg') => {
+const uploadImage = (UserID, uri, imageName, mine = 'image/jpg') => {
     console.log("Ha entrado a firebase storage")
     console.log(uri)
     console.log(imageName)
     return new Promise((resolve, reject) => {
         const uploadUri = Platform.OS ==='ios' ? uri.replace('file://', '') : uri
         let uploadBlob = null
-        const imageRef = firebase.storage().ref('image').child(imageName)
+        const imageRef= firebase.storage().ref(`${UserID}`).child(imageName)
         fs.readFile(uploadUri, 'base64')
             .then((data) => {
                 return Blob.build(data, {type: `${mine};BASE64`})
@@ -75,7 +75,7 @@ class modPreparation extends Component{
             try {
 
                 this.props.imageUrl && (this.props.imageUrl.localeCompare(this.props.imageAux) !== 0) ?
-                    uploadImage(this.props.imageUrl, `imagen${this.props.user.uid}${this.props.titulo}.jpg`)
+                    uploadImage(this.props.user.uid,this.props.imageUrl, `imagen${this.props.titulo}.jpg`)
                         .then((responseData) => {
                             Helpers.setImageUrl(this.props.user.uid,this.props.uid_receta,responseData)
                         })
@@ -83,7 +83,7 @@ class modPreparation extends Component{
                     : () => console.log(this.props.imageUrl)
 
                 this.props.avatarUrl && (this.props.avatarUrl.localeCompare(this.props.avatarAux) !== 0) ?
-                    uploadImage(this.props.avatarUrl, `avatar${this.props.user.uid}${this.props.titulo}.jpg`)
+                    uploadImage(this.props.user.uid,this.props.avatarUrl, `avatar${this.props.titulo}.jpg`)
                         .then((responseData) => {
                             Helpers.setAvatarUrl(this.props.user.uid,this.props.uid_receta,responseData)
                         })
@@ -92,7 +92,7 @@ class modPreparation extends Component{
 
                 this.state.pasos.map((data, index) => {
                     if(data.imagen){
-                        uploadImage(data.imagen,`${data.titulo}.jpg`)
+                        uploadImage(this.props.user.uid,data.imagen,`${data.titulo}.jpg`)
                             .then((responseData)=>{
                                 Helpers.setPaso(this.props.user.uid,this.props.uid_receta,index,responseData)
                             })
