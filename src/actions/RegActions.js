@@ -9,15 +9,16 @@ export const userUpdate = ({prop,value}) =>{
     }
 }
 
-export const createUser =({userName,email,password,genero, photoUrl}) => {
+export const createUser =({displayName,email,password,genero, photoURL}) => {
+    console.log(photoURL)
     return(dispatch) =>{
 
         firebase.auth().createUserWithEmailAndPassword(email,password)
-            .then( user => {
+            .then( (user) => {
                 firebase.database().ref(`/user/${user.uid}`).set({genero})
                user.updateProfile({
-                   displayName:userName,
-                   photoURL:photoUrl,
+                   displayName:displayName,
+                   photoURL:photoURL,
                }).then(() =>{
                    dispatch({
                        type: USER_CREATE,

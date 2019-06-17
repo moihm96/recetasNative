@@ -32,11 +32,13 @@ const options={
     takePhotoButtonTitle: 'Take photo with your camera',
     chooseFromLibraryButtonTitle: 'Choose photo from library',
 }
-const uploadImage = (uri, imageName, mine = 'image/jpg') => {
+const uploadImage = (uri, mine = 'image/jpg') => {
+    console.log("Ha entrado a firebase storage")
+    console.log(uri)
     return new Promise((resolve, reject) => {
         const uploadUri = Platform.OS ==='ios' ? uri.replace('file://', '') : uri
         let uploadBlob = null
-        const imageRef = firebase.storage().ref('image').child(imageName)
+        const imageRef = firebase.storage().ref('Profile').child(uri)
         fs.readFile(uploadUri, 'base64')
             .then((data) => {
                 return Blob.build(data, {type: `${mine};BASE64`})
@@ -96,9 +98,18 @@ class showPerfil extends Component{
             else {
                 // You can also display the image using data:
                 // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+
                this.setState({
                    photoURL:response.uri
                })
+                uploadImage(response.uri).then(
+                    (responseData) => {
+                        this.setState({
+                            photoURL:responseData
+                        })
+                    }
+                )
 
 
             }

@@ -31,6 +31,33 @@ const options={
     takePhotoButtonTitle: 'Take photo with your camera',
     chooseFromLibraryButtonTitle: 'Choose photo from library',
 }
+const uploadImage = (uri, mine = 'image/jpg') => {
+    console.log("Ha entrado a firebase storage")
+    console.log(uri)
+    return new Promise((resolve, reject) => {
+        const uploadUri = Platform.OS ==='ios' ? uri.replace('file://', '') : uri
+        let uploadBlob = null
+        const imageRef = firebase.storage().ref('Profile').child(uri)
+        fs.readFile(uploadUri, 'base64')
+            .then((data) => {
+                return Blob.build(data, {type: `${mine};BASE64`})
+            })
+            .then((blob) =>{
+                uploadBlob = blob
+                return imageRef.put(blob, {contentType: mine })
+            })
+            .then(() => {
+                uploadBlob.close()
+                return imageRef.getDownloadURL()
+            })
+            .then((url) => {
+                resolve(url)
+            })
+            .catch((error) => {
+                reject(error)
+            })
+    })
+}
 
  class RegForm extends Component{
     constructor(props){
@@ -56,7 +83,14 @@ const options={
              else {
                  // You can also display the image using data:
                  // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-                 this.props.userUpdate({prop:'photoUrl', value: response.uri})
+                 //this.props.userUpdate({prop:'photoURL', value: response.uri})
+                 //console.log(this.props.photoURL)
+                 uploadImage(response.uri).then(
+                     (responseData) => {
+                         this.props.userUpdate({prop:'photoURL', value: responseData})
+                     }
+                 )
+
              }
          });
      }
@@ -68,6 +102,7 @@ const options={
         return(array)
     }
     onButtonPress(){
+        console.log(this.props.photoURL)
         if(this.props.error && this.props.password === this.state.repeatPassword){
             this.setState({
                 repeatPassword:''
@@ -79,10 +114,10 @@ const options={
             })
             return;
         }
-       const {displayName,email,password,genero, photoUrl} = this.props;
 
-       this.props.createUser({displayName,email,password,genero: genero || 'Hombre', photoUrl});
+        const {displayName,email,password,genero, photoURL} = this.props;
 
+        this.props.createUser({displayName,email,password,genero: genero || 'Hombre', photoURL});
     }
      _nextEmail = () =>{
          this._email && this._email.focus()
@@ -132,15 +167,14 @@ const options={
                 </View>
 
                 <KeyboardAvoidingView style={styles.regInput}>
-                    <TouchableOpacity onPress={this.openCamera} style={{alignItems:'center'}}>
+                    <TouchableOpacity onPress={this.openCamera} style={{alignItems:'center', marginTop:heightPercentageToDP(2)}}>
                         <Text>Foto de perfil</Text>
                         <Avatar
                             rounded
                             size={"medium"}
-                            source={{uri:this.props.photoUrl}}
+                            source={{uri:this.props.photoURL}}
                         />
                     </TouchableOpacity>
-
                     <TextInput
                         placeholder="Nombre de usuario"
                         placeholderTextColor={'rgba(44, 62, 80,1.0)'}
@@ -183,6 +217,7 @@ const options={
                         onChangeText={(repeatPassword) => this.setState({repeatPassword})}
                         value={this.state.repeatPassword}
                     />
+
                     <View style={styles.sexoStyle}>
                         <Text style={styles.textSexo}>Género</Text>
                         <SelectInput
@@ -192,6 +227,7 @@ const options={
                             onSubmitEditing = {value => this.props.userUpdate({ prop: 'genero', value })}
                         />
                     </View>
+
                     {this.showError()}
                     <Text style={styles.errorTextStyle}>
                         {this.state.error}
@@ -276,9 +312,9 @@ const styles = StyleSheet.create({
 
 
  const mapStateToProps = (state) => {
-    const { displayName,email,password,genero, photoUrl, error } = state.regForm;
+    const { displayName,email,password,genero, photoURL, error } = state.regForm;
 
-    return { displayName,email,password,genero , photoUrl, error};
+    return { displayName,email,password,genero , photoURL, error};
 };
 
 export default connect(mapStateToProps, {
