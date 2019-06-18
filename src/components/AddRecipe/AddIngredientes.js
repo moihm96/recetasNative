@@ -133,7 +133,9 @@ export default class AddIngredientes extends Component{
                                     imagenPrincipal:this.props.imagenPrincipal,
                                     avatarSource:this.props.avatarSource,
                                     person:this.state.person,
-                                    ingredients:this.state.ingredients
+                                    ingredients:this.state.ingredients,
+                                    categoria:this.props.categoria,
+                                    pais:this.props.pais
                                 })
                             }
 

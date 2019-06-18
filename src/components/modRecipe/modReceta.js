@@ -23,7 +23,9 @@ const options={
     chooseFromLibraryButtonTitle: 'Choose photo from library',
 }
 
+let paises=["Cualquiera","España","Cuba","Italia","Etiopía","Venezuela","Brasil","Francia","Filipinas","Marruecos","Sudafrica"]
 let dif=["Baja","Media","Alta"]
+let categoria=["Todas","Postres","Repostería", "Sopas", "Arroces", "Ensaladas","Carnes","Pescados","Legumbres"]
 export default class modReceta extends Component {
     componentWillMount() {
         console.log(this.props.receta)
@@ -34,6 +36,8 @@ export default class modReceta extends Component {
             tiempo: this.props.receta.tiempo,
             arrayDif:dif,
             dificultad:this.props.receta.dificultad,
+            categoria:this.props.receta.categoria,
+            pais:this.props.receta.pais
         })
 
         if(this.props.receta.imageUrl){
@@ -53,6 +57,10 @@ export default class modReceta extends Component {
     constructor(props){
         super(props)
         this.state={
+            arrayCat:categoria,
+            arrayPais:paises,
+            categoria:"Todas",
+            pais:"Cualquiera",
             titulo: "",
             autor:"",
             entradilla:"",
@@ -70,6 +78,20 @@ export default class modReceta extends Component {
     pickerDif(){
         let array = []
         this.state.arrayDif.map((data, i) => {
+            array.push({value:data, label: data})
+        });
+        return(array)
+    }
+    pickerCategoria(){
+        let array = []
+        this.state.arrayCat.map((data, i) => {
+            array.push({value:data, label: data})
+        });
+        return(array)
+    }
+    pickerPais(){
+        let array = []
+        this.state.arrayPais.map((data, i) => {
             array.push({value:data, label: data})
         });
         return(array)
@@ -118,6 +140,17 @@ export default class modReceta extends Component {
             }
         });
     }
+    timeSet = (tiempo) =>{
+        this.setState({ tiempo })
+        if(tiempo<50){
+            this.setState({dificultad:"Baja"})
+        }else if(tiempo>50 && tiempo <90) {
+            this.setState({dificultad:"Media"})
+        }else if(tiempo>90){
+            this.setState({dificultad:"Alta"})
+        }
+
+    }
 
     render() {
         return (
@@ -163,7 +196,7 @@ export default class modReceta extends Component {
                             <Slider
                                 maximumValue={150}
                                 value={this.state.tiempo}
-                                onValueChange={tiempo => this.setState({ tiempo })}
+                                onValueChange={(tiempo) => this.timeSet(tiempo)}
                                 trackStyle={{borderRadius: 5,borderWidth: 1, borderColor:'grey', height:heightPercentageToDP(1.75)}}
                                 thumbStyle={{borderWidth:1, borderColor: 'white', alignItems:'flex-end',height:heightPercentageToDP(3)}}
                                 thumbTouchSize={{width: widthPercentageToDP(10), height: heightPercentageToDP(10)}}
@@ -180,6 +213,24 @@ export default class modReceta extends Component {
                                 value = {this.state.dificultad}
                                 onSubmitEditing = {(value) => this.setState({dificultad: value})}
                                 style={styles.input}
+                            />
+                        </View>
+                        <View style={styles.difStyle}>
+                            <Text style={{flex:2}}>Pais</Text>
+                            <SelectInput
+                                options = {this.pickerPais()}
+                                value = {this.state.pais}
+                                onSubmitEditing = {(value) => this.setState({pais: value})}
+                                style={{flex:2}}
+                            />
+                        </View>
+                        <View style={styles.difStyle}>
+                            <Text style={{flex:2}}>Categoria</Text>
+                            <SelectInput
+                                options = {this.pickerCategoria()}
+                                value = {this.state.categoria}
+                                onSubmitEditing = {(value) => this.setState({categoria: value})}
+                                style={{flex:2}}
                             />
                         </View>
                         <TextInput
@@ -213,7 +264,9 @@ export default class modReceta extends Component {
                                 imageUrl: this.state.imageUrl,
                                 avatarUrl: this.state.avatarUrl,
                                 imageAux:this.state.imageAux,
-                                avatarAux:this.state.avatarAux
+                                avatarAux:this.state.avatarAux,
+                                categoria:this.state.categoria,
+                                pais:this.state.pais
                             })}
                         />
                     </View>
@@ -229,7 +282,9 @@ export default class modReceta extends Component {
                                 imageUrl: this.state.imageUrl,
                                 avatarUrl: this.state.avatarUrl,
                                 imageAux:this.state.imageAux,
-                                avatarAux:this.state.avatarAux
+                                avatarAux:this.state.avatarAux,
+                                categoria:this.state.categoria,
+                                pais:this.state.pais
                             })}
                             onPress2={()=>Actions.pop()}
                             text1={"Siguiente"}

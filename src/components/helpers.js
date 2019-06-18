@@ -2,14 +2,14 @@ import * as firebase from 'firebase'
 import React from "react";
 
 export default class Helpers{
-    static pushReceta(userId,titulo,autor,entradilla,tiempo,dificultad,numPerson,ingredientes,pasos){
+    static pushReceta(userId,titulo,autor,entradilla,tiempo,dificultad,numPerson,ingredientes,pasos,categoria,pais){
         let userNamePath= "/user/"+userId+"/recetas/"
-        return firebase.database().ref(userNamePath).push({titulo,autor,entradilla,tiempo,dificultad,numPerson,ingredientes,pasos}).key
+        return firebase.database().ref(userNamePath).push({titulo,autor,entradilla,tiempo,dificultad,numPerson,ingredientes,pasos,categoria,pais}).key
     }
 
-    static setReceta(recetaId,userId,titulo,autor,entradilla,tiempo,dificultad,numPerson,ingredientes,pasos){
+    static setReceta(recetaId,userId,titulo,autor,entradilla,tiempo,dificultad,numPerson,ingredientes,pasos,categoria,pais){
         let userNamePath= "/user/"+userId+"/recetas/"+recetaId
-        return firebase.database().ref(userNamePath).update({titulo,autor,entradilla,tiempo,dificultad,numPerson,ingredientes,pasos})
+        return firebase.database().ref(userNamePath).update({titulo,autor,entradilla,tiempo,dificultad,numPerson,ingredientes,pasos,categoria,pais})
     }
 
     static setImageUrl(userId,titulo,imageUrl){

@@ -58,6 +58,8 @@ const uploadImage = (UserID, uri, imageName, mine = 'image/jpg') => {
 }
 class modPreparation extends Component{
     componentWillMount() {
+        console.log(this.props.categoria,
+            this.props.pais)
         this.setState({
             pasos:this.props.pasos
         })
@@ -110,7 +112,10 @@ class modPreparation extends Component{
                     this.props.dificultad,
                     this.props.numPerson,
                     this.props.ingredientes,
-                    this.state.pasos
+                    this.state.pasos,
+                      this.props.categoria,
+                      this.props.pais
+
                 )
 
                 Alert.alert("Recetas", "Receta modificada con éxito")
@@ -137,7 +142,9 @@ class modPreparation extends Component{
             numPerson: this.props.numPerson,
             pasos:this.state.pasos,
             avatarAux:this.props.avatarAux,
-            imageAux:this.props.imageAux
+            imageAux:this.props.imageAux,
+            categoria:this.props.categoria,
+            pais:this.props.pais
         });
     }
 
@@ -156,9 +163,12 @@ class modPreparation extends Component{
             pasos:this.state.pasos,
             paso:item,
             avatarAux:this.props.avatarAux,
-            imageAux:this.props.imageAux
+            imageAux:this.props.imageAux,
+            categoria:this.props.categoria,
+            pais:this.props.pais
         })
     }
+
 
 
     render(){

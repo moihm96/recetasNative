@@ -24,9 +24,17 @@ import {Actions} from "react-native-router-flux";
 import {heightPercentageToDP} from "../../auxiliar/ScreenDimension";
 
 class addPaso extends Component{
+    componentWillMount() {
+        if(this.props.pasos){
+            this.setState({
+                pasos:this.props.pasos
+            })
+        }
+    }
     constructor(props){
         super(props)
         this.state={
+            pasos:[],
             paso: {},
             titulo:'',
             imagen:'',
@@ -71,9 +79,9 @@ class addPaso extends Component{
             pid:'',
             descripcion:''
         })
-        this.props.setPaso(this.state.paso)
+        this.state.pasos.push(this.state.paso)
         this.setState({
-            paso:[]
+            paso:{}
         })
         Actions.addPreparation({
             title:this.props.title,
@@ -84,7 +92,10 @@ class addPaso extends Component{
             person:this.props.person,
             ingredients:this.props.ingredients,
             imagenPrincipal: this.props.imagenPrincipal,
-            avatarSource: this.props.avatarSource
+            avatarSource: this.props.avatarSource,
+            categoria:this.props.categoria,
+            pais:this.props.pais,
+            pasos:this.state.pasos
         })
 
     }

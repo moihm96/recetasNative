@@ -23,7 +23,7 @@ const options={
 import {Actions} from "react-native-router-flux";
 import {heightPercentageToDP, widthPercentageToDP} from "../../auxiliar/ScreenDimension";
 
-class modPaso extends Component{
+class pasoMod extends Component{
     componentWillMount() {
         this.setState({
             paso:this.props.paso,
@@ -84,24 +84,23 @@ class modPaso extends Component{
             this.state.imagen,
             this.state.pid,
             this.state.descripcion
+
         )
 
-        Actions.modPreparation({
-            uid_receta:this.props.uid_receta,
-            titulo: this.props.titulo ,
-            autor: this.props.autor,
-            entradilla: this.props.entradilla,
-            tiempo: this.props.tiempo,
+        Actions.addPreparation({
+            title:this.props.title,
+            autor:this.props.autor,
+            entradilla:this.props.entradilla,
+            time:this.props.time,
             dificultad:this.props.dificultad,
-            imageUrl: this.props.imageUrl,
-            avatarUrl: this.props.avatarUrl,
-            ingredientes:this.props.ingredientes,
-            numPerson: this.props.numPerson,
-            pasos:this.state.pasos,
-            avatarAux:this.props.avatarAux,
-            imageAux:this.props.imageAux,
+            person:this.props.person,
+            ingredients:this.props.ingredients,
+            imagenPrincipal: this.props.imagenPrincipal,
+            avatarSource: this.props.avatarSource,
             categoria:this.props.categoria,
-            pais:this.props.pais
+            pais:this.props.pais,
+            pasos:this.state.pasos
+
         })
     }
 
@@ -157,7 +156,7 @@ class modPaso extends Component{
                     <View style={{paddingHorizontal: heightPercentageToDP(4)}}>
                         <Buttons
                             text1={"Guardar"}
-                            text2={"Atrás"}
+                            text2={"Cancelar"}
                             onPress2={()=>Actions.pop()}
                             onPress1={()=>this.addPaso()}
                         />
@@ -165,7 +164,6 @@ class modPaso extends Component{
                             <Text style={styles.buttonText}>Eliminar este paso</Text>
                         </TouchableOpacity>
                     </View>
-
                 </ScrollView>
             </ImageBackground>
 
@@ -179,7 +177,7 @@ class modPaso extends Component{
         console.log(pas,paso)
         for (let i = 0; i < pas.length; i++) {
             if(pas[i].pid === paso.pid){
-                console.log("Son iguales",pas[i].pid,paso.pid )
+               console.log("Son iguales",pas[i].pid,paso.pid )
                 pas.splice(i,1)
                 this.setState({
                     pasos:pas
@@ -192,23 +190,22 @@ class modPaso extends Component{
             this.del();
         }, 1000)
     }
-    del(){
-        Actions.modPreparation({
-            uid_receta:this.props.uid_receta,
-            titulo: this.props.titulo ,
-            autor: this.props.autor,
-            entradilla: this.props.entradilla,
-            tiempo: this.props.tiempo,
+
+     del(){
+        console.log(this.state.pasos)
+        Actions.addPreparation({
+            title:this.props.title,
+            autor:this.props.autor,
+            entradilla:this.props.entradilla,
+            time:this.props.time,
             dificultad:this.props.dificultad,
-            imageUrl: this.props.imageUrl,
-            avatarUrl: this.props.avatarUrl,
-            ingredientes:this.props.ingredientes,
-            numPerson: this.props.numPerson,
-            pasos:this.state.pasos,
-            avatarAux:this.props.avatarAux,
-            imageAux:this.props.imageAux,
+            person:this.props.person,
+            ingredients:this.props.ingredients,
+            imagenPrincipal: this.props.imagenPrincipal,
+            avatarSource: this.props.avatarSource,
             categoria:this.props.categoria,
-            pais:this.props.pais
+            pais:this.props.pais,
+            pasos:this.state.pasos
         })
     }
     _nextPaso = () =>{
@@ -219,6 +216,19 @@ class modPaso extends Component{
     }
 }
 const styles= StyleSheet.create({
+    buttonText: {
+        fontFamily:'Allura-Regular',
+        color:'rgb(180,180,180)',
+        fontSize:widthPercentageToDP(9)
+    },
+    buttonContainer:{
+        marginTop:heightPercentageToDP(1),
+        backgroundColor: 'rgb(80,28,28)',
+        paddingVertical: heightPercentageToDP(0.5),
+        borderRadius:7,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     container:{
         flex:1,
         backgroundColor: "white",
@@ -249,20 +259,7 @@ const styles= StyleSheet.create({
     input:{
         borderBottomWidth: 1,
         borderBottomColor:'grey'
-    },
-    buttonText: {
-        fontFamily:'Allura-Regular',
-        color:'rgb(180,180,180)',
-        fontSize:widthPercentageToDP(9)
-    },
-    buttonContainer:{
-        marginTop:heightPercentageToDP(1),
-        backgroundColor: 'rgb(80,28,28)',
-        paddingVertical: heightPercentageToDP(0.5),
-        borderRadius:7,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
+    }
 });
 
-export default connect(null,{setPaso})(modPaso)
+export default connect(null,{setPaso})(pasoMod)

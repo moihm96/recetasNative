@@ -80,7 +80,7 @@ class modAddPaso extends Component{
         })
         this.state.pasos.push(this.state.paso)
         this.setState({
-            paso:[]
+            paso:{}
         })
         Actions.modPreparation({
             uid_receta:this.props.uid_receta,
@@ -95,7 +95,9 @@ class modAddPaso extends Component{
             numPerson: this.props.numPerson,
             pasos:this.state.pasos,
             avatarAux:this.props.avatarAux,
-            imageAux:this.props.imageAux
+            imageAux:this.props.imageAux,
+            categoria:this.props.categoria,
+            pais:this.props.pais
         })
 
     }

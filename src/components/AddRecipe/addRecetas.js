@@ -9,6 +9,7 @@ import {
     ImageBackground,
     StyleSheet}
     from 'react-native';
+
 import ImagePicker from "react-native-image-picker"
 import {Avatar, Slider} from 'react-native-elements';
 import SelectInput from "react-native-select-input-ios";
@@ -23,11 +24,18 @@ const options={
     takePhotoButtonTitle: 'Usa tu camara',
     chooseFromLibraryButtonTitle: 'Escoge una foto de la galeria',
 }
+
+let paises=["Cualquiera","España","Cuba","Italia","Etiopía","Venezuela","Brasil","Francia","Filipinas","Marruecos","Sudafrica"]
 let dif=["Baja","Media","Alta"]
+let categoria=["Todas","Postres","Repostería", "Sopas", "Arroces", "Ensaladas","Carnes","Pescados","Legumbres"]
 export default class addRecetas extends Component {
     constructor(props){
         super(props)
         this.state={
+            arrayCat:categoria,
+            arrayPais:paises,
+            categoria:"Todas",
+            pais:"Cualquiera",
             title: "",
             autor:"",
             entradilla:"",
@@ -41,6 +49,21 @@ export default class addRecetas extends Component {
     pickerDif(){
         let array = []
         this.state.arrayDif.map((data, i) => {
+            array.push({value:data, label: data})
+        });
+        return(array)
+    }
+
+    pickerCategoria(){
+        let array = []
+        this.state.arrayCat.map((data, i) => {
+            array.push({value:data, label: data})
+        });
+        return(array)
+    }
+    pickerPais(){
+        let array = []
+        this.state.arrayPais.map((data, i) => {
             array.push({value:data, label: data})
         });
         return(array)
@@ -89,6 +112,17 @@ export default class addRecetas extends Component {
             }
         });
     }
+    timeSet = (time) =>{
+        this.setState({ time })
+        if(time<50){
+            this.setState({dificultad:"Baja"})
+        }else if(time>50 && time <90) {
+            this.setState({dificultad:"Media"})
+        }else if(time>90){
+            this.setState({dificultad:"Alta"})
+        }
+
+    }
 
     render() {
         return (
@@ -132,7 +166,7 @@ export default class addRecetas extends Component {
                         <Slider
                             maximumValue={200}
                             value={this.state.time}
-                            onValueChange={time => this.setState({ time })}
+                            onValueChange={(time) => this.timeSet(time)}
                             trackStyle={{borderRadius: 5,borderWidth: 1, borderColor:'grey', height:heightPercentageToDP(1.75)}}
                             thumbStyle={{borderWidth:1, borderColor: 'white', alignItems:'flex-end',height:heightPercentageToDP(3)}}
                             thumbTouchSize={{width: widthPercentageToDP(10), height: heightPercentageToDP(10)}}
@@ -149,6 +183,24 @@ export default class addRecetas extends Component {
                                 options = {this.pickerDif()}
                                 value = {this.state.dificultad}
                                 onSubmitEditing = {(value) => this.setState({dificultad: value})}
+                                style={{flex:2}}
+                            />
+                        </View>
+                        <View style={styles.difStyle}>
+                            <Text style={{flex:2}}>Pais</Text>
+                            <SelectInput
+                                options = {this.pickerPais()}
+                                value = {this.state.pais}
+                                onSubmitEditing = {(value) => this.setState({pais: value})}
+                                style={{flex:2}}
+                            />
+                        </View>
+                        <View style={styles.difStyle}>
+                            <Text style={{flex:2}}>Categoria</Text>
+                            <SelectInput
+                                options = {this.pickerCategoria()}
+                                value = {this.state.categoria}
+                                onSubmitEditing = {(value) => this.setState({categoria: value})}
                                 style={{flex:2}}
                             />
                         </View>
@@ -180,7 +232,9 @@ export default class addRecetas extends Component {
                                 time:this.state.time,
                                 dificultad:this.state.dificultad,
                                 imagenPrincipal:this.state.imagenPrincipal,
-                                avatarSource:this.state.avatarSource
+                                avatarSource:this.state.avatarSource,
+                                categoria:this.state.categoria,
+                                pais:this.state.pais
                             })}
 
                         />
@@ -194,7 +248,9 @@ export default class addRecetas extends Component {
                                 time:this.state.time,
                                 dificultad:this.state.dificultad,
                                 imagenPrincipal:this.state.imagenPrincipal,
-                                avatarSource:this.state.avatarSource
+                                avatarSource:this.state.avatarSource,
+                                categoria:this.state.categoria,
+                                pais:this.state.pais
                             })}
                             onPress2={()=>Actions.pop()}
                             text1={"Siguiente"}

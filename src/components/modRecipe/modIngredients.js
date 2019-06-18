@@ -23,7 +23,8 @@ let ingredients=[""]
 let person =arrayEmpty[0]
 export default class modIngredients extends Component{
     componentWillMount() {
-
+        console.log(this.props.categoria,
+            this.props.pais)
         if(this.props.receta.ingredientes){
             this.setState({
                 ingredientes:this.props.receta.ingredientes,
@@ -152,7 +153,9 @@ export default class modIngredients extends Component{
                                     pasos:this.state.pasos,
                                     uid_receta: this.state.uid_receta,
                                     avatarAux:this.props.avatarAux,
-                                    imageAux:this.props.imageAux
+                                    imageAux:this.props.imageAux,
+                                    categoria:this.props.categoria,
+                                    pais:this.props.pais
                                 })
                                 }
                             }

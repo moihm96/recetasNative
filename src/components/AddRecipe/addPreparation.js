@@ -57,6 +57,22 @@ const uploadImage = (UserID, uri, imageName, mine = 'image/jpg') => {
     })
 }
 class addPreparation extends Component{
+    componentWillMount() {
+        console.log(this.props.categoria,
+            this.props.pais)
+        if(this.props.pasos){
+            this.setState({
+                pasos:this.props.pasos
+            })
+        }
+
+    }
+    constructor(props){
+        super(props)
+        this.state={
+            pasos:[]
+        }
+    }
     saveForm(){
         if(this.props.user){
             console.log(
@@ -104,7 +120,9 @@ class addPreparation extends Component{
                     this.props.dificultad,
                     this.props.person,
                     this.props.ingredients,
-                    this.props.pasos
+                    this.state.pasos,
+                    this.props.categoria,
+                    this.props.pais
                 )
 
                 Alert.alert("Recetas", "Receta creada con éxito")
@@ -127,8 +145,29 @@ class addPreparation extends Component{
             person:this.props.person,
             ingredients:this.props.ingredients,
             imagenPrincipal: this.props.imagenPrincipal,
-            avatarSource: this.props.avatarSource
+            avatarSource: this.props.avatarSource,
+            categoria:this.props.categoria,
+            pais:this.props.pais,
+            pasos:this.state.pasos
         });
+    }
+
+    modPaso = (item)  =>{
+        Actions.pasoMod({
+            title:this.props.title,
+            autor:this.props.autor,
+            entradilla:this.props.entradilla,
+            time:this.props.time,
+            dificultad:this.props.dificultad,
+            person:this.props.person,
+            ingredients:this.props.ingredients,
+            imagenPrincipal: this.props.imagenPrincipal,
+            avatarSource: this.props.avatarSource,
+            categoria:this.props.categoria,
+            pais:this.props.pais,
+            pasos:this.state.pasos,
+            paso: item
+        })
     }
 
 
@@ -138,26 +177,25 @@ class addPreparation extends Component{
                 <ScrollView >
                     <View style={styles.container}>
                         <FlatList
-                            style={{marginHorizontal: 5}}
-                            key={this.props.pasos.pid}
-                            data={this.props.pasos}
+                            style={{marginHorizontal: widthPercentageToDP(1.5)}}
+                            key={this.state.pasos.pid}
+                            data={this.state.pasos}
                             numColumns={3}
-                            columnWrapperStyle={{marginTop: 5, marginLet:5}}
+                            columnWrapperStyle={{marginTop: heightPercentageToDP(1.5)}}
                             renderItem={({item}) =>
-                                <View>
+                                <TouchableOpacity onPress={() => this.modPaso(item)}>
                                     <Image
                                         source={{uri:item.imagen}}
-                                        style={{width:widthPercentageToDP(27),  height:100}}
+                                        style={{width:widthPercentageToDP(32),  height:heightPercentageToDP(14)}}
                                     />
-                                </View>
-
+                                </TouchableOpacity>
                             }
                         />
                         <TouchableOpacity onPress={this.onAddPaso}>
-                            <ImageBackground source={fotoPrincipal} style={{width:100, height:100, alignItems:'center', justifyContent: 'center'}}>
+                            <ImageBackground source={fotoPrincipal} style={{marginLeft:widthPercentageToDP(1.5),width:widthPercentageToDP(32), height:heightPercentageToDP(14), alignItems:'center', justifyContent: 'center'}}>
                                 <Image
                                     source={add}
-                                    style={{width:20, height:20}}
+                                    style={{width:widthPercentageToDP(5), height:heightPercentageToDP(3)}}
                                 />
                             </ImageBackground>
                         </TouchableOpacity>
@@ -185,7 +223,6 @@ const styles= StyleSheet.create({
 
 const mapStateToProps = state =>{
     const {user} = state.auth;
-    const {pasos} =state.paso;
-    return {user, pasos}
+    return {user}
 }
 export default connect(mapStateToProps,null)(addPreparation)

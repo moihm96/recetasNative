@@ -19,9 +19,10 @@ import modIngredients from '../components/modRecipe/modIngredients'
 import modPreparation from '../components/modRecipe/modPreparation'
 import modPaso from '../components/modRecipe/modPaso'
 import modAddPaso from '../components/modRecipe/modAddPaso'
-
+import pasoMod from "../components/AddRecipe/pasoMod";
 
 import {StyleSheet} from 'react-native'
+
 const Routes = () => (
     <Router backAndroidHandler={onBackAndroid}>
 
@@ -109,6 +110,10 @@ const Routes = () => (
                     <Scene
                         key="modAddPaso"
                         component={modAddPaso}
+                    />
+                    <Scene
+                        key="pasoMod"
+                        component={pasoMod}
                     />
 
                 <Scene
