@@ -4,12 +4,14 @@ import {FETCH_ALL_RECIPES_SUCCESS} from "./types";
 
 export const allRecipesFetch = () => {
     return (dispatch) => {
+
         firebase.database().ref(`/user/`)
             .on('value', snapshot => {
                 let data = snapshot.val()
-                //console.log(data)
+                console.log(data)
                 let arrayOfRecipes = []
                 for (let key in data){
+
                     let recipes = data[key].recetas
                     //console.log(recipes)
                     let allRecipes = _.map( recipes,(val,uid)=>{

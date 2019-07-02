@@ -61,14 +61,14 @@ class Header extends Component{
                                 value={this.state.term}
                             />
 
-                            <TouchableWithoutFeedback>
+                            <TouchableOpacity>
                                 <IonIcon
                                     style={styles.iconSearchStyle}
                                     name="ios-search"
                                     color="black"
                                     size={25}
                                 />
-                            </TouchableWithoutFeedback>
+                            </TouchableOpacity>
                     </View>
                 </View>
 

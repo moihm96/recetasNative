@@ -37,7 +37,7 @@ class sideMenu extends Component{
             arrayPais:paises,
             pais:pais,
             uid:"",
-            modalVisible:Boolean(this.props.user),
+            modalVisible:Boolean(this.props.user)
         };
     }
     pickerPais(){

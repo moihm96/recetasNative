@@ -27,7 +27,6 @@ class userRecetas extends Component {
         super(props);
         this.state={
             data:[],
-            auxData:[],
             text:""
         }
     }

@@ -27,7 +27,7 @@ export default class Start extends Component{
 
     render(){
         return(
-            <KeyboardAvoidingView>
+            <KeyboardAvoidingView style={{flex:1, backgroundColor:"white"}}>
                 <ScrollView>
                     <ImageBackground source={fondo}style={{flex:1,backgroundColor: "white" }}>
                         <View style ={styles.logoContainer}>

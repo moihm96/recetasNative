@@ -14,15 +14,35 @@ import fondo from "../../img/fondo.png"
 import {heightPercentageToDP, widthPercentageToDP} from "../../auxiliar/ScreenDimension";
 import {Avatar,Icon} from "react-native-elements";
 import FontIcon from "react-native-vector-icons/FontAwesome"
-import {Rating} from "react-native-ratings";
+import {AirbnbRating,Rating } from "react-native-ratings";
 import Option from "../../components/showRecipe/optionView"
 import {Actions} from "react-native-router-flux";
 import IonIcon from "react-native-vector-icons/Ionicons";
-export default class showReceta extends Component{
+import {connect} from 'react-redux';
+import {addFav,deleteFav,fecthFav} from "../../actions/FavAction";
+import ModalLogin from "../../components/ModalLogin";
+import _ from "lodash";
+class showReceta extends Component{
+    componentWillMount() {
+        if (this.props.user) {
+            this.props.fecthFav(this.props.user.uid);
+            for (let i = 0; i < this.props.favorites.length; i++) {
+                if (this.props.favorites[i].uid.localeCompare(this.props.receta.uid) === 0) {
+                    this.setState({
+                        isFav: true
+                    })
+                }
+            }
+        }
+    }
+
     constructor(props){
         super(props)
         this.state={
-            comentarios:""
+            comentarios:"",
+            titulo:"",
+            modalVisible: false,
+            isFav:false
         };
     }
     parseIngredientes(){
@@ -58,6 +78,32 @@ export default class showReceta extends Component{
             })
         }
     }
+    ratingCompleted = rating => {
+        this.setState({rating})
+        setTimeout(() => {
+            console.log("Rating is: " + this.state.rating);
+        }, 500)
+    }
+    onClickClose(isOpen){
+        this.setState({modalVisible:isOpen})
+    }
+    onFav= (recipe, isActive) => {
+        if(this.props.user){
+            this.setState({
+                isFav:isActive
+            })
+
+            if(!this.state.isFav){
+                this.props.addFav(this.props.receta, this.props.user.uid)
+            } else{
+                this.props.deleteFav(this.props.receta.uid, this.props.user.uid)
+            }
+        }else{
+            this.setState({
+                modalVisible:!this.props.user
+            })
+        }
+    }
     render(){
         return(
             <ImageBackground
@@ -87,11 +133,23 @@ export default class showReceta extends Component{
                         <Option
                             recetas={this.props.receta}
                         />
-                        <Text style={{fontWeight:"bold" }}>{this.props.receta.entradilla}</Text>
+                        <Text style={{fontWeight:"bold" }}>{this.props.receta.entradilla+ ('<br/>', '\n')}</Text>
+                        <Text  >
+                            Pais:
+                            <Text style={{fontWeight: 'bold'}}>
+                                {" " + this.props.receta.pais}
+                            </Text>
+                        </Text>
+                        <Text  >
+                            Categoria:
+                            <Text style={{fontWeight: 'bold'}}>
+                                {" " + this.props.receta.categoria}
+                            </Text>
+                        </Text>
                         <Text>
                             Autor:
                             <Text style={{fontWeight: 'bold'}}>
-                                {this.props.receta.autor}
+                                { " " + this.props.receta.autor}
                             </Text>
                         </Text>
                     </View>
@@ -105,44 +163,62 @@ export default class showReceta extends Component{
                         {this.parsePreparacion()}
                     </View>
                     <Text style={styles.textSections}>Comparte y opina</Text>
+                    <ModalLogin
+                        modalVisible={this.state.modalVisible}
+                        callback={this}
+                    />
                     <View style={styles.vistaEntrada}>
                         <View style={styles.vistaEntradaFinal}>
                             <View>
                                 <Text style={styles.textofinal}>Puntua</Text>
-                                <Rating
-                                    imageSize={30}
+                                <AirbnbRating
+                                    showRating={false}
+                                    size={20}
+                                    onFinishRating={this.ratingCompleted}
                                 />
                             </View>
-                            <View>
+                            <TouchableOpacity>
                                 <Text style={styles.textofinal}>Compartir</Text>
                                 <Icon name={"share"}
                                       color={'rgb(255,216,0)'}
                                       size={30}
                                 />
-                            </View>
-                            <View>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => this.onFav(this.props.receta, !this.state.isFav)}>
                                 <Text style={styles.textofinal}>Favoritos</Text>
                                 <Icon name={"favorite"}
-                                      color={'rgb(255,216,0)'}
+
+                                      color={this.state.isFav ? 'red': 'rgb(255,216,0)'}
                                       size={30}
                                 />
-                            </View>
+                            </TouchableOpacity>
                         </View>
                         <View>
                             <Text style={styles.textofinal}>Comentarios</Text>
                             <TextInput
-                                placeholder="Escribe aquí"
+                                placeholder="Título del comentario"
                                 placeholderTextColor={'rgba(44, 62, 80,1.0)'}
-                                multiline={true}
-                                numberOfLines={5}
-                                onChangeText={(comentarios) => this.setState({comentarios})}
-                                value={this.state.comentarios}
+                                onChangeText={(titulo) => this.setState({titulo})}
+                                value={this.state.titulo}
                             />
+
+
+                                <TextInput
+                                    placeholder="Escribe aquí"
+                                    placeholderTextColor={'rgba(44, 62, 80,1.0)'}
+                                    multiline={true}
+                                    editable={true}
+                                    numberOfLines={3}
+                                    maxLength={50}
+                                    onChangeText={(comentarios) => this.setState({comentarios})}
+                                    value={this.state.comentarios}
+                                />
+
                         </View>
                     </View>
                     <View style={{flex:1,
                         padding: 15}}>
-                        <TouchableOpacity  style={ styles.buttonContainer1}>
+                        <TouchableOpacity  style={ styles.buttonContainer1} >
                             <Text style={styles.buttonText}>He dicho</Text>
                         </TouchableOpacity>
                         <Text style={{flexDirection:"row"}}>
@@ -159,7 +235,16 @@ export default class showReceta extends Component{
         )
     }
 }
-
+const mapStateToProps = state => {
+    const favorites = _.map(state.favRecipes, (val,uid) => {
+        return { ...val,uid};
+    });
+    const {user} = state.auth
+    return { favorites, user };
+};
+export default connect(mapStateToProps,{
+    addFav,deleteFav,fecthFav
+})(showReceta);
 const styles= StyleSheet.create({
     container:{
         flex:1,

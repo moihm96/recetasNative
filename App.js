@@ -6,7 +6,6 @@ import {createStore, applyMiddleware} from "redux";
 import ReduxThunk from "redux-thunk";
 import reducers from './src/reducers'
 
-
 class App extends Component {
     componentWillMount() {
         console.disableYellowBox='true';

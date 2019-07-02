@@ -18,6 +18,7 @@ class ModalLogin extends Component{
     onClickCancel(){
         this.props.callback.onClickClose(false)
     }
+
     onUser= (isUser) =>{
         this.props.callback.onClickClose(isUser)
     }

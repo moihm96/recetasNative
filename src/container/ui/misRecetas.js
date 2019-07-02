@@ -25,8 +25,6 @@ class misRecetas extends Component {
                 data:this.props.ownRecipes
             })
         }
-
-
     }
 
     componentWillReceiveProps(nextProps) {

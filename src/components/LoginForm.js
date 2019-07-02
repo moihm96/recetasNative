@@ -108,9 +108,9 @@ const styles = StyleSheet.create({
     input:{
        borderBottomWidth:1,
         borderBottomColor:'grey',
-       height: heightPercentageToDP(5.5),
+       height: heightPercentageToDP(6),
        backgroundColor:'white',
-        marginBottom: heightPercentageToDP(0.2),
+        marginBottom: heightPercentageToDP(0.1),
         color:'black',
         //paddingHorizontal: widthPercentageToDP(5)
     },

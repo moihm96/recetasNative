@@ -22,6 +22,7 @@ import modAddPaso from '../components/modRecipe/modAddPaso'
 import pasoMod from "../components/AddRecipe/pasoMod";
 
 import {StyleSheet} from 'react-native'
+import searchRecetas from "../container/ui/searchRecetas";
 
 const Routes = () => (
     <Router backAndroidHandler={onBackAndroid}>
@@ -56,6 +57,11 @@ const Routes = () => (
                 </Stack>
 
             <Stack key="recetas">
+                <Scene
+                    key="searchRecetas"
+                    component={searchRecetas}
+                    hideNavBar={true}
+                />
                 <Scene
                     key="favoritos"
                     component={Favoritos}
@@ -116,9 +122,11 @@ const Routes = () => (
                         component={pasoMod}
                     />
 
+
                 <Scene
                     key="showReceta"
                     component={showReceta}
+
                 />
             </Stack>
             </Scene>

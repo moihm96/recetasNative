@@ -24,7 +24,7 @@ export const createUser =({displayName,email,password,genero, photoURL}) => {
                        type: USER_CREATE,
                        payload: user
                    });
-                   Actions.usersRecetas();
+                   Actions.showPerfil();
                })
 
             }).catch((error)=>{

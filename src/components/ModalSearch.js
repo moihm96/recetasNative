@@ -6,17 +6,23 @@ import {
     TextInput,
     Alert,
     TouchableWithoutFeedback,
-    Modal
+    Modal, TouchableOpacity, Image,
+    KeyboardAvoidingView
 } from 'react-native';
 import SearchAdvanced from "./SearchAdvanced";
 import SearchAdv from "./SearchAdv";
 
 import {AnimatedModal} from "react-native-modal-animated";
+import salida from "../img/exit.png";
+import {heightPercentageToDP, widthPercentageToDP} from "../auxiliar/ScreenDimension";
 class ModalSearch extends Component{
     constructor(props){
         super(props);
     }
     onClickCancel(){
+        this.props.callback.onClickSearch(false)
+    }
+    onClickSearch(){
         this.props.callback.onClickSearch(false)
     }
     render() {
@@ -30,12 +36,35 @@ class ModalSearch extends Component{
                     visible={this.props.modalVisible}
                     onRequestClose={() => this.onClickCancel()}
                 >
-                    <View style={{ flex: 1}}>
-                        <SearchAdv/>
-                    </View>
+
+                    <KeyboardAvoidingView style={{ flex: 1}}>
+                        <SearchAdv
+                            callback={this}
+                        />
+                    </KeyboardAvoidingView>
                 </Modal>
             </View>
         );
     }
 }
+const styles = StyleSheet.create({
+    container:{
+        backgroundColor:'white',
+        marginTop: heightPercentageToDP(15)
+    },
+    texto:{
+        fontSize: heightPercentageToDP(3.5),
+        textAlign: 'center'
+    },
+    imageStyle:{
+        height:heightPercentageToDP(7),
+        width:widthPercentageToDP(7)
+    },
+    buttonStyle:{
+        alignItems: 'flex-end',
+        padding: 10
+
+    }
+
+})
 export default ModalSearch;

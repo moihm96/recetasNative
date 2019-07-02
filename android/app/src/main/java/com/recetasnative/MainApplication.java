@@ -3,6 +3,8 @@ package com.recetasnative;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import cl.json.RNSharePackage;
+import cl.json.ShareApplication;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.imagepicker.ImagePickerPackage;
 import ca.jaysoo.extradimensions.ExtraDimensionsPackage;
@@ -27,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNSharePackage(),
             new RNFetchBlobPackage(),
             new ImagePickerPackage(),
             new ExtraDimensionsPackage(),

@@ -16,7 +16,7 @@ import {connect} from 'react-redux';
 import {addFav,deleteFav,fecthFav} from "../../actions/FavAction";
 import * as firebase from "firebase";
 import _ from 'lodash'
-
+import ModalLogin from '../../components/ModalLogin'
 class recetaView extends Component{
 
     constructor(props){
@@ -25,7 +25,8 @@ class recetaView extends Component{
         this.state ={
             like: true,
             isFav: false,
-            id:''
+            id:'',
+            modalVisible:false
         };
     }
 
@@ -63,21 +64,33 @@ class recetaView extends Component{
              }
          }
     }*/
-
+     onClickClose(isOpen){
+         this.setState({modalVisible:isOpen})
+     }
     onFav= (recipe, isActive) => {
-        this.setState({
-            isFav:isActive
-        })
+        if(this.props.user){
+            this.setState({
+                isFav:isActive
+            })
 
-         if(!this.state.isFav){
-             this.props.addFav(this.props.receta, this.props.user.uid)
-         } else{
-             this.props.deleteFav(this.props.receta.uid, this.props.user.uid)
-         }
+            if(!this.state.isFav){
+                this.props.addFav(this.props.receta, this.props.user.uid)
+            } else{
+                this.props.deleteFav(this.props.receta.uid, this.props.user.uid)
+            }
+        }else{
+            this.setState({
+                modalVisible:!this.props.user
+            })
+        }
     }
     render(){
         return(
             <ImageBackground style={styles.imageContainer} source={{uri:this.props.receta.imageUrl}}>
+                <ModalLogin
+                    modalVisible={this.state.modalVisible}
+                    callback={this}
+                />
                 <TouchableOpacity style={styles.iconContainerStyle} onPress={() => this.onFav(this.props.receta, !this.state.isFav)}>
                     <Image
                         source={this.state.isFav ? favOn: favOff}
@@ -99,7 +112,8 @@ const styles= StyleSheet.create({
     },
 
     iconContainerStyle:{
-        padding:8,
+        paddingHorizontal:widthPercentageToDP(5),
+        paddingTop:heightPercentageToDP(1),
         flexDirection: "row-reverse"
     },
     iconStyle:{
