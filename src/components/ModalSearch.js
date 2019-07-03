@@ -20,10 +20,10 @@ class ModalSearch extends Component{
         super(props);
     }
     onClickCancel(){
-        this.props.callback.onClickSearch(false)
+        this.props.callback.openSearch(false)
     }
     onClickSearch(){
-        this.props.callback.onClickSearch(false)
+        this.props.callback.openSearch(false)
     }
     render() {
 

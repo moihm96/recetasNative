@@ -74,13 +74,14 @@ class showPerfil extends Component{
         console.log(this.props)
         if(this.props.user){
             this.props.getGenero(this.props.user.uid)
-            this.setState({
-                displayName: this.props.user.displayName,
-                email: this.props.user.email,
-                photoURL: this.props.user.photoURL,
-                genero: this.props.genero
-            })
-
+            setTimeout(() => {
+                this.setState({
+                    displayName: this.props.user.displayName,
+                    email: this.props.user.email,
+                    photoURL: this.props.user.photoURL,
+                    genero: this.props.genero
+                })
+            }, 500)
         }
 
     }

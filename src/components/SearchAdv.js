@@ -85,32 +85,7 @@ const categoria1=[
         value:"Legumbres"
     }
 ]
-const categoria2=[
-    {
-        label:"Sopas",
-        value:"Sopas"
-    },
-    {
-        label:"Arroces",
-        value:"Arroces"
-    },
-    {
-        label:"Ensaladas",
-        value:"Ensaladas"
-    }]
-const categoria3=[
-    {
-        label:"Carnes",
-        value:"Carnes"
-    },
-    {
-        label:"Pescados",
-        value:"Pescados"
-    },
-    {
-        label:"Legumbres",
-        value:"Legumbres"
-    }]
+
 
 class SearchAdvanced extends Component{
     constructor(props){
@@ -141,7 +116,7 @@ class SearchAdvanced extends Component{
         this.props.callback.onClickSearch(false)
     }
     onSearch(){
-        /**console.log("Palabra: ", this.state.palabraBusqueda)
+        console.log("Palabra: ", this.state.palabraBusqueda)
         console.log("Pais: ", this.state.pais)
         console.log("Categoria: ", this.state.categoria)
         console.log("Dificultad: ", this.state.dificultad)
@@ -153,19 +128,13 @@ class SearchAdvanced extends Component{
             categoria:this.state.categoria,
             dificultad:this.state.dificultad,
             tipoReceta:this.state.tipoReceta
-        })*/
-        let db = firebase.database().ref(`/user/recetas`)
-        let recetas = db.on('value', snapshot => {
-            let data = snapshot.val()
-
-
         })
-        console.log(db)
+
 
     }
     render(){
         return(
-            <View style={styles.container}>
+            <KeyboardAvoidingView style={styles.container}>
                 <View>
                     <TouchableOpacity onPress={() => this.onClickSearch()} style={{alignItems: 'flex-end'}}>
                         <IonIcon
@@ -283,7 +252,7 @@ class SearchAdvanced extends Component{
                         <Text style={styles.buttonText}>Buscar</Text>
                     </TouchableOpacity>
                 </View>
-            </View>
+            </KeyboardAvoidingView>
         )
     }
 }

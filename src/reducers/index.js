@@ -6,6 +6,7 @@ import AllRecipes from './RecetasAllReducer'
 import FavRecipes from './FavReducer'
 import OwnRecipes from './RecetasReducer'
 import PasosReducer from './PasosReducer'
+import OpcionesReducer from './OpcionesReducer'
 
 export default combineReducers({
     auth:AuthReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
     allRecipes:AllRecipes,
     favRecipes : FavRecipes,
     ownRecipes: OwnRecipes,
-    paso: PasosReducer
+    paso: PasosReducer,
+    opcion:OpcionesReducer
 })

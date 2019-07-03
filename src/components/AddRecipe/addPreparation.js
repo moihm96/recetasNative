@@ -27,6 +27,13 @@ const Blob = RNFetchBlob.polyfill.Blob
 const fs = RNFetchBlob.fs
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
 window.Blob = Blob
+let puntos= {
+    1:0,
+    2:0,
+    3:0,
+    4:0,
+    5:0
+}
 
 const uploadImage = (UserID, uri, imageName, mine = 'image/jpg') => {
     console.log("Ha entrado a firebase storage")
@@ -62,7 +69,8 @@ class addPreparation extends Component{
             this.props.pais)
         if(this.props.pasos){
             this.setState({
-                pasos:this.props.pasos
+                pasos:this.props.pasos,
+
             })
         }
 
@@ -70,7 +78,8 @@ class addPreparation extends Component{
     constructor(props){
         super(props)
         this.state={
-            pasos:[]
+            pasos:[],
+            puntos:puntos
         }
     }
     saveForm(){
@@ -122,7 +131,8 @@ class addPreparation extends Component{
                     this.props.ingredients,
                     this.state.pasos,
                     this.props.categoria,
-                    this.props.pais
+                    this.props.pais,
+                    this.state.puntos
                 )
 
                 Alert.alert("Recetas", "Receta creada con éxito")

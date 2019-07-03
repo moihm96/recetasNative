@@ -18,20 +18,12 @@ class searchRecetas extends Component{
     componentWillMount() {
         if(this.props.tipoReceta){
             this.lookTipo()
-            if(this.props.palabraBusqueda){
-                setTimeout(() => {
-                    this.lookPalabra(this.props.palabraBusqueda);
-                }, 500)
-                if (this.props.pais !== "Cualquiera") {
-                    setTimeout(()=>{
-                        this.lookPais(this.props.pais)
-                    }, 500)
-                }
-            }
-
         }
-
+        if(this.props.palabraBusqueda){
+            this.lookPalabra(this.props.palabraBusqueda)
+        }
     }
+
     onClickClose(isOpen){
         this.setState({modalVisible:isOpen})
     }
@@ -88,6 +80,10 @@ class searchRecetas extends Component{
         this.state={
             modalVisible:false,
             data:[],
+            dataPalabra:[],
+            dataDificultad:[],
+            dataPais:[],
+            dataCategoria:[],
             text:'',
             id: ''
         }

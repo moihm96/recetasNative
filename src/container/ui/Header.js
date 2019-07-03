@@ -27,7 +27,7 @@ class Header extends Component{
     openDrawer(){
         Actions.drawerOpen();
     }
-    onClickSearch(isOpen){
+    openSearch(isOpen){
         this.setState({modalVisible:isOpen})
     }
     search(text){
@@ -79,7 +79,7 @@ class Header extends Component{
                         name="ios-arrow-dropdown"
                         color="black"
                     />
-                    <TouchableOpacity onPress={() => this.onClickSearch(true)}>
+                    <TouchableOpacity onPress={() => this.openSearch(true)}>
                         <Text>Busqueda avanzada</Text>
                     </TouchableOpacity>
                     <IonIcon

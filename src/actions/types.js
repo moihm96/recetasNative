@@ -21,3 +21,8 @@ export const DELETE_FAVORITES = 'delete_favorites'
 export const FETCH_FAVORITES= 'fetch_favorites'
 
 export const SET_PASO = 'set_paso'
+
+export const SET_COMENTARIOS= 'set_comentarios'
+export const FETCH_COMENTARIOS = 'fetch_comentarios'
+export const SET_PUNTUACION= 'set_puntuacion'
+export const SET_PUNTOS = 'set_puntos'

@@ -10,7 +10,7 @@ class userRecetas extends Component {
     componentWillMount() {
         this.props.allRecipesFetch();
 
-        //console.log(this.props.recipes)
+        console.log(this.props.recipes)
         this.setState({
             data: this.props.recipes
         })

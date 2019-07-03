@@ -8,7 +8,6 @@ export const allRecipesFetch = () => {
         firebase.database().ref(`/user/`)
             .on('value', snapshot => {
                 let data = snapshot.val()
-                console.log(data)
                 let arrayOfRecipes = []
                 for (let key in data){
 

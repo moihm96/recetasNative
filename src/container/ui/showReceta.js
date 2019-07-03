@@ -7,7 +7,8 @@ import {
     StyleSheet,
     Image,
     TextInput,
-    TouchableOpacity
+    FlatList,
+    TouchableOpacity,
 } from 'react-native'
 import Feather from 'react-native-vector-icons/Feather'
 import fondo from "../../img/fondo.png"
@@ -20,10 +21,18 @@ import {Actions} from "react-native-router-flux";
 import IonIcon from "react-native-vector-icons/Ionicons";
 import {connect} from 'react-redux';
 import {addFav,deleteFav,fecthFav} from "../../actions/FavAction";
+import {setComentarios,fetchComentarios,setPuntuacion,setPuntos} from "../../actions/OpcionesActions";
 import ModalLogin from "../../components/ModalLogin";
 import _ from "lodash";
+
+import Share from 'react-native-share'
 class showReceta extends Component{
     componentWillMount() {
+        this.props.fetchComentarios(this.props.receta.userId,this.props.receta.uid)
+        setTimeout(() => {
+            console.log(this.props.comments)
+        }, 500)
+
         if (this.props.user) {
             this.props.fecthFav(this.props.user.uid);
             for (let i = 0; i < this.props.favorites.length; i++) {
@@ -39,10 +48,12 @@ class showReceta extends Component{
     constructor(props){
         super(props)
         this.state={
+            arrayComentarios:[],
             comentarios:"",
             titulo:"",
             modalVisible: false,
-            isFav:false
+            isFav:false,
+            result:""
         };
     }
     parseIngredientes(){
@@ -98,6 +109,34 @@ class showReceta extends Component{
             } else{
                 this.props.deleteFav(this.props.receta.uid, this.props.user.uid)
             }
+        }else{
+            this.setState({
+                modalVisible:!this.props.user
+            })
+        }
+    }
+    _showResult = (result) =>{
+        this.setState({result})
+    }
+    shareOptions={
+        message:this.props.receta.titulo,
+        url: this.props.receta.imageUrl,
+
+    }
+    share = () => {
+        if(this.props.user){
+            Share.open(this.shareOptions)
+        }else{
+            this.setState({
+                modalVisible:!this.props.user
+            })
+        }
+    }
+    finish = () => {
+        if(this.props.user){
+            this.props.setComentarios(this.props.receta.userId, this.props.receta.uid, this.props.user.displayName, this.state.titulo, this.state.comentarios)
+            this.props.setPuntos(this.props.receta.userId, this.props.receta.uid, this.state.rating)
+            this.props.setPuntuacion(this.props.receta.userId, this.props.receta.uid)
         }else{
             this.setState({
                 modalVisible:!this.props.user
@@ -168,39 +207,63 @@ class showReceta extends Component{
                         callback={this}
                     />
                     <View style={styles.vistaEntrada}>
-                        <View style={styles.vistaEntradaFinal}>
-                            <View>
-                                <Text style={styles.textofinal}>Puntua</Text>
-                                <AirbnbRating
-                                    showRating={false}
-                                    size={20}
-                                    onFinishRating={this.ratingCompleted}
-                                />
-                            </View>
-                            <TouchableOpacity>
-                                <Text style={styles.textofinal}>Compartir</Text>
-                                <Icon name={"share"}
-                                      color={'rgb(255,216,0)'}
-                                      size={30}
-                                />
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => this.onFav(this.props.receta, !this.state.isFav)}>
-                                <Text style={styles.textofinal}>Favoritos</Text>
-                                <Icon name={"favorite"}
 
-                                      color={this.state.isFav ? 'red': 'rgb(255,216,0)'}
-                                      size={30}
-                                />
-                            </TouchableOpacity>
-                        </View>
                         <View>
-                            <Text style={styles.textofinal}>Comentarios</Text>
-                            <TextInput
-                                placeholder="Título del comentario"
-                                placeholderTextColor={'rgba(44, 62, 80,1.0)'}
-                                onChangeText={(titulo) => this.setState({titulo})}
-                                value={this.state.titulo}
+                            <Text style={{
+                                fontWeight:"bold",
+                                fontSize:heightPercentageToDP(4),
+                                marginBottom:heightPercentageToDP(2)
+                            }}>
+                                Comentarios</Text>
+
+                            <FlatList
+                                key={this.props.comments.uid}
+                                data={this.props.comments}
+                                renderItem={({item}) =>
+                                    <View style={{borderBottomWidth: 2, borderBottomColor:'rgb(255,216,0)'}}>
+                                        <Text style={{fontWeight:"bold", fontSize:heightPercentageToDP(2.9)}}>{item.displayName}</Text>
+                                        <Text style={{fontWeight:"bold", fontSize:heightPercentageToDP(2.5)}}>{item.titulo}</Text>
+                                        <Text style={{ fontSize:heightPercentageToDP(2)}}>{item.comentarios}</Text>
+                                    </View>
+                                }
                             />
+                            <View style={styles.vistaEntradaFinal}>
+                                <View>
+                                    <Text style={styles.textofinal}>Puntua</Text>
+                                    <AirbnbRating
+                                        showRating={false}
+                                        size={20}
+                                        onFinishRating={this.ratingCompleted}
+                                    />
+                                </View>
+                                <TouchableOpacity onPress={this.share}>
+                                    <Text style={styles.textofinal}>Compartir</Text>
+                                    <Icon name={"share"}
+                                          color={'rgb(255,216,0)'}
+                                          size={30}
+                                    />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => this.onFav(this.props.receta, !this.state.isFav)}>
+                                    <Text style={styles.textofinal}>Favoritos</Text>
+                                    <Icon name={"favorite"}
+
+                                          color={this.state.isFav ? 'red': 'rgb(255,216,0)'}
+                                          size={30}
+                                    />
+                                </TouchableOpacity>
+                            </View>
+                            <Text  style={{
+                                fontWeight:"bold",
+                                fontSize:heightPercentageToDP(3),
+                                marginTop:heightPercentageToDP(2)
+                            }}>Añadir comentario</Text>
+                                <TextInput
+                                    placeholder="Título del comentario"
+                                    placeholderTextColor={'rgba(44, 62, 80,1.0)'}
+                                    onChangeText={(titulo) => this.setState({titulo})}
+                                    value={this.state.titulo}
+                                    style={{borderBottomWidth:1}}
+                                />
 
 
                                 <TextInput
@@ -209,16 +272,17 @@ class showReceta extends Component{
                                     multiline={true}
                                     editable={true}
                                     numberOfLines={3}
-                                    maxLength={50}
                                     onChangeText={(comentarios) => this.setState({comentarios})}
                                     value={this.state.comentarios}
+                                    style={{borderBottomWidth:1}}
                                 />
+
 
                         </View>
                     </View>
                     <View style={{flex:1,
                         padding: 15}}>
-                        <TouchableOpacity  style={ styles.buttonContainer1} >
+                        <TouchableOpacity  style={ styles.buttonContainer1} onPress={this.finish} >
                             <Text style={styles.buttonText}>He dicho</Text>
                         </TouchableOpacity>
                         <Text style={{flexDirection:"row"}}>
@@ -239,11 +303,15 @@ const mapStateToProps = state => {
     const favorites = _.map(state.favRecipes, (val,uid) => {
         return { ...val,uid};
     });
+    const {comentarios} = state.opcion
+    const comments = _.map(comentarios, (val,uid) =>{
+        return {...val,uid}
+    })
     const {user} = state.auth
-    return { favorites, user };
+    return { comments,favorites, user };
 };
 export default connect(mapStateToProps,{
-    addFav,deleteFav,fecthFav
+    addFav,deleteFav,fecthFav,setComentarios,fetchComentarios,setPuntuacion,setPuntos
 })(showReceta);
 const styles= StyleSheet.create({
     container:{
@@ -259,7 +327,8 @@ const styles= StyleSheet.create({
         flexDirection:"row",
         justifyContent: "space-between",
         alignItems: "center",
-        marginBottom: 20
+        marginBottom: heightPercentageToDP(2),
+        marginTop:heightPercentageToDP(2)
     },
     textofinal:{
         fontWeight:"bold",
