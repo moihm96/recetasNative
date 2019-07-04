@@ -12,7 +12,7 @@ import {
 import {widthPercentageToDP,heightPercentageToDP} from "../auxiliar/ScreenDimension";
 import SelectInput from "react-native-select-input-ios";
 let arrayEmpty=["Cualquiera"]
-let paises=["Cualquiera","España","Cuba"]
+let paises=["Cualquiera","España","Cuba","Italia","Etiopía","Venezuela","Brasil","Francia","Filipinas","Marruecos","Sudafrica"]
 let pais=arrayEmpty[0]
 import CheckboxGroup from 'react-native-checkbox-group'
 import CheckForm from './CheckboxGroup'
@@ -35,16 +35,16 @@ const tipoRecetas=[
 ];
 const dificultad=[
     {
-        label:"Dificil",
-        value:"Dificil"
+        label:"Alta",
+        value:"Alta"
     },
     {
         label:"Media",
         value:"Media"
     },
     {
-        label:"Facil",
-        value:"Facil"
+        label:"Baja",
+        value:"Baja"
     }
 ];
 const categoria1=[
@@ -116,18 +116,22 @@ class SearchAdvanced extends Component{
         this.props.callback.onClickSearch(false)
     }
     onSearch(){
-        console.log("Palabra: ", this.state.palabraBusqueda)
-        console.log("Pais: ", this.state.pais)
-        console.log("Categoria: ", this.state.categoria)
-        console.log("Dificultad: ", this.state.dificultad)
-        console.log("Tipo de Receta: ", this.state.tipoReceta)
+
         this.props.callback.onClickSearch(false)
+        let tipoRecetaAux
+        let dificultadAux
+        for (let i = 0; i < this.state.tipoReceta.length ; i++) {
+            tipoRecetaAux= this.state.tipoReceta[i]
+        }
+        for (let i = 0; i < this.state.dificultad.length; i++) {
+            dificultadAux=this.state.dificultad[i]
+        }
         Actions.searchRecetas({
             palabraBusqueda:this.state.palabraBusqueda,
             pais:this.state.pais,
             categoria:this.state.categoria,
-            dificultad:this.state.dificultad,
-            tipoReceta:this.state.tipoReceta
+            dificultad:dificultadAux,
+            tipoReceta:tipoRecetaAux
         })
 
 
