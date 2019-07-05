@@ -35,14 +35,15 @@ let puntos= {
     5:0
 }
 
-const uploadImage = (UserID, uri, imageName, mine = 'image/jpg') => {
+const uploadImage = (UserID,recetaId, uri, imageName, mine = 'image/jpg') => {
     console.log("Ha entrado a firebase storage")
     console.log(uri)
     console.log(imageName)
+    let finalResponse=recetaId.concat("/".concat(imageName))
     return new Promise((resolve, reject) => {
         const uploadUri = Platform.OS ==='ios' ? uri.replace('file://', '') : uri
         let uploadBlob = null
-        const imageRef= firebase.storage().ref(`${UserID}`).child(imageName)
+        const imageRef= firebase.storage().ref(`${UserID}`).child(finalResponse)
         fs.readFile(uploadUri, 'base64')
             .then((data) => {
                 return Blob.build(data, {type: `${mine};BASE64`})
@@ -95,31 +96,6 @@ class addPreparation extends Component{
                 this.props.ingredients,
                 this.props.pasos);
             try {
-                this.props.imagenPrincipal ?
-                    uploadImage(this.props.user.uid, this.props.imagenPrincipal, `imagen${this.props.title}.jpg`)
-                        .then((responseData) => {
-                            Helpers.setImageUrl(this.props.user.uid,uid_recetas,responseData)
-                        })
-                        .done()
-                    : null
-                this.props.avatarSource ?
-                    uploadImage(this.props.user.uid,this.props.avatarSource, `avatar${this.props.title}.jpg`)
-                        .then((responseData) => {
-                            Helpers.setAvatarUrl(this.props.user.uid,uid_recetas,responseData)
-                        })
-                        .done()
-                    : null
-
-                this.props.pasos.map((data, index) => {
-                    if(data.imagen){
-                        uploadImage(this.props.user.uid,data.imagen,`${data.titulo}.jpg`)
-                            .then((responseData)=>{
-                                Helpers.setPaso(this.props.user.uid,uid_recetas,index,responseData)
-                            })
-                    }
-                });
-
-
                 let uid_recetas = Helpers.pushReceta(
                     this.props.user.uid,
                     this.props.title,
@@ -134,6 +110,33 @@ class addPreparation extends Component{
                     this.props.pais,
                     this.state.puntos
                 )
+
+                this.props.imagenPrincipal ?
+                    uploadImage(this.props.user.uid, uid_recetas,this.props.imagenPrincipal, `imagen${this.props.title}.jpg`)
+                        .then((responseData) => {
+                            Helpers.setImageUrl(this.props.user.uid,uid_recetas,responseData)
+                        })
+                        .done()
+                    : null
+                this.props.avatarSource ?
+                    uploadImage(this.props.user.uid,uid_recetas,this.props.avatarSource, `avatar${this.props.title}.jpg`)
+                        .then((responseData) => {
+                            Helpers.setAvatarUrl(this.props.user.uid,uid_recetas,responseData)
+                        })
+                        .done()
+                    : null
+
+                this.props.pasos.map((data, index) => {
+                    if(data.imagen){
+                        uploadImage(this.props.user.uid,uid_recetas,data.imagen,`${data.titulo}.jpg`)
+                            .then((responseData)=>{
+                                Helpers.setPaso(this.props.user.uid,uid_recetas,index,responseData)
+                            })
+                    }
+                });
+
+
+
 
                 Alert.alert("Recetas", "Receta creada con éxito")
 

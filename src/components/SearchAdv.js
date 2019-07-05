@@ -190,7 +190,7 @@ class SearchAdvanced extends Component{
                         }}
                     />
                 </View>
-                <View style={{flex:2}}>
+                <View style={{flex:2,marginTop:heightPercentageToDP(5)}}>
                     <Text style={{fontWeight: 'bold'}}>Dificultad</Text>
                     <CheckForm
                         style={{

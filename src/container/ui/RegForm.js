@@ -31,13 +31,14 @@ const options={
     takePhotoButtonTitle: 'Take photo with your camera',
     chooseFromLibraryButtonTitle: 'Choose photo from library',
 }
-const uploadImage = (uri, mine = 'image/jpg') => {
+const uploadImage = (uri,displayName, mine = 'image/jpg') => {
     console.log("Ha entrado a firebase storage")
+    console.log(displayName)
     console.log(uri)
     return new Promise((resolve, reject) => {
         const uploadUri = Platform.OS ==='ios' ? uri.replace('file://', '') : uri
         let uploadBlob = null
-        const imageRef = firebase.storage().ref('Profile').child(uri)
+        const imageRef = firebase.storage().ref('Profile').child(displayName)
         fs.readFile(uploadUri, 'base64')
             .then((data) => {
                 return Blob.build(data, {type: `${mine};BASE64`})
@@ -85,12 +86,8 @@ const uploadImage = (uri, mine = 'image/jpg') => {
                  // let source = { uri: 'data:image/jpeg;base64,' + response.data };
                  //this.props.userUpdate({prop:'photoURL', value: response.uri})
                  //console.log(this.props.photoURL)
-                 uploadImage(response.uri).then(
-                     (responseData) => {
-                         this.props.userUpdate({prop:'photoURL', value: responseData})
-                     }
-                 )
 
+                 this.props.userUpdate({prop:'photoURL', value: response.uri})
              }
          });
      }
@@ -114,6 +111,11 @@ const uploadImage = (uri, mine = 'image/jpg') => {
             })
             return;
         }
+        uploadImage(this.props.photoURL, this.props.email).then(
+            (responseData) => {
+                this.props.userUpdate({prop:'photoURL', value: responseData})
+            }
+        )
 
         const {displayName,email,password,genero, photoURL} = this.props;
 

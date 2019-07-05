@@ -32,13 +32,14 @@ const options={
     takePhotoButtonTitle: 'Take photo with your camera',
     chooseFromLibraryButtonTitle: 'Choose photo from library',
 }
-const uploadImage = (uri, mine = 'image/jpg') => {
+const uploadImage = (uri,displayName, mine = 'image/jpg') => {
     console.log("Ha entrado a firebase storage")
+    console.log(displayName)
     console.log(uri)
     return new Promise((resolve, reject) => {
         const uploadUri = Platform.OS ==='ios' ? uri.replace('file://', '') : uri
         let uploadBlob = null
-        const imageRef = firebase.storage().ref('Profile').child(uri)
+        const imageRef = firebase.storage().ref('Profile').child(displayName)
         fs.readFile(uploadUri, 'base64')
             .then((data) => {
                 return Blob.build(data, {type: `${mine};BASE64`})
@@ -104,14 +105,6 @@ class showPerfil extends Component{
                this.setState({
                    photoURL:response.uri
                })
-                uploadImage(response.uri).then(
-                    (responseData) => {
-                        this.setState({
-                            photoURL:responseData
-                        })
-                    }
-                )
-
 
             }
         });
@@ -125,6 +118,13 @@ class showPerfil extends Component{
         return(array)
     }
     saveForm(){
+        uploadImage(this.state.photoURL, this.state.email).then(
+            (responseData) => {
+                this.setState({
+                    photoURL:responseData
+                })
+            }
+        )
         const {displayName,email,genero,photoURL} = this.state
         const {user} = this.props
         const {uid} = this.props.user
