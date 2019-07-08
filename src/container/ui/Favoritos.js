@@ -6,7 +6,6 @@ import {
     ScrollView,
     Alert
 } from 'react-native';
-import {recetas} from '../../data/datasource'
 import FavouriteItemList from '../../components/showRecipe/ItemList'
 import Header from './Header'
 import {heightPercentageToDP, widthPercentageToDP} from "../../auxiliar/ScreenDimension";

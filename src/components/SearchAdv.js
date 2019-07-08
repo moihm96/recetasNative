@@ -194,7 +194,7 @@ class SearchAdvanced extends Component{
                     <Text style={{fontWeight: 'bold'}}>Dificultad</Text>
                     <CheckForm
                         style={{
-                            flex:2, flexDirection: 'row',
+                            flex:1, flexDirection: 'row',
                             paddingHorizontal:heightPercentageToDP(3), justifyContent: 'space-between',
                             flexWrap: 'wrap'
                         }}
@@ -265,21 +265,23 @@ export default SearchAdvanced
 const styles = StyleSheet.create({
     container:{
         backgroundColor: 'rgb(255,216,0)',
-        height: heightPercentageToDP("80%"),
-        padding: 10
+        height: heightPercentageToDP("85%"),
+        padding: heightPercentageToDP(2)
     },
     buttonContainer:{
+        marginTop:widthPercentageToDP(1),
         backgroundColor: "white",
-        padding: 10,
-        marginLeft:20,
-        marginRight:20,
-        borderRadius:10,
-        marginBottom: 10
+        paddingHorizontal: heightPercentageToDP(3),
+        paddingVertical:widthPercentageToDP(1),
+        marginLeft:heightPercentageToDP(3),
+        marginRight:heightPercentageToDP(3),
+        borderRadius:widthPercentageToDP(3),
+        marginBottom: widthPercentageToDP(2)
     },
     buttonText: {
         textAlign: 'center',
         color:"black",
-        fontSize:20,
+        fontSize:heightPercentageToDP(4),
         fontWeight: '700'
     }
 });

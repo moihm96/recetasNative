@@ -8,7 +8,8 @@ import {
     TextInput,
     TouchableOpacity,
     Image,
-    Platform
+    Platform,
+    ActivityIndicator
 } from 'react-native';
 import {Avatar} from "react-native-elements";
 import {heightPercentageToDP, widthPercentageToDP} from "../../auxiliar/ScreenDimension";
@@ -161,6 +162,21 @@ const uploadImage = (uri,displayName, mine = 'image/jpg') => {
         }
      }
 
+     renderButton(){
+        if(this.props.loading){
+            return(
+                <View style={styles.spinnerStyle}>
+                    <ActivityIndicator sie={"large"}/>
+                </View>
+            )
+        }
+        return(
+            <TouchableOpacity onPress={this.onButtonPress.bind(this)} style={ styles.buttonContainer2}>
+                <Text style={styles.buttonText}>Registrarse</Text>
+            </TouchableOpacity>
+        )
+     }
+
     render(){
         return(
             <View style={styles.container}>
@@ -234,9 +250,7 @@ const uploadImage = (uri,displayName, mine = 'image/jpg') => {
                     <Text style={styles.errorTextStyle}>
                         {this.state.error}
                     </Text>
-                    <TouchableOpacity onPress={this.onButtonPress.bind(this)} style={ styles.buttonContainer2}>
-                        <Text style={styles.buttonText}>Registrarse</Text>
-                    </TouchableOpacity>
+                    {this.renderButton()}
                 </KeyboardAvoidingView>
             </View>
         );
@@ -267,9 +281,9 @@ const styles = StyleSheet.create({
     },
     buttonContainer2:{
         backgroundColor: 'rgb(255,216,0)',
-        paddingVertical: 10,
-        marginTop: heightPercentageToDP('5%'),
-        borderRadius:10
+        paddingVertical: widthPercentageToDP(2),
+        marginTop: heightPercentageToDP(2.5),
+        borderRadius:widthPercentageToDP(2.5)
     },
     pickerSexo:{
         color:'rgba(44, 62, 80,1.0)',
@@ -310,13 +324,18 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         color: 'red'
     },
+    spinnerStyle: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 });
 
 
  const mapStateToProps = (state) => {
-    const { displayName,email,password,genero, photoURL, error } = state.regForm;
+    const { displayName,email,password,genero, photoURL, error, loading } = state.regForm;
 
-    return { displayName,email,password,genero , photoURL, error};
+    return { displayName,email,password,genero , photoURL, error, loading};
 };
 
 export default connect(mapStateToProps, {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {Alert, FlatList, ScrollView,View} from 'react-native';
 import FavouriteItemList from '../../components/showRecipe/ItemList'
-import {recetas} from "../../data/datasource"
 import Header from './Header'
 import {allRecipesFetch} from "../../actions/RecetasAllActions";
 import {fetchRecipes} from "../../actions/RecetasActions";

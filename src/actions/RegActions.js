@@ -15,7 +15,7 @@ export const createUser =({displayName,email,password,genero, photoURL}) => {
 
         firebase.auth().createUserWithEmailAndPassword(email,password)
             .then( (user) => {
-                firebase.database().ref(`/user/${user.uid}`).set({genero})
+                firebase.database().ref(`/user/${user.uid}/metadata`).set({genero})
                user.updateProfile({
                    displayName:displayName,
                    photoURL:photoURL,
@@ -41,7 +41,7 @@ export const createUser =({displayName,email,password,genero, photoURL}) => {
 
 export const getGenero = (uid) =>{
     return(dispatch) =>{
-        firebase.database().ref(`/user/${uid}/genero`)
+        firebase.database().ref(`/user/${uid}/metadata/genero`)
             .on('value',snapshot =>{
             dispatch({type: GET_GENERO, payload: snapshot.val()})
         })
@@ -56,7 +56,7 @@ export const updateUser = (user,uid,displayName,email,genero,photoURL) =>{
                 displayName:displayName,
                 photoURL:photoURL
             }).then(()=>{
-                firebase.database().ref(`user/${uid}/genero`).set(genero).then(
+                firebase.database().ref(`user/${uid}/metadata/genero`).set(genero).then(
                     console.log("Se ha añadido el genero")
                 ).then( ()=>{
                     dispatch({

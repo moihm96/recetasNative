@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {Image, View, Text, FlatList, ScrollView, Alert} from 'react-native';
-import {recetas} from "../../data/datasource";
 import MyItemList from '../../components/showRecipe/myItemList'
 import Header from './Header'
 import _ from 'lodash'
