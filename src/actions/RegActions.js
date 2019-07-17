@@ -24,7 +24,7 @@ export const createUser =({displayName,email,password,genero, photoURL}) => {
                        type: USER_CREATE,
                        payload: user
                    });
-                   Actions.showPerfil();
+                   Actions.usersRecetas();
                })
 
             }).catch((error)=>{
@@ -63,7 +63,7 @@ export const updateUser = (user,uid,displayName,email,genero,photoURL) =>{
                         type: USER_CREATE,
                         payload: user
                     });
-                    Actions.showPerfil();
+                    Actions.usersRecetas();
                 })
             })
         })

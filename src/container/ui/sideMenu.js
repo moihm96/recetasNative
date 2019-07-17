@@ -53,7 +53,7 @@ class sideMenu extends Component{
                 <View style={styles.avatarStyle}>
                     <Avatar
                         medium
-                        source={abuelita}
+                        source={{uri:this.props.user.photoURL}}
                         size={80}
                         rounded
                     />
